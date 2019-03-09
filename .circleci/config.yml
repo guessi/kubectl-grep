@@ -1,0 +1,86 @@
+version: 2
+
+references:
+  default_setup: &default_setup
+    docker:
+      - image: circleci/golang:1.12
+    working_directory: /go/src/github.com/guessi/kubectl-search
+
+  filter_master_or_tag: &filter_master_or_tag
+    filters:
+      tags:
+        only:
+          - /^v[0-9]+\.[0-9]+\.[0-9]+/
+      branches:
+        only: master
+
+  filter_tag_only: &filter_tag_only
+    filters:
+      tags:
+        only:
+          - /^v[0-9]+\.[0-9]+\.[0-9]+/
+      branches:
+        ignore: /.*/
+
+jobs:
+  bootstrap:
+    <<: *default_setup
+    steps:
+      - checkout
+      - run:
+          name: Setup Environment
+          command: make bootstrap
+      - run:
+          name: Code Lint
+          command: make lint
+      - run:
+          name: Setup Dependencies
+          command: glide install --strip-vendor
+      - run:
+          name: Run tests
+          command: |
+            go fmt ./...
+            go vet ./...
+            # go test -v ./...
+      - save_cache:
+          key: v1-kubectl-search-{{ checksum "glide.yaml" }}-{{ checksum "glide.lock" }}-source
+          paths:
+            - /go/src/github.com/guessi/kubectl-search/vendor
+  build:
+    <<: *default_setup
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-kubectl-search-{{ checksum "glide.yaml" }}-{{ checksum "glide.lock" }}-source
+      - run:
+          name: Build Code
+          command: make
+      - save_cache:
+          key: v1-kubectl-search-{{ .Environment.CIRCLE_SHA1 }}-workspace
+          paths:
+            - /go/src/github.com/guessi/kubectl-search
+  release:
+    <<: *default_setup
+    steps:
+      - restore_cache:
+          keys:
+            - v1-kubectl-search-{{ .Environment.CIRCLE_SHA1 }}-workspace
+      - run:
+          name: Release
+          command: make release
+
+workflows:
+  version: 2
+  main-workflow:
+    jobs:
+      - bootstrap:
+          <<: *filter_master_or_tag
+      - build:
+          requires:
+            - bootstrap
+          <<: *filter_master_or_tag
+      - release:
+          requires:
+            - build
+          <<: *filter_tag_only
