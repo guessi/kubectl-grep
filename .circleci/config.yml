@@ -4,6 +4,8 @@ references:
   default_setup: &default_setup
     docker:
       - image: circleci/golang:1.12
+        environment:
+          GO111MODULE: "on"
     working_directory: /go/src/github.com/guessi/kubectl-search
 
   filter_master_or_tag: &filter_master_or_tag
@@ -35,7 +37,7 @@ jobs:
           command: make lint
       - run:
           name: Setup Dependencies
-          command: glide install --strip-vendor
+          command: go mod download
       - run:
           name: Run tests
           command: |
@@ -43,16 +45,16 @@ jobs:
             go vet ./...
             # go test -v ./...
       - save_cache:
-          key: v1-kubectl-search-{{ checksum "glide.yaml" }}-{{ checksum "glide.lock" }}-source
+          key: v1-kubectl-search-{{ checksum "go.mod" }}-source
           paths:
-            - /go/src/github.com/guessi/kubectl-search/vendor
+            - /go/pkg/mod
   build:
     <<: *default_setup
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v1-kubectl-search-{{ checksum "glide.yaml" }}-{{ checksum "glide.lock" }}-source
+            - v1-kubectl-search-{{ checksum "go.mod" }}-source
       - run:
           name: Build Code
           command: make

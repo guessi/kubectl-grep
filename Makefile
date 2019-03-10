@@ -11,20 +11,21 @@ REPO    := github.com/guessi/kubectl-search
 VERSION := v$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)$(VERSION_SUFFIX)
 LDFLAGS := -s -w -X $(REPO)/cmd.appVersion=$(VERSION)
 
+export GO111MODULE=on
+
 default: build
 
 bootstrap:
 	@echo "Bootstraping..."
 	go get -u golang.org/x/lint/golint
 	go get -u github.com/tcnksm/ghr
-	go get -u github.com/Masterminds/glide
 
 lint:
 	@echo "Source Code Lint..."
 	@for i in $(PKGS); do echo $${i}; golint $${i}; done
 
 dependency:
-	glide install --strip-vendor
+	go mod download
 
 build-linux:
 	@echo "Creating Build for Linux..."

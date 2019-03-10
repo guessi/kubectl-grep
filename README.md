@@ -50,9 +50,7 @@ With this plugin installed, you can search pod with `kubectl search` easily
 
     $ cd ${GOPATH}/src/github.com/guessi/kubectl-search
 
-    $ glide install --strip-vendor
-
-    $ make clean all
+    $ make all
 
 # FAQ
 
