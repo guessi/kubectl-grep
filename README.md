@@ -1,6 +1,9 @@
 # Kubectl Search
 
 [![CircleCI](https://circleci.com/gh/guessi/kubectl-search.svg?style=svg)](https://circleci.com/gh/guessi/kubectl-search)
+[![GoDoc](https://godoc.org/github.com/guessi/kubectl-search?status.svg)](https://godoc.org/github.com/guessi/kubectl-search)
+[![Go Report Card](https://goreportcard.com/badge/github.com/guessi/kubectl-search)](https://goreportcard.com/report/github.com/guessi/kubectl-search)
+[![GitHub release](https://img.shields.io/github/release/guessi/kubectl-search.svg)](https://github.com/guessi/kubectl-search/releases/latest)
 
 simple kubernetes plugins for searching resources with keyword
 
