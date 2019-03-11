@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	appVersion   = "1.0.0"
+	version      = "undefined"
 	shortVersion bool
 )
 
@@ -26,8 +26,8 @@ func init() {
 
 func showVersion() {
 	if shortVersion {
-		fmt.Println(appVersion)
+		fmt.Println(version)
 	} else {
-		fmt.Println("kubectl-search version:", appVersion)
+		fmt.Println("kubectl-search version:", version)
 	}
 }
