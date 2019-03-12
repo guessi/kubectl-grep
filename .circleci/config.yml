@@ -40,16 +40,23 @@ jobs:
       - run:
           name: Setup Dependencies
           command: go mod download
+      - save_cache:
+          key: v1-kubectl-search-{{ checksum "go.mod" }}-source
+          paths:
+            - /go/pkg/mod
+  lint:
+    <<: *default_setup
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-kubectl-search-{{ checksum "go.mod" }}-source
       - run:
           name: Run tests
           command: |
             go fmt ./...
             go vet ./...
             # go test -v ./...
-      - save_cache:
-          key: v1-kubectl-search-{{ checksum "go.mod" }}-source
-          paths:
-            - /go/pkg/mod
   build:
     <<: *default_setup
     steps:
@@ -86,16 +93,23 @@ workflows:
                 - master
     jobs:
       - bootstrap
-      - build:
+      - lint:
           requires:
             - bootstrap
+      - build:
+          requires:
+            - lint
   main-workflow:
     jobs:
       - bootstrap:
           <<: *filter_master_or_tag_or_pr
-      - build:
+      - lint:
           requires:
             - bootstrap
+          <<: *filter_master_or_tag_or_pr
+      - build:
+          requires:
+            - lint
           <<: *filter_master_or_tag_or_pr
       - release:
           requires:
