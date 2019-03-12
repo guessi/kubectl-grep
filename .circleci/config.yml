@@ -8,7 +8,7 @@ references:
           GO111MODULE: "on"
     working_directory: /go/src/github.com/guessi/kubectl-search
 
-  filter_master_or_tag_or_pr: &filter_master_or_tag_or_pr
+  filter_master_or_tag: &filter_master_or_tag
     filters:
       tags:
         only:
@@ -16,7 +16,12 @@ references:
       branches:
         only:
           - master
-          - /^pull\/[0-9a-zA-Z]+$/
+
+  filter_pr_only: &filter_pr_only
+    filters:
+      branches:
+        only:
+          - /^pull\/.+$/
 
   filter_tag_only: &filter_tag_only
     filters:
@@ -32,14 +37,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Setup Environment
-          command: make bootstrap
-      - run:
-          name: Code Lint
-          command: make lint
-      - run:
           name: Setup Dependencies
-          command: go mod download
+          command: make dependency
       - save_cache:
           key: v1-kubectl-search-{{ checksum "go.mod" }}-source
           paths:
@@ -52,11 +51,17 @@ jobs:
           keys:
             - v1-kubectl-search-{{ checksum "go.mod" }}-source
       - run:
+          name: Setup Utilities
+          command: make utilities
+      - run:
           name: Run tests
           command: |
             go fmt ./...
             go vet ./...
             # go test -v ./...
+      - run:
+          name: Code Lint
+          command: make lint
   build:
     <<: *default_setup
     steps:
@@ -99,18 +104,30 @@ workflows:
       - build:
           requires:
             - lint
-  main-workflow:
+  pr-workflow:
     jobs:
       - bootstrap:
-          <<: *filter_master_or_tag_or_pr
+          <<: *filter_pr_only
       - lint:
           requires:
             - bootstrap
-          <<: *filter_master_or_tag_or_pr
+          <<: *filter_pr_only
       - build:
           requires:
             - lint
-          <<: *filter_master_or_tag_or_pr
+          <<: *filter_pr_only
+  main-workflow:
+    jobs:
+      - bootstrap:
+          <<: *filter_master_or_tag
+      - lint:
+          requires:
+            - bootstrap
+          <<: *filter_master_or_tag
+      - build:
+          requires:
+            - lint
+          <<: *filter_master_or_tag
       - release:
           requires:
             - build
