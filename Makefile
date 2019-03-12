@@ -6,14 +6,14 @@ VERSION_PATCH  := 1
 VERSION_SUFFIX := -dev
 
 COMMIT  := $(shell git describe --always)
-PKGS    := $(shell go list ./... | grep -v /vendor)
+PKGS    := $(shell go list ./...)
 REPO    := github.com/guessi/kubectl-search
 VERSION := v$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)$(VERSION_SUFFIX)
 LDFLAGS := -s -w -X $(REPO)/cmd.appVersion=$(VERSION)
 
 export GO111MODULE=on
 
-default: build
+all: build
 
 bootstrap:
 	@echo "Bootstraping..."
