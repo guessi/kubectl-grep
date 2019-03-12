@@ -1,4 +1,4 @@
-.PHONY: bootstrap lint dependency clean build release all
+.PHONY: utilities lint dependency clean build release all
 
 VERSION_MAJOR  := 1
 VERSION_MINOR  := 0
@@ -15,8 +15,8 @@ export GO111MODULE=on
 
 default: build
 
-bootstrap:
-	@echo "Bootstraping..."
+utilities:
+	@echo "Download Utilities..."
 	go get -u golang.org/x/lint/golint
 	go get -u github.com/tcnksm/ghr
 
@@ -50,4 +50,4 @@ release:
 	go get -u github.com/tcnksm/ghr
 	ghr -t ${GITHUB_TOKEN} $(VERSION) releases/$(VERSION)/
 
-all: bootstrap lint dependency clean build
+all: utilities lint dependency clean build

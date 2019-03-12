@@ -32,14 +32,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Setup Environment
-          command: make bootstrap
-      - run:
-          name: Code Lint
-          command: make lint
-      - run:
           name: Setup Dependencies
-          command: go mod download
+          command: make dependency
       - save_cache:
           key: v1-kubectl-search-{{ checksum "go.mod" }}-source
           paths:
@@ -52,11 +46,17 @@ jobs:
           keys:
             - v1-kubectl-search-{{ checksum "go.mod" }}-source
       - run:
+          name: Setup Utilities
+          command: make utilities
+      - run:
           name: Run tests
           command: |
             go fmt ./...
             go vet ./...
             # go test -v ./...
+      - run:
+          name: Code Lint
+          command: make lint
   build:
     <<: *default_setup
     steps:
