@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
-
 	"github.com/guessi/kubectl-search/utils/search"
+
+	"github.com/spf13/cobra"
 )
 
 // podsCmd represents the pods command
