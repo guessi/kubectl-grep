@@ -13,7 +13,7 @@ LDFLAGS := -s -w -X $(REPO)/cmd.appVersion=$(VERSION)
 
 export GO111MODULE=on
 
-all: build
+default: build
 
 bootstrap:
 	@echo "Bootstraping..."
