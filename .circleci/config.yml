@@ -8,7 +8,7 @@ references:
           GO111MODULE: "on"
     working_directory: /go/src/github.com/guessi/kubectl-search
 
-  filter_master_or_tag_or_pr: &filter_master_or_tag_or_pr
+  filter_master_or_tag: &filter_master_or_tag
     filters:
       tags:
         only:
@@ -16,6 +16,11 @@ references:
       branches:
         only:
           - master
+
+  filter_pr_only: &filter_pr_only
+    filters:
+      branches:
+        only:
           - /^pull\/[0-9a-zA-Z]+$/
 
   filter_tag_only: &filter_tag_only
@@ -99,18 +104,30 @@ workflows:
       - build:
           requires:
             - lint
-  main-workflow:
+  pr-workflow:
     jobs:
       - bootstrap:
-          <<: *filter_master_or_tag_or_pr
+          <<: *filter_pr_only
       - lint:
           requires:
             - bootstrap
-          <<: *filter_master_or_tag_or_pr
+          <<: *filter_pr_only
       - build:
           requires:
             - lint
-          <<: *filter_master_or_tag_or_pr
+          <<: *filter_pr_only
+  main-workflow:
+    jobs:
+      - bootstrap:
+          <<: *filter_master_or_tag
+      - lint:
+          requires:
+            - bootstrap
+          <<: *filter_master_or_tag
+      - build:
+          requires:
+            - lint
+          <<: *filter_master_or_tag
       - release:
           requires:
             - build
