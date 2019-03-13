@@ -13,6 +13,7 @@ var (
 	namespace     string
 	selector      string
 	fieldSelector string
+	output        string
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -28,6 +29,20 @@ Find more information at: https://github.com/guessi/kubectl-search
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
+	// Global Flags
+	rootCmd.PersistentFlags().StringVarP(
+		&namespace, "namespace", "n", "",
+		"Namespace for search. (default: \"default\")")
+	rootCmd.PersistentFlags().BoolVar(
+		&allNamespaces, "all-namespaces", false,
+		"If present, list the requested object(s) across all namespaces.")
+	rootCmd.PersistentFlags().StringVarP(
+		&selector, "selector", "l", "",
+		"Selector (label query) to filter on. (e.g. -l key1=value1,key2=value2)")
+	rootCmd.PersistentFlags().StringVar(
+		&fieldSelector, "field-selector", "",
+		"Selector (field query) to filter on. (e.g. --field-selector key1=value1,key2=value2)")
+
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)

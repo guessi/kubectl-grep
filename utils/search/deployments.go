@@ -12,11 +12,13 @@ import (
 )
 
 var (
-	deploymentsFields = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tUP-TO-DATE\tAVAILABLE\tAGE"
+	deploymentsFields     = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tUP-TO-DATE\tAVAILABLE\tAGE"
+	deploymentsFieldsWide = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tUP-TO-DATE\tAVAILABLE\tAGE\tCONTAINERS\tIMAGES"
+	dInfo                 string
 )
 
-// Deployments - a public function for searching pods with keyword
-func Deployments(namespace string, allNamespaces bool, selector, fieldSelector, keyword string) {
+// Deployments - a public function for searching deployments with keyword
+func Deployments(namespace string, allNamespaces bool, selector, fieldSelector, keyword string, wide bool) {
 	clientset := client.InitClient()
 
 	if len(namespace) <= 0 {
@@ -40,7 +42,11 @@ func Deployments(namespace string, allNamespaces bool, selector, fieldSelector, 
 	buf := bytes.NewBuffer(nil)
 	w := tabwriter.NewWriter(buf, 0, 0, 3, ' ', 0)
 
-	fmt.Fprintln(w, deploymentsFields)
+	if wide {
+		fmt.Fprintln(w, deploymentsFieldsWide)
+	} else {
+		fmt.Fprintln(w, deploymentsFields)
+	}
 	for _, d := range deployments.Items {
 		// return all deployments under namespace if no keyword specific
 		if len(keyword) > 0 {
@@ -51,16 +57,39 @@ func Deployments(namespace string, allNamespaces bool, selector, fieldSelector, 
 		}
 
 		age, ageUnit := getAge(time.Since(d.CreationTimestamp.Time).Seconds())
+		containers := d.Spec.Template.Spec.Containers
 
-		dInfo := fmt.Sprintf("%s\t%s\t%d\t%d\t%d\t%d\t%d%s",
-			d.Namespace,
-			d.Name,
-			d.Status.Replicas,
-			d.Status.ReadyReplicas,
-			d.Status.UpdatedReplicas,
-			d.Status.AvailableReplicas,
-			age, ageUnit,
-		)
+		if wide {
+			names := []string{}
+			images := []string{}
+
+			for _, n := range containers {
+				names = append(names, n.Name)
+				images = append(images, n.Image)
+			}
+
+			dInfo = fmt.Sprintf("%s\t%s\t%d\t%d\t%d\t%d\t%d%s\t%s\t%s",
+				d.Namespace,
+				d.Name,
+				d.Status.Replicas,
+				d.Status.ReadyReplicas,
+				d.Status.UpdatedReplicas,
+				d.Status.AvailableReplicas,
+				age, ageUnit,
+				strings.Join(names, ","),
+				strings.Join(images, ","),
+			)
+		} else {
+			dInfo = fmt.Sprintf("%s\t%s\t%d\t%d\t%d\t%d\t%d%s",
+				d.Namespace,
+				d.Name,
+				d.Status.Replicas,
+				d.Status.ReadyReplicas,
+				d.Status.UpdatedReplicas,
+				d.Status.AvailableReplicas,
+				age, ageUnit,
+			)
+		}
 		fmt.Fprintln(w, dInfo)
 	}
 	w.Flush()

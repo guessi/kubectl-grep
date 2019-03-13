@@ -17,18 +17,6 @@ var hpasCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(hpasCmd)
-	hpasCmd.Flags().StringVarP(
-		&namespace, "namespace", "n", "",
-		"Namespace for search. (default: \"default\")")
-	hpasCmd.Flags().StringVarP(
-		&selector, "selector", "l", "",
-		"Selector (label query) to filter on. (e.g. -l key1=value1,key2=value2)")
-	hpasCmd.Flags().StringVar(
-		&fieldSelector, "field-selector", "",
-		"Selector (field query) to filter on. (e.g. --field-selector key1=value1,key2=value2)")
-	hpasCmd.Flags().BoolVar(
-		&allNamespaces, "all-namespaces", false,
-		"If present, list the requested object(s) across all namespaces.")
 }
 
 func searchHpas(args []string) {
