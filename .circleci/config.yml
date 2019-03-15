@@ -22,6 +22,7 @@ references:
       branches:
         only:
           - /^pull\/.*$/
+          - /^pr.*$/
 
   filter_tag_only: &filter_tag_only
     filters:
@@ -106,13 +107,16 @@ workflows:
             - lint
   pr-workflow:
     jobs:
-      - bootstrap
+      - bootstrap:
+          <<: *filter_pr_only
       - lint:
           requires:
             - bootstrap
+          <<: *filter_pr_only
       - build:
           requires:
             - lint
+          <<: *filter_pr_only
   main-workflow:
     jobs:
       - bootstrap:
