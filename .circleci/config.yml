@@ -21,7 +21,7 @@ references:
     filters:
       branches:
         only:
-          - /^pull\/[0-9a-zA-Z]+$/
+          - /^pull\/.*$/
 
   filter_tag_only: &filter_tag_only
     filters:
