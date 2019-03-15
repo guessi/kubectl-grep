@@ -106,16 +106,13 @@ workflows:
             - lint
   pr-workflow:
     jobs:
-      - bootstrap:
-          <<: *filter_pr_only
+      - bootstrap
       - lint:
           requires:
             - bootstrap
-          <<: *filter_pr_only
       - build:
           requires:
             - lint
-          <<: *filter_pr_only
   main-workflow:
     jobs:
       - bootstrap:
