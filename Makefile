@@ -9,7 +9,7 @@ COMMIT  := $(shell git describe --always)
 PKGS    := $(shell go list ./...)
 REPO    := github.com/guessi/kubectl-search
 VERSION := v$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)$(VERSION_SUFFIX)
-LDFLAGS := -s -w -X $(REPO)/cmd.appVersion=$(VERSION)
+LDFLAGS := -s -w -X $(REPO)/cmd.version=$(VERSION)
 
 export GO111MODULE=on
 
