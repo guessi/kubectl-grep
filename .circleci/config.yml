@@ -8,21 +8,6 @@ references:
           GO111MODULE: "on"
     working_directory: /go/src/github.com/guessi/kubectl-search
 
-  filter_master_or_tag: &filter_master_or_tag
-    filters:
-      tags:
-        only:
-          - /^v[0-9]+\.[0-9]+\.[0-9]+/
-      branches:
-        only:
-          - master
-
-  filter_pr_only: &filter_pr_only
-    filters:
-      branches:
-        only:
-          - /^pull\/.+$/
-
   filter_tag_only: &filter_tag_only
     filters:
       tags:
@@ -82,6 +67,7 @@ jobs:
       - restore_cache:
           keys:
             - v1-kubectl-search-{{ .Environment.CIRCLE_SHA1 }}-workspace
+            - v1-kubectl-search-{{ checksum "go.mod" }}-source
       - run:
           name: Release
           command: make release
@@ -104,30 +90,27 @@ workflows:
       - build:
           requires:
             - lint
-  pr-workflow:
-    jobs:
-      - bootstrap:
-          <<: *filter_pr_only
-      - lint:
-          requires:
-            - bootstrap
-          <<: *filter_pr_only
-      - build:
-          requires:
-            - lint
-          <<: *filter_pr_only
   main-workflow:
     jobs:
-      - bootstrap:
-          <<: *filter_master_or_tag
+      - bootstrap
       - lint:
           requires:
             - bootstrap
-          <<: *filter_master_or_tag
       - build:
           requires:
             - lint
-          <<: *filter_master_or_tag
+  release-workflow:
+    jobs:
+      - bootstrap:
+          <<: *filter_tag_only
+      - lint:
+          requires:
+            - bootstrap
+          <<: *filter_tag_only
+      - build:
+          requires:
+            - lint
+          <<: *filter_tag_only
       - release:
           requires:
             - build
