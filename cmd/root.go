@@ -8,27 +8,26 @@ import (
 )
 
 var (
-	cfgFile       string
-	allNamespaces bool
-	namespace     string
-	selector      string
-	fieldSelector string
-	output        string
+	cfgFile            string
+	allNamespaces      bool
+	namespace          string
+	selector           string
+	fieldSelector      string
+	output             string
+	rootCmdDescription = `kubectl plugins for searching Kubernetes resources
+
+Find more information at: https://github.com/guessi/kubectl-search
+	`
 )
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "kubectl-search",
 	Short: "kubectl plugins for searching Kubernetes resources",
-	Long: `kubectl plugins for searching Kubernetes resources
-
-Find more information at: https://github.com/guessi/kubectl-search
-	`,
+	Long:  rootCmdDescription,
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
+func init() {
 	// Global Flags
 	rootCmd.PersistentFlags().StringVarP(
 		&namespace, "namespace", "n", "",
@@ -42,7 +41,11 @@ func Execute() {
 	rootCmd.PersistentFlags().StringVar(
 		&fieldSelector, "field-selector", "",
 		"Selector (field query) to filter on. (e.g. --field-selector key1=value1,key2=value2)")
+}
 
+// Execute adds all child commands to the root command and sets flags appropriately.
+// This is called by main.main(). It only needs to happen once to the rootCmd.
+func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
