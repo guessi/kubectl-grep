@@ -62,20 +62,30 @@ func Daemonsets(namespace string, allNamespaces bool, selector, fieldSelector, k
 		age, ageUnit := getAge(time.Since(d.CreationTimestamp.Time).Seconds())
 		containers := d.Spec.Template.Spec.Containers
 
-		nodeSelector := "<none>"
+		var nodeSelectors []string
+		var nodeSelector string
 		if d.Spec.Template.Spec.NodeSelector != nil {
 			for k, v := range d.Spec.Template.Spec.NodeSelector {
-				// FIXME: multiple selectors
 				nodeSelector = fmt.Sprintf("%s=%s", k, v)
+				nodeSelectors = append(nodeSelectors, nodeSelector)
 			}
 		}
+		nodeSelectorOutput := "<none>"
+		if len(nodeSelectors) > 0 {
+			nodeSelectorOutput = strings.Join(nodeSelectors, ",")
+		}
 
-		selector := "<none>"
+		var selectors []string
+		var selector string
 		if d.Spec.Selector.MatchLabels != nil {
 			for k, v := range d.Spec.Selector.MatchLabels {
-				// FIXME: multiple selectors
 				selector = fmt.Sprintf("%s=%s", k, v)
+				selectors = append(selectors, selector)
 			}
+		}
+		selectorOutput := "<none>"
+		if len(selectors) > 0 {
+			selectorOutput = strings.Join(selectors, ",")
 		}
 
 		if wide {
@@ -94,11 +104,11 @@ func Daemonsets(namespace string, allNamespaces bool, selector, fieldSelector, k
 				d.Status.NumberReady,
 				d.Status.UpdatedNumberScheduled,
 				d.Status.NumberAvailable,
-				nodeSelector,
+				nodeSelectorOutput,
 				age, ageUnit,
 				strings.Join(names, ","),
 				strings.Join(images, ","),
-				selector,
+				selectorOutput,
 			)
 		} else {
 			dsInfo = fmt.Sprintf("%s\t%s\t%d\t%d\t%d\t%d\t%s\t%d%s",
@@ -108,7 +118,7 @@ func Daemonsets(namespace string, allNamespaces bool, selector, fieldSelector, k
 				d.Status.NumberReady,
 				d.Status.UpdatedNumberScheduled,
 				d.Status.NumberAvailable,
-				nodeSelector,
+				nodeSelectorOutput,
 				age, ageUnit,
 			)
 		}
