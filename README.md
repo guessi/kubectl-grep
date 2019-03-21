@@ -21,6 +21,7 @@ typing such long commands are quite annoyed.
 Before change, we usually search pods by the following commands,
 
     $ kubectl get pods                                 | grep "keyword"
+    $ kubectl get pods -o wide                         | grep "keyword"
     $ kubectl get pods -n "my-ns"                      | grep "keyword"
     $ kubectl get pods --all-namespaces                | grep "keyword"
     $ kubectl get pods -l "key=value"                  | grep "keyword"
@@ -31,6 +32,7 @@ Before change, we usually search pods by the following commands,
 With this plugin installed, you can search pod with `kubectl search` easily
 
     $ kubectl search pods "keyword"
+    $ kubectl search pods "keyword" -o wide
     $ kubectl search pods "keyword" -n "my-ns"
     $ kubectl search pods "keyword" --all-namespaces
     $ kubectl search pods "keyword" -l "key=value"
@@ -40,7 +42,7 @@ With this plugin installed, you can search pod with `kubectl search` easily
 
 # Basic Usage
 
-    $ curl -L https://github.com/guessi/kubectl-search/releases/download/v1.0.0/kubectl-search-`uname -s`-`uname -m` -o /usr/local/bin/kubectl-search
+    $ curl -L https://github.com/guessi/kubectl-search/releases/download/v1.0.2/kubectl-search-`uname -s`-`uname -m` -o /usr/local/bin/kubectl-search
     $ chmod +x /usr/local/bin/kubectl-search
     $ kubectl search pods "keyword"
 
@@ -56,7 +58,7 @@ With this plugin installed, you can search pod with `kubectl search` easily
 
 What kind of resource does current release supported?
 
-    now it support Pods, Deployments, and HPA
+    now it support Pods, Deployments, DaemonSets, and HPA
 
 Is it possible to search StatefulSets, DaemonSets, etc?
 
