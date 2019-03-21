@@ -14,7 +14,7 @@ import (
 
 var (
 	podsFields     = "NAMESPACE\tNAME\tREADY\tSTATUS\tRESTART\tAGE"
-	podsFieldsWide = "NAMESPACE\tNAME\tREADY\tSTATUS\tRESTART\tAGE\tIP" // FIXME: required "NODE" output
+	podsFieldsWide = "NAMESPACE\tNAME\tREADY\tSTATUS\tRESTART\tAGE\tIP\tNODENAME"
 	pInfo          string
 )
 
@@ -72,7 +72,7 @@ func Pods(namespace string, allNamespaces bool, selector, fieldSelector, keyword
 		age, ageUnit := getAge(time.Since(p.CreationTimestamp.Time).Seconds())
 
 		if wide {
-			pInfo = fmt.Sprintf("%s\t%s\t%d/%d\t%s\t%d\t%d%s\t%s",
+			pInfo = fmt.Sprintf("%s\t%s\t%d/%d\t%s\t%d\t%d%s\t%s\t%s",
 				p.Namespace,
 				p.Name,
 				readyCount, containerCount,
@@ -80,6 +80,7 @@ func Pods(namespace string, allNamespaces bool, selector, fieldSelector, keyword
 				restartCount,
 				age, ageUnit,
 				p.Status.PodIP,
+				p.Spec.NodeName,
 			)
 		} else {
 			pInfo = fmt.Sprintf("%s\t%s\t%d/%d\t%s\t%d\t%d%s",
