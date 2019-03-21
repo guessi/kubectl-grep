@@ -3,6 +3,7 @@ package search
 import (
 	"bytes"
 	"fmt"
+	"os"
 	"strings"
 	"text/tabwriter"
 	"time"
@@ -36,7 +37,8 @@ func Daemonsets(namespace string, allNamespaces bool, selector, fieldSelector, k
 
 	daemonsets, err := clientset.AppsV1().DaemonSets(namespace).List(*listOptions)
 	if err != nil {
-		panic(err.Error())
+		fmt.Println(err.Error())
+		os.Exit(1)
 	}
 
 	buf := bytes.NewBuffer(nil)

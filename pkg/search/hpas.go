@@ -3,6 +3,7 @@ package search
 import (
 	"bytes"
 	"fmt"
+	"os"
 	"strings"
 	"text/tabwriter"
 	"time"
@@ -34,7 +35,8 @@ func Hpas(namespace string, allNamespaces bool, selector, filedSelector, keyword
 
 	hpas, err := clientset.AutoscalingV1().HorizontalPodAutoscalers(namespace).List(*listOptions)
 	if err != nil {
-		panic(err.Error())
+		fmt.Println(err.Error())
+		os.Exit(1)
 	}
 
 	buf := bytes.NewBuffer(nil)
