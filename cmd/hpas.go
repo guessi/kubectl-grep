@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/guessi/kubectl-search/utils/search"
+	"github.com/guessi/kubectl-search/pkg/search"
 
 	"github.com/spf13/cobra"
 )

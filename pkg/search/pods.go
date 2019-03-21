@@ -7,7 +7,7 @@ import (
 	"text/tabwriter"
 	"time"
 
-	client "github.com/guessi/kubectl-search/utils"
+	client "github.com/guessi/kubectl-search/pkg/client"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
