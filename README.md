@@ -42,7 +42,7 @@ With this plugin installed, you can search pod with `kubectl search` easily
 
 # Basic Usage
 
-    $ curl -L https://github.com/guessi/kubectl-search/releases/download/v1.0.2/kubectl-search-`uname -s`-`uname -m` -o /usr/local/bin/kubectl-search
+    $ curl -L https://github.com/guessi/kubectl-search/releases/download/v1.0.3/kubectl-search-`uname -s`-`uname -m` -o /usr/local/bin/kubectl-search
     $ chmod +x /usr/local/bin/kubectl-search
     $ kubectl search pods "keyword"
 

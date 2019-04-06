@@ -1,3 +1,7 @@
+# v1.0.3 / 2019-04-07
+
+* Security Fixes for CVE-2019-1002101 and CVE-2019-9946
+
 # v1.0.2 / 2019-03-22
 
 * Supported NodeName Display for Pods
