@@ -1,3 +1,8 @@
+# v1.0.4 / 2019-04-20
+
+* Added Support for Node Search
+* Upgrade to Kubernetes-1.14.1
+
 # v1.0.3 / 2019-04-07
 
 * Security Fixes for CVE-2019-1002101 and CVE-2019-9946
