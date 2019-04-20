@@ -40,10 +40,16 @@ With this plugin installed, you can search pod with `kubectl search` easily
     $ kubectl search pods "keyword" -l "key=value" --all-namespaces
     $ kubectl search pods "keyword" --field-selector "key=value"
 
+# Installation
+
+    $ export KUBECTL_VERSION="v1.0.4"
+    $ wget https://github.com/guessi/kubectl-search/releases/download/${KUBECTL_VERSION}/kubectl-search-`uname -s`-`uname -m`.tar.gz
+    $ tar zxvf kubectl-search-`uname -s`-`uname -m`.tar.gz
+    $ mv kubectl-search /usr/local/bin
+    $ chmod +x /usr/local/bin/kubectl-search
+
 # Basic Usage
 
-    $ curl -L https://github.com/guessi/kubectl-search/releases/download/v1.0.4/kubectl-search-`uname -s`-`uname -m` -o /usr/local/bin/kubectl-search
-    $ chmod +x /usr/local/bin/kubectl-search
     $ kubectl search pods "keyword"
 
 # How to get developer build?
