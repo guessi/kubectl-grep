@@ -58,7 +58,7 @@ With this plugin installed, you can search pod with `kubectl search` easily
 
 What kind of resource does current release supported?
 
-    now it support Pods, Deployments, DaemonSets, and HPA
+    now it support Nodes, Pods, Deployments, DaemonSets, and HPAs
 
 Is it possible to search StatefulSets, DaemonSets, etc?
 
