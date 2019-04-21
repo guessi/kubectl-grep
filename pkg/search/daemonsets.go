@@ -3,54 +3,30 @@ package search
 import (
 	"bytes"
 	"fmt"
-	"os"
 	"strings"
 	"text/tabwriter"
 	"time"
 
-	client "github.com/guessi/kubectl-search/pkg/client"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-)
-
-var (
-	daemonsetsFields     = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tUP-TO-DATE\tAVAILABLE\tNODE SELECTOR\tAGE"
-	daemonsetsFieldsWide = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tUP-TO-DATE\tAVAILABLE\tNODE SELECTOR\tAGE\tCONTAINERS\tIMAGES\tSELECTOR"
-	dsInfo               string
+	"github.com/guessi/kubectl-search/pkg/search/constants"
+	"github.com/guessi/kubectl-search/pkg/search/utils"
 )
 
 // Daemonsets - a public function for searching daemonsets with keyword
 func Daemonsets(namespace string, allNamespaces bool, selector, fieldSelector, keyword string, wide bool) {
-	clientset := client.InitClient()
+	var daemonsetInfo string
 
-	if len(namespace) <= 0 {
-		namespace = "default"
-	}
-
-	if allNamespaces {
-		namespace = ""
-	}
-
-	listOptions := &metav1.ListOptions{
-		LabelSelector: selector,
-		FieldSelector: fieldSelector,
-	}
-
-	daemonsets, err := clientset.AppsV1().DaemonSets(namespace).List(*listOptions)
-	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
-	}
+	daemonsetList := utils.DaemonsetList(namespace, allNamespaces, selector, fieldSelector)
 
 	buf := bytes.NewBuffer(nil)
 	w := tabwriter.NewWriter(buf, 0, 0, 3, ' ', 0)
 
 	if wide {
-		fmt.Fprintln(w, daemonsetsFieldsWide)
+		fmt.Fprintln(w, constants.DaemonsetHeaderWide)
 	} else {
-		fmt.Fprintln(w, daemonsetsFields)
+		fmt.Fprintln(w, constants.DaemonsetHeader)
 	}
 
-	for _, d := range daemonsets.Items {
+	for _, d := range daemonsetList.Items {
 		// return all daemonsets under namespace if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(d.Name, keyword)
@@ -59,7 +35,7 @@ func Daemonsets(namespace string, allNamespaces bool, selector, fieldSelector, k
 			}
 		}
 
-		age, ageUnit := getAge(time.Since(d.CreationTimestamp.Time).Seconds())
+		age, ageUnit := utils.GetAge(time.Since(d.CreationTimestamp.Time).Seconds())
 		containers := d.Spec.Template.Spec.Containers
 
 		var nodeSelectors []string
@@ -97,7 +73,7 @@ func Daemonsets(namespace string, allNamespaces bool, selector, fieldSelector, k
 				images = append(images, n.Image)
 			}
 
-			dsInfo = fmt.Sprintf("%s\t%s\t%d\t%d\t%d\t%d\t%s\t%d%s\t%s\t%s\t%s",
+			daemonsetInfo = fmt.Sprintf(constants.DaemonsetRowTemplateWide,
 				d.Namespace,
 				d.Name,
 				d.Status.DesiredNumberScheduled,
@@ -111,7 +87,7 @@ func Daemonsets(namespace string, allNamespaces bool, selector, fieldSelector, k
 				selectorOutput,
 			)
 		} else {
-			dsInfo = fmt.Sprintf("%s\t%s\t%d\t%d\t%d\t%d\t%s\t%d%s",
+			daemonsetInfo = fmt.Sprintf(constants.DaemonsetRowTemplate,
 				d.Namespace,
 				d.Name,
 				d.Status.DesiredNumberScheduled,
@@ -122,7 +98,7 @@ func Daemonsets(namespace string, allNamespaces bool, selector, fieldSelector, k
 				age, ageUnit,
 			)
 		}
-		fmt.Fprintln(w, dsInfo)
+		fmt.Fprintln(w, daemonsetInfo)
 	}
 	w.Flush()
 

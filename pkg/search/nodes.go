@@ -3,45 +3,29 @@ package search
 import (
 	"bytes"
 	"fmt"
-	"os"
 	"strings"
 	"text/tabwriter"
 	"time"
 
-	client "github.com/guessi/kubectl-search/pkg/client"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"github.com/guessi/kubectl-search/pkg/search/constants"
+	"github.com/guessi/kubectl-search/pkg/search/utils"
 )
 
-var (
-	nodesFields     = "NAME\tSTATUS\tROLES\tAGE\tVERSION"
-	nodesFieldsWide = "NAME\tSTATUS\tROLES\tAGE\tVERSION\tINTERNAL-IP\tEXTERNAL-IP\tOS-IMAGE\tKERNEL-VERSION\tCONTAINER-RUNTIME"
-	nInfo           string
-)
-
-// Pods - a public function for searching pods with keyword
+// Nodes - a public function for searching nodes with keyword
 func Nodes(selector, fieldSelector, keyword string, wide bool) {
-	clientset := client.InitClient()
+	var nodeInfo string
 
-	listOptions := &metav1.ListOptions{
-		LabelSelector: selector,
-		FieldSelector: fieldSelector,
-	}
-
-	nodes, err := clientset.CoreV1().Nodes().List(*listOptions)
-	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
-	}
+	nodeList := utils.NodeList(selector, fieldSelector)
 
 	buf := bytes.NewBuffer(nil)
 	w := tabwriter.NewWriter(buf, 0, 0, 3, ' ', 0)
 
 	if wide {
-		fmt.Fprintln(w, nodesFieldsWide)
+		fmt.Fprintln(w, constants.NodeHeaderWide)
 	} else {
-		fmt.Fprintln(w, nodesFields)
+		fmt.Fprintln(w, constants.NodeHeader)
 	}
-	for _, n := range nodes.Items {
+	for _, n := range nodeList.Items {
 		// return all pods under namespace if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(n.Name, keyword)
@@ -69,7 +53,7 @@ func Nodes(selector, fieldSelector, keyword string, wide bool) {
 			nodeStatus = "Ready,SchedulingDisabled"
 		}
 
-		age, ageUnit := getAge(time.Since(n.CreationTimestamp.Time).Seconds())
+		age, ageUnit := utils.GetAge(time.Since(n.CreationTimestamp.Time).Seconds())
 
 		if wide {
 			var extAddr string
@@ -84,7 +68,7 @@ func Nodes(selector, fieldSelector, keyword string, wide bool) {
 				}
 			}
 
-			nInfo = fmt.Sprintf("%s\t%s\t%s\t%d%s\t%s\t%s\t%s\t%s\t%s\t%s",
+			nodeInfo = fmt.Sprintf(constants.NodeRowTemplateWide,
 				n.Name,
 				nodeStatus,
 				strings.Join(roles, ","),
@@ -97,7 +81,7 @@ func Nodes(selector, fieldSelector, keyword string, wide bool) {
 				n.Status.NodeInfo.ContainerRuntimeVersion,
 			)
 		} else {
-			nInfo = fmt.Sprintf("%s\t%s\t%s\t%d%s\t%s",
+			nodeInfo = fmt.Sprintf(constants.NodeRowTemplate,
 				n.Name,
 				nodeStatus,
 				strings.Join(roles, ","),
@@ -105,7 +89,7 @@ func Nodes(selector, fieldSelector, keyword string, wide bool) {
 				n.Status.NodeInfo.KubeletVersion,
 			)
 		}
-		fmt.Fprintln(w, nInfo)
+		fmt.Fprintln(w, nodeInfo)
 	}
 	w.Flush()
 

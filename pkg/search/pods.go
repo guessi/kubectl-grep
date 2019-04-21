@@ -3,53 +3,29 @@ package search
 import (
 	"bytes"
 	"fmt"
-	"os"
 	"strings"
 	"text/tabwriter"
 	"time"
 
-	client "github.com/guessi/kubectl-search/pkg/client"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-)
-
-var (
-	podsFields     = "NAMESPACE\tNAME\tREADY\tSTATUS\tRESTART\tAGE"
-	podsFieldsWide = "NAMESPACE\tNAME\tREADY\tSTATUS\tRESTART\tAGE\tIP\tNODENAME"
-	pInfo          string
+	"github.com/guessi/kubectl-search/pkg/search/constants"
+	"github.com/guessi/kubectl-search/pkg/search/utils"
 )
 
 // Pods - a public function for searching pods with keyword
 func Pods(namespace string, allNamespaces bool, selector, fieldSelector, keyword string, wide bool) {
-	clientset := client.InitClient()
+	var podInfo string
 
-	if len(namespace) <= 0 {
-		namespace = "default"
-	}
-
-	if allNamespaces {
-		namespace = ""
-	}
-
-	listOptions := &metav1.ListOptions{
-		LabelSelector: selector,
-		FieldSelector: fieldSelector,
-	}
-
-	pods, err := clientset.CoreV1().Pods(namespace).List(*listOptions)
-	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
-	}
+	podList := utils.PodList(namespace, allNamespaces, selector, fieldSelector)
 
 	buf := bytes.NewBuffer(nil)
 	w := tabwriter.NewWriter(buf, 0, 0, 3, ' ', 0)
 
 	if wide {
-		fmt.Fprintln(w, podsFieldsWide)
+		fmt.Fprintln(w, constants.PodHeaderWide)
 	} else {
-		fmt.Fprintln(w, podsFields)
+		fmt.Fprintln(w, constants.PodHeader)
 	}
-	for _, p := range pods.Items {
+	for _, p := range podList.Items {
 		// return all pods under namespace if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(p.Name, keyword)
@@ -69,10 +45,10 @@ func Pods(namespace string, allNamespaces bool, selector, fieldSelector, keyword
 			}
 		}
 
-		age, ageUnit := getAge(time.Since(p.CreationTimestamp.Time).Seconds())
+		age, ageUnit := utils.GetAge(time.Since(p.CreationTimestamp.Time).Seconds())
 
 		if wide {
-			pInfo = fmt.Sprintf("%s\t%s\t%d/%d\t%s\t%d\t%d%s\t%s\t%s",
+			podInfo = fmt.Sprintf(constants.PodRowTemplateWide,
 				p.Namespace,
 				p.Name,
 				readyCount, containerCount,
@@ -83,7 +59,7 @@ func Pods(namespace string, allNamespaces bool, selector, fieldSelector, keyword
 				p.Spec.NodeName,
 			)
 		} else {
-			pInfo = fmt.Sprintf("%s\t%s\t%d/%d\t%s\t%d\t%d%s",
+			podInfo = fmt.Sprintf(constants.PodRowTemplate,
 				p.Namespace,
 				p.Name,
 				readyCount, containerCount,
@@ -92,7 +68,7 @@ func Pods(namespace string, allNamespaces bool, selector, fieldSelector, keyword
 				age, ageUnit,
 			)
 		}
-		fmt.Fprintln(w, pInfo)
+		fmt.Fprintln(w, podInfo)
 	}
 	w.Flush()
 

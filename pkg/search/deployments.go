@@ -3,53 +3,29 @@ package search
 import (
 	"bytes"
 	"fmt"
-	"os"
 	"strings"
 	"text/tabwriter"
 	"time"
 
-	client "github.com/guessi/kubectl-search/pkg/client"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-)
-
-var (
-	deploymentsFields     = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tUP-TO-DATE\tAVAILABLE\tAGE"
-	deploymentsFieldsWide = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tUP-TO-DATE\tAVAILABLE\tAGE\tCONTAINERS\tIMAGES"
-	dInfo                 string
+	"github.com/guessi/kubectl-search/pkg/search/constants"
+	"github.com/guessi/kubectl-search/pkg/search/utils"
 )
 
 // Deployments - a public function for searching deployments with keyword
 func Deployments(namespace string, allNamespaces bool, selector, fieldSelector, keyword string, wide bool) {
-	clientset := client.InitClient()
+	var deploymentInfo string
 
-	if len(namespace) <= 0 {
-		namespace = "default"
-	}
-
-	if allNamespaces {
-		namespace = ""
-	}
-
-	listOptions := &metav1.ListOptions{
-		LabelSelector: selector,
-		FieldSelector: fieldSelector,
-	}
-
-	deployments, err := clientset.AppsV1().Deployments(namespace).List(*listOptions)
-	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
-	}
+	deploymentList := utils.DeploymentList(namespace, allNamespaces, selector, fieldSelector)
 
 	buf := bytes.NewBuffer(nil)
 	w := tabwriter.NewWriter(buf, 0, 0, 3, ' ', 0)
 
 	if wide {
-		fmt.Fprintln(w, deploymentsFieldsWide)
+		fmt.Fprintln(w, constants.DeploymentHeaderWide)
 	} else {
-		fmt.Fprintln(w, deploymentsFields)
+		fmt.Fprintln(w, constants.DeploymentHeader)
 	}
-	for _, d := range deployments.Items {
+	for _, d := range deploymentList.Items {
 		// return all deployments under namespace if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(d.Name, keyword)
@@ -58,7 +34,7 @@ func Deployments(namespace string, allNamespaces bool, selector, fieldSelector, 
 			}
 		}
 
-		age, ageUnit := getAge(time.Since(d.CreationTimestamp.Time).Seconds())
+		age, ageUnit := utils.GetAge(time.Since(d.CreationTimestamp.Time).Seconds())
 		containers := d.Spec.Template.Spec.Containers
 
 		if wide {
@@ -70,7 +46,7 @@ func Deployments(namespace string, allNamespaces bool, selector, fieldSelector, 
 				images = append(images, n.Image)
 			}
 
-			dInfo = fmt.Sprintf("%s\t%s\t%d\t%d\t%d\t%d\t%d%s\t%s\t%s",
+			deploymentInfo = fmt.Sprintf(constants.DeploymentRowTemplateWide,
 				d.Namespace,
 				d.Name,
 				d.Status.Replicas,
@@ -82,7 +58,7 @@ func Deployments(namespace string, allNamespaces bool, selector, fieldSelector, 
 				strings.Join(images, ","),
 			)
 		} else {
-			dInfo = fmt.Sprintf("%s\t%s\t%d\t%d\t%d\t%d\t%d%s",
+			deploymentInfo = fmt.Sprintf(constants.DeploymentRowTemplate,
 				d.Namespace,
 				d.Name,
 				d.Status.Replicas,
@@ -92,7 +68,7 @@ func Deployments(namespace string, allNamespaces bool, selector, fieldSelector, 
 				age, ageUnit,
 			)
 		}
-		fmt.Fprintln(w, dInfo)
+		fmt.Fprintln(w, deploymentInfo)
 	}
 	w.Flush()
 

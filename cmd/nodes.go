@@ -9,7 +9,7 @@ import (
 // nodesCmd represents the nodes command
 var nodesCmd = &cobra.Command{
 	Use:   "nodes",
-	Short: "Search Nodes by keyword, by namespace",
+	Short: "Search Nodes by keyword",
 	Run: func(cmd *cobra.Command, args []string) {
 		searchNodes(args)
 	},

@@ -3,47 +3,23 @@ package search
 import (
 	"bytes"
 	"fmt"
-	"os"
 	"strings"
 	"text/tabwriter"
 	"time"
 
-	client "github.com/guessi/kubectl-search/pkg/client"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-)
-
-var (
-	hpasFields = "NAMESPACE\tNAME\tREFERENCE\tTARGETS\tMINPODS\tMAXPODS\tREPLICAS\tAGE"
+	"github.com/guessi/kubectl-search/pkg/search/constants"
+	"github.com/guessi/kubectl-search/pkg/search/utils"
 )
 
 // Hpas - a public function for searching hpas with keyword
 func Hpas(namespace string, allNamespaces bool, selector, filedSelector, keyword string) {
-	clientset := client.InitClient()
-
-	if len(namespace) <= 0 {
-		namespace = "default"
-	}
-
-	if allNamespaces {
-		namespace = ""
-	}
-
-	listOptions := &metav1.ListOptions{
-		LabelSelector: selector,
-		FieldSelector: filedSelector,
-	}
-
-	hpas, err := clientset.AutoscalingV1().HorizontalPodAutoscalers(namespace).List(*listOptions)
-	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
-	}
+	hpaList := utils.HpaList(namespace, allNamespaces, selector, filedSelector)
 
 	buf := bytes.NewBuffer(nil)
 	w := tabwriter.NewWriter(buf, 0, 0, 3, ' ', 0)
 
-	fmt.Fprintln(w, hpasFields)
-	for _, h := range hpas.Items {
+	fmt.Fprintln(w, constants.HpaHeader)
+	for _, h := range hpaList.Items {
 		// return all hpas under namespace if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(h.Name, keyword)
@@ -52,9 +28,9 @@ func Hpas(namespace string, allNamespaces bool, selector, filedSelector, keyword
 			}
 		}
 
-		age, ageUnit := getAge(time.Since(h.CreationTimestamp.Time).Seconds())
+		age, ageUnit := utils.GetAge(time.Since(h.CreationTimestamp.Time).Seconds())
 
-		hInfo := fmt.Sprintf("%s\t%s\t%s/%s\t%d%%/%d%%\t%d\t%d\t%d\t%d%s",
+		hpaInfo := fmt.Sprintf(constants.HpaRowTemplate,
 			h.Namespace,
 			h.Name,
 			h.Spec.ScaleTargetRef.Kind,
@@ -66,7 +42,7 @@ func Hpas(namespace string, allNamespaces bool, selector, filedSelector, keyword
 			h.Status.CurrentReplicas,
 			age, ageUnit,
 		)
-		fmt.Fprintln(w, hInfo)
+		fmt.Fprintln(w, hpaInfo)
 	}
 	w.Flush()
 
