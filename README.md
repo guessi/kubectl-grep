@@ -66,7 +66,7 @@ What kind of resource does current release supported?
 
     now it support Nodes, Pods, Deployments, DaemonSets, and HPAs
 
-Is it possible to search StatefulSets, DaemonSets, etc?
+Is it possible to search StatefulSets, etc?
 
     sure, but not yet supported, I need more time to write code, and tests
 
