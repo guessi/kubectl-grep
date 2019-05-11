@@ -29,6 +29,10 @@ func InitClient() *kubernetes.Clientset {
 	)
 	flag.Parse()
 
+	if _, err := os.Stat(*kubeconfig); err != nil {
+		panic(err.Error())
+	}
+
 	// use the current context in kubeconfig
 	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
 	if err != nil {
