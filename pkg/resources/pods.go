@@ -1,4 +1,4 @@
-package search
+package resources
 
 import (
 	"bytes"
@@ -7,8 +7,8 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/guessi/kubectl-search/pkg/search/constants"
-	"github.com/guessi/kubectl-search/pkg/search/utils"
+	"github.com/guessi/kubectl-search/pkg/constants"
+	"github.com/guessi/kubectl-search/pkg/utils"
 )
 
 // Pods - a public function for searching pods with keyword

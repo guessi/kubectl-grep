@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"strings"
+
 	log "github.com/sirupsen/logrus"
 	appsv1 "k8s.io/api/apps/v1"
 	autoscalingv1 "k8s.io/api/autoscaling/v1"
@@ -116,4 +118,17 @@ func NodeList(selector, fieldSelector string) *corev1.NodeList {
 		}).Debug("Unable to get Node List")
 	}
 	return list
+}
+
+// TrimQuoteAndSpace - remove Spaces, Tabs, SingleQuotes, DoubleQuites
+func TrimQuoteAndSpace(input string) string {
+	if len(input) >= 2 {
+		if input[0] == '"' && input[len(input)-1] == '"' {
+			return input[1 : len(input)-1]
+		}
+		if input[0] == '\'' && input[len(input)-1] == '\'' {
+			return input[1 : len(input)-1]
+		}
+	}
+	return strings.TrimSpace(input)
 }
