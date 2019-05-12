@@ -8,12 +8,13 @@ import (
 	"time"
 
 	"github.com/guessi/kubectl-search/pkg/constants"
+	"github.com/guessi/kubectl-search/pkg/options"
 	"github.com/guessi/kubectl-search/pkg/utils"
 )
 
 // Hpas - a public function for searching hpas with keyword
-func Hpas(namespace string, allNamespaces bool, selector, filedSelector, keyword string) {
-	hpaList := utils.HpaList(namespace, allNamespaces, selector, filedSelector)
+func Hpas(opt *options.SearchOptions, keyword string) {
+	hpaList := utils.HpaList(opt)
 
 	buf := bytes.NewBuffer(nil)
 	w := tabwriter.NewWriter(buf, 0, 0, 3, ' ', 0)

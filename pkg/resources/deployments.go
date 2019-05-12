@@ -8,14 +8,15 @@ import (
 	"time"
 
 	"github.com/guessi/kubectl-search/pkg/constants"
+	"github.com/guessi/kubectl-search/pkg/options"
 	"github.com/guessi/kubectl-search/pkg/utils"
 )
 
 // Deployments - a public function for searching deployments with keyword
-func Deployments(namespace string, allNamespaces bool, selector, fieldSelector, keyword string, wide bool) {
+func Deployments(opt *options.SearchOptions, keyword string, wide bool) {
 	var deploymentInfo string
 
-	deploymentList := utils.DeploymentList(namespace, allNamespaces, selector, fieldSelector)
+	deploymentList := utils.DeploymentList(opt)
 
 	buf := bytes.NewBuffer(nil)
 	w := tabwriter.NewWriter(buf, 0, 0, 3, ' ', 0)

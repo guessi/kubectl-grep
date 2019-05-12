@@ -5,20 +5,21 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+
+	"github.com/guessi/kubectl-search/pkg/options"
 )
 
 var (
 	cfgFile            string
-	allNamespaces      bool
-	namespace          string
-	selector           string
-	fieldSelector      string
 	output             string
 	rootCmdDescription = `kubectl plugins for searching Kubernetes resources
 
 Find more information at: https://github.com/guessi/kubectl-search
 	`
 )
+
+// generic search options handler
+var searchOptions = options.NewSearchOptions()
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -30,16 +31,16 @@ var rootCmd = &cobra.Command{
 func init() {
 	// Global Flags
 	rootCmd.PersistentFlags().StringVarP(
-		&namespace, "namespace", "n", "",
+		&searchOptions.Namespace, "namespace", "n", "",
 		"Namespace for search. (default: \"default\")")
 	rootCmd.PersistentFlags().BoolVar(
-		&allNamespaces, "all-namespaces", false,
+		&searchOptions.AllNamespaces, "all-namespaces", false,
 		"If present, list the requested object(s) across all namespaces.")
 	rootCmd.PersistentFlags().StringVarP(
-		&selector, "selector", "l", "",
+		&searchOptions.Selector, "selector", "l", "",
 		"Selector (label query) to filter on. (e.g. -l key1=value1,key2=value2)")
 	rootCmd.PersistentFlags().StringVar(
-		&fieldSelector, "field-selector", "",
+		&searchOptions.FieldSelector, "field-selector", "",
 		"Selector (field query) to filter on. (e.g. --field-selector key1=value1,key2=value2)")
 }
 

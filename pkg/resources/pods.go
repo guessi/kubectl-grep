@@ -8,14 +8,15 @@ import (
 	"time"
 
 	"github.com/guessi/kubectl-search/pkg/constants"
+	"github.com/guessi/kubectl-search/pkg/options"
 	"github.com/guessi/kubectl-search/pkg/utils"
 )
 
 // Pods - a public function for searching pods with keyword
-func Pods(namespace string, allNamespaces bool, selector, fieldSelector, keyword string, wide bool) {
+func Pods(opt *options.SearchOptions, keyword string, wide bool) {
 	var podInfo string
 
-	podList := utils.PodList(namespace, allNamespaces, selector, fieldSelector)
+	podList := utils.PodList(opt)
 
 	buf := bytes.NewBuffer(nil)
 	w := tabwriter.NewWriter(buf, 0, 0, 3, ' ', 0)

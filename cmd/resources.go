@@ -72,19 +72,19 @@ func resourceSearch(args []string, resourceType string) {
 
 	switch resourceType {
 	case "daemonsets":
-		resources.Daemonsets(namespace, allNamespaces, selector, fieldSelector, keyword, output == "wide")
+		resources.Daemonsets(searchOptions, keyword, output == "wide")
 		break
 	case "deployments":
-		resources.Deployments(namespace, allNamespaces, selector, fieldSelector, keyword, output == "wide")
+		resources.Deployments(searchOptions, keyword, output == "wide")
 		break
 	case "hpas":
-		resources.Hpas(namespace, allNamespaces, selector, fieldSelector, keyword)
+		resources.Hpas(searchOptions, keyword)
 		break
 	case "nodes":
-		resources.Nodes(selector, fieldSelector, keyword, output == "wide")
+		resources.Nodes(searchOptions, keyword, output == "wide")
 		break
 	case "pods":
-		resources.Pods(namespace, allNamespaces, selector, fieldSelector, keyword, output == "wide")
+		resources.Pods(searchOptions, keyword, output == "wide")
 		break
 	default:
 		break

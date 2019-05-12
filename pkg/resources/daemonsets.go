@@ -8,14 +8,15 @@ import (
 	"time"
 
 	"github.com/guessi/kubectl-search/pkg/constants"
+	"github.com/guessi/kubectl-search/pkg/options"
 	"github.com/guessi/kubectl-search/pkg/utils"
 )
 
 // Daemonsets - a public function for searching daemonsets with keyword
-func Daemonsets(namespace string, allNamespaces bool, selector, fieldSelector, keyword string, wide bool) {
+func Daemonsets(opt *options.SearchOptions, keyword string, wide bool) {
 	var daemonsetInfo string
 
-	daemonsetList := utils.DaemonsetList(namespace, allNamespaces, selector, fieldSelector)
+	daemonsetList := utils.DaemonsetList(opt)
 
 	buf := bytes.NewBuffer(nil)
 	w := tabwriter.NewWriter(buf, 0, 0, 3, ' ', 0)

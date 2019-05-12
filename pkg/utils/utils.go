@@ -13,6 +13,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 
 	"github.com/guessi/kubectl-search/pkg/client"
+	"github.com/guessi/kubectl-search/pkg/options"
 )
 
 var (
@@ -24,25 +25,28 @@ func init() {
 }
 
 // setOptions - set common options for clientset
-func setOptions(namespace string, allNamespaces bool, selector, fieldSelector string) (string, *metav1.ListOptions) {
-	if len(namespace) <= 0 {
+func setOptions(opt *options.SearchOptions) (string, *metav1.ListOptions) {
+	var namespace string
+	if len(opt.Namespace) <= 0 {
 		namespace = "default"
+	} else {
+		namespace = opt.Namespace
 	}
 
-	if allNamespaces {
+	if opt.AllNamespaces {
 		namespace = ""
 	}
 
 	listOptions := &metav1.ListOptions{
-		LabelSelector: selector,
-		FieldSelector: fieldSelector,
+		LabelSelector: opt.Selector,
+		FieldSelector: opt.FieldSelector,
 	}
 	return namespace, listOptions
 }
 
 // DaemonsetList - return a list of DaemonSet(s)
-func DaemonsetList(namespace string, allNamespaces bool, selector, fieldSelector string) *appsv1.DaemonSetList {
-	ns, o := setOptions(namespace, allNamespaces, selector, fieldSelector)
+func DaemonsetList(opt *options.SearchOptions) *appsv1.DaemonSetList {
+	ns, o := setOptions(opt)
 	list, err := clientset.AppsV1().DaemonSets(ns).List(*o)
 	if err != nil {
 		log.WithFields(log.Fields{
@@ -53,8 +57,8 @@ func DaemonsetList(namespace string, allNamespaces bool, selector, fieldSelector
 }
 
 // DeploymentList - return a list of Deployment(s)
-func DeploymentList(namespace string, allNamespaces bool, selector, fieldSelector string) *appsv1.DeploymentList {
-	ns, o := setOptions(namespace, allNamespaces, selector, fieldSelector)
+func DeploymentList(opt *options.SearchOptions) *appsv1.DeploymentList {
+	ns, o := setOptions(opt)
 	list, err := clientset.AppsV1().Deployments(ns).List(*o)
 	if err != nil {
 		log.WithFields(log.Fields{
@@ -65,8 +69,8 @@ func DeploymentList(namespace string, allNamespaces bool, selector, fieldSelecto
 }
 
 // HpaList - return a list of HPA(s)
-func HpaList(namespace string, allNamespaces bool, selector, fieldSelector string) *autoscalingv1.HorizontalPodAutoscalerList {
-	ns, o := setOptions(namespace, allNamespaces, selector, fieldSelector)
+func HpaList(opt *options.SearchOptions) *autoscalingv1.HorizontalPodAutoscalerList {
+	ns, o := setOptions(opt)
 	list, err := clientset.AutoscalingV1().HorizontalPodAutoscalers(ns).List(*o)
 	if err != nil {
 		log.WithFields(log.Fields{
@@ -77,8 +81,8 @@ func HpaList(namespace string, allNamespaces bool, selector, fieldSelector strin
 }
 
 // PodList - return a list of Pod(s)
-func PodList(namespace string, allNamespaces bool, selector, fieldSelector string) *corev1.PodList {
-	ns, o := setOptions(namespace, allNamespaces, selector, fieldSelector)
+func PodList(opt *options.SearchOptions) *corev1.PodList {
+	ns, o := setOptions(opt)
 	list, err := clientset.CoreV1().Pods(ns).List(*o)
 	if err != nil {
 		log.WithFields(log.Fields{
@@ -89,8 +93,8 @@ func PodList(namespace string, allNamespaces bool, selector, fieldSelector strin
 }
 
 // NodeList - return a list of Node(s)
-func NodeList(selector, fieldSelector string) *corev1.NodeList {
-	_, o := setOptions("", false, selector, fieldSelector)
+func NodeList(opt *options.SearchOptions) *corev1.NodeList {
+	_, o := setOptions(opt)
 	list, err := clientset.CoreV1().Nodes().List(*o)
 	if err != nil {
 		log.WithFields(log.Fields{
