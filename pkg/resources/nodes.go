@@ -53,7 +53,7 @@ func Nodes(selector, fieldSelector, keyword string, wide bool) {
 			nodeStatus = "Ready,SchedulingDisabled"
 		}
 
-		age, ageUnit := utils.GetAge(time.Since(n.CreationTimestamp.Time).Seconds())
+		age := utils.GetAge(time.Since(n.CreationTimestamp.Time))
 
 		if wide {
 			var extAddr string
@@ -72,7 +72,7 @@ func Nodes(selector, fieldSelector, keyword string, wide bool) {
 				n.Name,
 				nodeStatus,
 				strings.Join(roles, ","),
-				age, ageUnit,
+				age,
 				n.Status.NodeInfo.KubeletVersion,
 				intAddr,
 				extAddr,
@@ -85,7 +85,7 @@ func Nodes(selector, fieldSelector, keyword string, wide bool) {
 				n.Name,
 				nodeStatus,
 				strings.Join(roles, ","),
-				age, ageUnit,
+				age,
 				n.Status.NodeInfo.KubeletVersion,
 			)
 		}

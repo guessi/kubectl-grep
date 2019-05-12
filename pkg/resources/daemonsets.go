@@ -35,7 +35,7 @@ func Daemonsets(namespace string, allNamespaces bool, selector, fieldSelector, k
 			}
 		}
 
-		age, ageUnit := utils.GetAge(time.Since(d.CreationTimestamp.Time).Seconds())
+		age := utils.GetAge(time.Since(d.CreationTimestamp.Time))
 		containers := d.Spec.Template.Spec.Containers
 
 		var nodeSelectors []string
@@ -81,7 +81,7 @@ func Daemonsets(namespace string, allNamespaces bool, selector, fieldSelector, k
 				d.Status.UpdatedNumberScheduled,
 				d.Status.NumberAvailable,
 				nodeSelectorOutput,
-				age, ageUnit,
+				age,
 				strings.Join(names, ","),
 				strings.Join(images, ","),
 				selectorOutput,
@@ -95,7 +95,7 @@ func Daemonsets(namespace string, allNamespaces bool, selector, fieldSelector, k
 				d.Status.UpdatedNumberScheduled,
 				d.Status.NumberAvailable,
 				nodeSelectorOutput,
-				age, ageUnit,
+				age,
 			)
 		}
 		fmt.Fprintln(w, daemonsetInfo)

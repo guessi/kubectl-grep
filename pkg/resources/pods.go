@@ -45,7 +45,7 @@ func Pods(namespace string, allNamespaces bool, selector, fieldSelector, keyword
 			}
 		}
 
-		age, ageUnit := utils.GetAge(time.Since(p.CreationTimestamp.Time).Seconds())
+		age := utils.GetAge(time.Since(p.CreationTimestamp.Time))
 
 		if wide {
 			podInfo = fmt.Sprintf(constants.PodRowTemplateWide,
@@ -54,7 +54,7 @@ func Pods(namespace string, allNamespaces bool, selector, fieldSelector, keyword
 				readyCount, containerCount,
 				p.Status.Phase,
 				restartCount,
-				age, ageUnit,
+				age,
 				p.Status.PodIP,
 				p.Spec.NodeName,
 			)
@@ -65,7 +65,7 @@ func Pods(namespace string, allNamespaces bool, selector, fieldSelector, keyword
 				readyCount, containerCount,
 				p.Status.Phase,
 				restartCount,
-				age, ageUnit,
+				age,
 			)
 		}
 		fmt.Fprintln(w, podInfo)

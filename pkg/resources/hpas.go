@@ -28,7 +28,7 @@ func Hpas(namespace string, allNamespaces bool, selector, filedSelector, keyword
 			}
 		}
 
-		age, ageUnit := utils.GetAge(time.Since(h.CreationTimestamp.Time).Seconds())
+		age := utils.GetAge(time.Since(h.CreationTimestamp.Time))
 
 		hpaInfo := fmt.Sprintf(constants.HpaRowTemplate,
 			h.Namespace,
@@ -40,7 +40,7 @@ func Hpas(namespace string, allNamespaces bool, selector, filedSelector, keyword
 			*h.Spec.MinReplicas,
 			h.Spec.MaxReplicas,
 			h.Status.CurrentReplicas,
-			age, ageUnit,
+			age,
 		)
 		fmt.Fprintln(w, hpaInfo)
 	}

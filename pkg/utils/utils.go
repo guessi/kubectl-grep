@@ -2,12 +2,14 @@ package utils
 
 import (
 	"strings"
+	"time"
 
 	log "github.com/sirupsen/logrus"
 	appsv1 "k8s.io/api/apps/v1"
 	autoscalingv1 "k8s.io/api/autoscaling/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/util/duration"
 	"k8s.io/client-go/kubernetes"
 
 	"github.com/guessi/kubectl-search/pkg/client"
@@ -19,28 +21,6 @@ var (
 
 func init() {
 	clientset = client.InitClient()
-}
-
-// GetAge - return human readable time expression
-func GetAge(duration float64) (int, string) {
-	var age int
-	var unit string
-
-	if duration >= 86400 {
-		age = int(duration) / 86400
-		unit = "d"
-	} else if duration > 3600 {
-		age = int(duration) / 3600
-		unit = "h"
-	} else if duration > 60 {
-		age = int(duration) / 60
-		unit = "m"
-	} else {
-		age = int(duration)
-		unit = "s"
-	}
-
-	return age, unit
 }
 
 // setOptions - set common options for clientset
@@ -131,4 +111,9 @@ func TrimQuoteAndSpace(input string) string {
 		}
 	}
 	return strings.TrimSpace(input)
+}
+
+// GetAge - return human readable time expression
+func GetAge(d time.Duration) string {
+	return duration.HumanDuration(d)
 }

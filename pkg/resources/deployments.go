@@ -34,7 +34,7 @@ func Deployments(namespace string, allNamespaces bool, selector, fieldSelector, 
 			}
 		}
 
-		age, ageUnit := utils.GetAge(time.Since(d.CreationTimestamp.Time).Seconds())
+		age := utils.GetAge(time.Since(d.CreationTimestamp.Time))
 		containers := d.Spec.Template.Spec.Containers
 
 		if wide {
@@ -53,7 +53,7 @@ func Deployments(namespace string, allNamespaces bool, selector, fieldSelector, 
 				d.Status.ReadyReplicas,
 				d.Status.UpdatedReplicas,
 				d.Status.AvailableReplicas,
-				age, ageUnit,
+				age,
 				strings.Join(names, ","),
 				strings.Join(images, ","),
 			)
@@ -65,7 +65,7 @@ func Deployments(namespace string, allNamespaces bool, selector, fieldSelector, 
 				d.Status.ReadyReplicas,
 				d.Status.UpdatedReplicas,
 				d.Status.AvailableReplicas,
-				age, ageUnit,
+				age,
 			)
 		}
 		fmt.Fprintln(w, deploymentInfo)
