@@ -2,8 +2,8 @@
 
 VERSION_MAJOR  := 1
 VERSION_MINOR  := 0
-VERSION_PATCH  := 5
-VERSION_SUFFIX := # -dev
+VERSION_PATCH  := 6
+VERSION_SUFFIX := -dev
 
 COMMIT  := $(shell git describe --always)
 PKGS    := $(shell go list ./...)
