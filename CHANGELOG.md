@@ -1,3 +1,8 @@
+# v1.0.5 / 2019-05-12
+
+* Exit if `.kube/config` not found
+* Code refactoring
+
 # v1.0.4 / 2019-04-20
 
 * Added Support for Node Search
