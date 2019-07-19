@@ -33,8 +33,8 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(
 		&searchOptions.Namespace, "namespace", "n", "",
 		"Namespace for search. (default: \"default\")")
-	rootCmd.PersistentFlags().BoolVar(
-		&searchOptions.AllNamespaces, "all-namespaces", false,
+	rootCmd.PersistentFlags().BoolVarP(
+		&searchOptions.AllNamespaces, "all-namespaces", "A", false,
 		"If present, list the requested object(s) across all namespaces.")
 	rootCmd.PersistentFlags().StringVarP(
 		&searchOptions.Selector, "selector", "l", "",
