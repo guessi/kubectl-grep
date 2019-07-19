@@ -1,3 +1,9 @@
+# v1.1.0 / 2019-07-19
+
+* Upgrade to Kubernetes-1.15.1
+* Cleanup go.mod / go.sum
+* *BREAKING CHANGE*: Renamed as `kubectl-grep`
+
 # v1.0.5 / 2019-05-12
 
 * Exit if `.kube/config` not found

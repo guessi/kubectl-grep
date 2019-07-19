@@ -1,4 +1,4 @@
-# Kubectl Search
+# Kubectl Grep (Formerly Known as Kubectl-Search)
 
 [![CircleCI](https://circleci.com/gh/guessi/kubectl-grep.svg?style=svg)](https://circleci.com/gh/guessi/kubectl-grep)
 [![GoDoc](https://godoc.org/github.com/guessi/kubectl-grep?status.svg)](https://godoc.org/github.com/guessi/kubectl-grep)
@@ -42,7 +42,7 @@ With this plugin installed, you can search pod with `kubectl grep` easily
 
 # Installation
 
-    $ export KUBECTL_VERSION="v1.0.5"
+    $ export KUBECTL_VERSION="v1.1.0"
     $ wget https://github.com/guessi/kubectl-grep/releases/download/${KUBECTL_VERSION}/kubectl-grep-`uname -s`-`uname -m`.tar.gz
     $ tar zxvf kubectl-grep-`uname -s`-`uname -m`.tar.gz
     $ mv kubectl-grep /usr/local/bin
