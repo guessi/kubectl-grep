@@ -52,6 +52,22 @@ With this plugin installed, you can search pod with `kubectl grep` easily
 
     $ kubectl grep pods "keyword"
 
+# Examples
+
+List all pods in all namespaces,
+
+    $ kubectl grep pods --all-namespaces
+    NAMESPACE     NAME                           READY   STATUS     RESTART   AGE
+    star-lab      the-flash-1563321660-bm225     1/1     Running    0         2d13h
+    marvel        spider-man-564d97dc9c-65mvw    1/1     Running    0         7d22h
+    dc            super-man-bb58c6784-26bmr      1/1     Running    0         1d3h
+
+List all pods with specific keyword, under specific namespace,
+
+    $ kubectl grep pods -n star-lab flash
+    NAMESPACE     NAME                           READY   STATUS     RESTART   AGE
+    star-lab      the-flash-1563321660-bm225     1/1     Running    0         2d13h
+
 # How to get developer build?
 
     $ go get -u github.com/guessi/kubectl-grep
