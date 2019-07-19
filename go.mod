@@ -1,4 +1,4 @@
-module github.com/guessi/kubectl-search
+module github.com/guessi/kubectl-grep
 
 go 1.12
 

@@ -1,9 +1,9 @@
 # Kubectl Search
 
-[![CircleCI](https://circleci.com/gh/guessi/kubectl-search.svg?style=svg)](https://circleci.com/gh/guessi/kubectl-search)
-[![GoDoc](https://godoc.org/github.com/guessi/kubectl-search?status.svg)](https://godoc.org/github.com/guessi/kubectl-search)
-[![Go Report Card](https://goreportcard.com/badge/github.com/guessi/kubectl-search)](https://goreportcard.com/report/github.com/guessi/kubectl-search)
-[![GitHub release](https://img.shields.io/github/release/guessi/kubectl-search.svg)](https://github.com/guessi/kubectl-search/releases/latest)
+[![CircleCI](https://circleci.com/gh/guessi/kubectl-grep.svg?style=svg)](https://circleci.com/gh/guessi/kubectl-grep)
+[![GoDoc](https://godoc.org/github.com/guessi/kubectl-grep?status.svg)](https://godoc.org/github.com/guessi/kubectl-grep)
+[![Go Report Card](https://goreportcard.com/badge/github.com/guessi/kubectl-grep)](https://goreportcard.com/report/github.com/guessi/kubectl-grep)
+[![GitHub release](https://img.shields.io/github/release/guessi/kubectl-grep.svg)](https://github.com/guessi/kubectl-grep/releases/latest)
 
 simple kubernetes plugins for searching resources with keyword
 
@@ -29,34 +29,34 @@ Before change, we usually search pods by the following commands,
     $ kubectl get pods -l "key=value" --all-namespaces | grep "keyword"
     $ kubectl get pods --field-selector "key=value"    | grep "keyword"
 
-With this plugin installed, you can search pod with `kubectl search` easily
+With this plugin installed, you can search pod with `kubectl grep` easily
 
-    $ kubectl search pods "keyword"
-    $ kubectl search pods "keyword" -o wide
-    $ kubectl search pods "keyword" -n "my-ns"
-    $ kubectl search pods "keyword" --all-namespaces
-    $ kubectl search pods "keyword" -l "key=value"
-    $ kubectl search pods "keyword" -l "key=value" -n "my-ns"
-    $ kubectl search pods "keyword" -l "key=value" --all-namespaces
-    $ kubectl search pods "keyword" --field-selector "key=value"
+    $ kubectl grep pods "keyword"
+    $ kubectl grep pods "keyword" -o wide
+    $ kubectl grep pods "keyword" -n "my-ns"
+    $ kubectl grep pods "keyword" --all-namespaces
+    $ kubectl grep pods "keyword" -l "key=value"
+    $ kubectl grep pods "keyword" -l "key=value" -n "my-ns"
+    $ kubectl grep pods "keyword" -l "key=value" --all-namespaces
+    $ kubectl grep pods "keyword" --field-selector "key=value"
 
 # Installation
 
     $ export KUBECTL_VERSION="v1.0.5"
-    $ wget https://github.com/guessi/kubectl-search/releases/download/${KUBECTL_VERSION}/kubectl-search-`uname -s`-`uname -m`.tar.gz
-    $ tar zxvf kubectl-search-`uname -s`-`uname -m`.tar.gz
-    $ mv kubectl-search /usr/local/bin
-    $ chmod +x /usr/local/bin/kubectl-search
+    $ wget https://github.com/guessi/kubectl-grep/releases/download/${KUBECTL_VERSION}/kubectl-grep-`uname -s`-`uname -m`.tar.gz
+    $ tar zxvf kubectl-grep-`uname -s`-`uname -m`.tar.gz
+    $ mv kubectl-grep /usr/local/bin
+    $ chmod +x /usr/local/bin/kubectl-grep
 
 # Basic Usage
 
-    $ kubectl search pods "keyword"
+    $ kubectl grep pods "keyword"
 
 # How to get developer build?
 
-    $ go get -u github.com/guessi/kubectl-search
+    $ go get -u github.com/guessi/kubectl-grep
 
-    $ cd ${GOPATH}/src/github.com/guessi/kubectl-search
+    $ cd ${GOPATH}/src/github.com/guessi/kubectl-grep
 
     $ make all
 
@@ -72,7 +72,7 @@ Is it possible to search StatefulSets, etc?
 
 How do I check the tool's version?
 
-    $ kubectl search version
+    $ kubectl grep version
 
 Any plan to support Kubernetes version before 1.10.0?
 

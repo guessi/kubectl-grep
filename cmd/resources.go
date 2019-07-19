@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"github.com/guessi/kubectl-search/pkg/resources"
-	"github.com/guessi/kubectl-search/pkg/utils"
+	"github.com/guessi/kubectl-grep/pkg/resources"
+	"github.com/guessi/kubectl-grep/pkg/utils"
 
 	"github.com/spf13/cobra"
 )

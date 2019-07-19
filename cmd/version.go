@@ -28,6 +28,6 @@ func showVersion() {
 	if shortVersion {
 		fmt.Println(version)
 	} else {
-		fmt.Println("kubectl-search version:", version)
+		fmt.Println("kubectl-grep version:", version)
 	}
 }

@@ -6,7 +6,7 @@ references:
       - image: circleci/golang:1.12
         environment:
           GO111MODULE: "on"
-    working_directory: /go/src/github.com/guessi/kubectl-search
+    working_directory: /go/src/github.com/guessi/kubectl-grep
 
   filter_tag_only: &filter_tag_only
     filters:
@@ -25,7 +25,7 @@ jobs:
           name: Setup Dependencies
           command: make dependency
       - save_cache:
-          key: v1-kubectl-search-{{ checksum "go.mod" }}-source
+          key: v1-kubectl-grep-{{ checksum "go.mod" }}-source
           paths:
             - /go/pkg/mod
   lint:
@@ -34,7 +34,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-kubectl-search-{{ checksum "go.mod" }}-source
+            - v1-kubectl-grep-{{ checksum "go.mod" }}-source
       - run:
           name: Setup Utilities
           command: make utilities
@@ -53,21 +53,21 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-kubectl-search-{{ checksum "go.mod" }}-source
+            - v1-kubectl-grep-{{ checksum "go.mod" }}-source
       - run:
           name: Build Code
           command: make
       - save_cache:
-          key: v1-kubectl-search-{{ .Environment.CIRCLE_SHA1 }}-workspace
+          key: v1-kubectl-grep-{{ .Environment.CIRCLE_SHA1 }}-workspace
           paths:
-            - /go/src/github.com/guessi/kubectl-search
+            - /go/src/github.com/guessi/kubectl-grep
   release:
     <<: *default_setup
     steps:
       - restore_cache:
           keys:
-            - v1-kubectl-search-{{ .Environment.CIRCLE_SHA1 }}-workspace
-            - v1-kubectl-search-{{ checksum "go.mod" }}-source
+            - v1-kubectl-grep-{{ .Environment.CIRCLE_SHA1 }}-workspace
+            - v1-kubectl-grep-{{ checksum "go.mod" }}-source
       - run:
           name: Release
           command: make release

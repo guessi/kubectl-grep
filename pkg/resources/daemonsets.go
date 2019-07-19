@@ -7,9 +7,9 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/guessi/kubectl-search/pkg/constants"
-	"github.com/guessi/kubectl-search/pkg/options"
-	"github.com/guessi/kubectl-search/pkg/utils"
+	"github.com/guessi/kubectl-grep/pkg/constants"
+	"github.com/guessi/kubectl-grep/pkg/options"
+	"github.com/guessi/kubectl-grep/pkg/utils"
 )
 
 // Daemonsets - a public function for searching daemonsets with keyword

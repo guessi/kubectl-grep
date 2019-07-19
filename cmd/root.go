@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/guessi/kubectl-search/pkg/options"
+	"github.com/guessi/kubectl-grep/pkg/options"
 )
 
 var (
@@ -14,7 +14,7 @@ var (
 	output             string
 	rootCmdDescription = `kubectl plugins for searching Kubernetes resources
 
-Find more information at: https://github.com/guessi/kubectl-search
+Find more information at: https://github.com/guessi/kubectl-grep
 	`
 )
 
@@ -23,7 +23,7 @@ var searchOptions = options.NewSearchOptions()
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "kubectl-search",
+	Use:   "kubectl-grep",
 	Short: "kubectl plugins for searching Kubernetes resources",
 	Long:  rootCmdDescription,
 }

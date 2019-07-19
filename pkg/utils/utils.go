@@ -12,8 +12,8 @@ import (
 	"k8s.io/apimachinery/pkg/util/duration"
 	"k8s.io/client-go/kubernetes"
 
-	"github.com/guessi/kubectl-search/pkg/client"
-	"github.com/guessi/kubectl-search/pkg/options"
+	"github.com/guessi/kubectl-grep/pkg/client"
+	"github.com/guessi/kubectl-grep/pkg/options"
 )
 
 var (

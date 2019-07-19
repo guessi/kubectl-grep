@@ -7,7 +7,7 @@ VERSION_SUFFIX := -dev
 
 COMMIT  := $(shell git describe --always)
 PKGS    := $(shell go list ./...)
-REPO    := github.com/guessi/kubectl-search
+REPO    := github.com/guessi/kubectl-grep
 VERSION := v$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)$(VERSION_SUFFIX)
 LDFLAGS := -s -w -X $(REPO)/cmd.version=$(VERSION)
 
@@ -29,18 +29,18 @@ dependency:
 
 build-linux:
 	@echo "Creating Build for Linux..."
-	@CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Linux-x86_64/kubectl-search
-	@tar zcf ./releases/$(VERSION)/kubectl-search-Linux-x86_64.tar.gz -C releases/$(VERSION)/Linux-x86_64 kubectl-search
+	@CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Linux-x86_64/kubectl-grep
+	@tar zcf ./releases/$(VERSION)/kubectl-grep-Linux-x86_64.tar.gz -C releases/$(VERSION)/Linux-x86_64 kubectl-grep
 
 build-darwin:
 	@echo "Creating Build for macOS..."
-	@CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Darwin-x86_64/kubectl-search
-	@tar zcf ./releases/$(VERSION)/kubectl-search-Darwin-x86_64.tar.gz -C releases/$(VERSION)/Darwin-x86_64 kubectl-search
+	@CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Darwin-x86_64/kubectl-grep
+	@tar zcf ./releases/$(VERSION)/kubectl-grep-Darwin-x86_64.tar.gz -C releases/$(VERSION)/Darwin-x86_64 kubectl-grep
 
 build-windows:
 	@echo "Creating Build for Windows..."
-	@CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Windows-x86_64/kubectl-search.exe
-	@tar zcf ./releases/$(VERSION)/kubectl-search-Windows-x86_64.tar.gz -C releases/$(VERSION)/Windows-x86_64 kubectl-search.exe
+	@CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Windows-x86_64/kubectl-grep.exe
+	@tar zcf ./releases/$(VERSION)/kubectl-grep-Windows-x86_64.tar.gz -C releases/$(VERSION)/Windows-x86_64 kubectl-grep.exe
 
 build: build-linux build-darwin build-windows
 
