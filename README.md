@@ -5,7 +5,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/guessi/kubectl-grep)](https://goreportcard.com/report/github.com/guessi/kubectl-grep)
 [![GitHub release](https://img.shields.io/github/release/guessi/kubectl-grep.svg)](https://github.com/guessi/kubectl-grep/releases/latest)
 
-simple kubernetes plugins for searching resources with keyword
+Filter Kubernetes resources by matching their names
 
 # Requirements
 
@@ -46,25 +46,19 @@ With this plugin installed, you can search pod with `kubectl grep` easily
     $ mv kubectl-grep /usr/local/bin
     $ chmod +x /usr/local/bin/kubectl-grep
 
-# Basic Usage
-
-    $ kubectl grep pods "keyword"
-
 # Examples
+
+List all pods in default namespace,
+
+    $ kubectl grep pods
 
 List all pods in all namespaces,
 
-    $ kubectl grep pods --all-namespaces
-    NAMESPACE     NAME                           READY   STATUS     RESTART   AGE
-    star-lab      the-flash-1563321660-bm225     1/1     Running    0         2d13h
-    marvel        spider-man-564d97dc9c-65mvw    1/1     Running    0         7d22h
-    dc            super-man-bb58c6784-26bmr      1/1     Running    0         1d3h
+    $ kubectl grep pods -A
 
 List all pods with specific keyword, under specific namespace,
 
     $ kubectl grep pods -n star-lab flash
-    NAMESPACE     NAME                           READY   STATUS     RESTART   AGE
-    star-lab      the-flash-1563321660-bm225     1/1     Running    0         2d13h
 
 # How to get developer build?
 

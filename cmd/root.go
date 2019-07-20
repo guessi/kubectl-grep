@@ -10,12 +10,24 @@ import (
 )
 
 var (
-	cfgFile            string
-	output             string
-	rootCmdDescription = `kubectl plugins for searching Kubernetes resources
+	cfgFile                 string
+	output                  string
+	rootCmdDescriptionShort = "Filter Kubernetes resources by matching their names"
+	rootCmdDescriptionLong  = `Filter Kubernetes resources by matching their names
 
-Find more information at: https://github.com/guessi/kubectl-grep
-	`
+More info: https://github.com/guessi/kubectl-grep
+`
+
+	rootCmdExamples = `
+List all pods in default namespace
+$ kubectl grep pods
+
+List all pods in all namespaces
+$ kubectl grep pods -A
+
+List all pods in namespace "start-lab" which contains keyword "flash"
+$ kubectl grep pods -n star-lab flash
+`
 )
 
 // generic search options handler
@@ -23,9 +35,10 @@ var searchOptions = options.NewSearchOptions()
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "kubectl-grep",
-	Short: "kubectl plugins for searching Kubernetes resources",
-	Long:  rootCmdDescription,
+	Use:     "kubectl-grep",
+	Short:   rootCmdDescriptionShort,
+	Long:    rootCmdDescriptionLong,
+	Example: rootCmdExamples,
 }
 
 func init() {
