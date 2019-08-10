@@ -1,7 +1,6 @@
 package client
 
 import (
-	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -16,29 +15,21 @@ import (
 // InitClient - Kubernetes Client
 func InitClient() *kubernetes.Clientset {
 	// determine which kubeconfig to use
-	var kubeconfig *string
-	var kubeconfigbase string
+	var kubeConfig string
 
 	if home := homeDir(); home != "" {
-		kubeconfigbase = filepath.Join(home, ".kube", "config")
+		kubeConfig = filepath.Join(home, ".kube", "config")
 	}
 
-	kubeconfig = flag.String(
-		"kubeconfig",
-		kubeconfigbase,
-		"(optional) absolute path to the kubeconfig file",
-	)
-	flag.Parse()
-
-	if _, err := os.Stat(*kubeconfig); err != nil {
-		fmt.Fprintf(os.Stderr, "Fatal: Unable to open %s\n", *kubeconfig)
+	if _, err := os.Stat(kubeConfig); err != nil {
+		fmt.Fprintf(os.Stderr, "Fatal: Unable to open %s\n", kubeConfig)
 		os.Exit(1)
 	}
 
 	// use the current context in kubeconfig
-	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
+	config, err := clientcmd.BuildConfigFromFlags("", kubeConfig)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Fatal: Unable to get config from %s\n", *kubeconfig)
+		fmt.Fprintf(os.Stderr, "Fatal: Unable to get config from %s\n", kubeConfig)
 		os.Exit(1)
 	}
 
