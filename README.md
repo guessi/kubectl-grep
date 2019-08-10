@@ -40,6 +40,12 @@ With this plugin installed, you can search pod with `kubectl grep` easily
 
 # Installation
 
+Installation via [krew](https://github.com/kubernetes-sigs/krew)
+
+    $ kubectl krew [install|upgrade] grep
+
+Manual Installation
+
     $ export KUBECTL_VERSION="v1.1.0"
     $ wget https://github.com/guessi/kubectl-grep/releases/download/${KUBECTL_VERSION}/kubectl-grep-`uname -s`-`uname -m`.tar.gz
     $ tar zxvf kubectl-grep-`uname -s`-`uname -m`.tar.gz
