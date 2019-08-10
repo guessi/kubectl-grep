@@ -2,6 +2,7 @@ package client
 
 import (
 	"flag"
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -30,19 +31,22 @@ func InitClient() *kubernetes.Clientset {
 	flag.Parse()
 
 	if _, err := os.Stat(*kubeconfig); err != nil {
-		panic(err.Error())
+		fmt.Fprintf(os.Stderr, "Fatal: Unable to open %s\n", *kubeconfig)
+		os.Exit(1)
 	}
 
 	// use the current context in kubeconfig
 	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
 	if err != nil {
-		panic(err.Error())
+		fmt.Fprintf(os.Stderr, "Fatal: Unable to get config from %s\n", *kubeconfig)
+		os.Exit(1)
 	}
 
 	// create the clientset
 	clientset, err := kubernetes.NewForConfig(config)
 	if err != nil {
-		panic(err.Error())
+		fmt.Fprintf(os.Stderr, "Fatal: Unable to get create client\n")
+		os.Exit(1)
 	}
 
 	return clientset
