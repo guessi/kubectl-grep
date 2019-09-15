@@ -10,48 +10,54 @@ import (
 var (
 	// daemonsetsCmd represents the pods command
 	daemonsetsCmd = &cobra.Command{
-		Use:   "daemonsets",
-		Short: "Search Daemonsets by keyword, by namespace",
+		Use:     "daemonsets",
+		Aliases: []string{"ds", "daemonset"},
+		Short:   "Search Daemonsets by keyword, by namespace (",
 		Run: func(cmd *cobra.Command, args []string) {
 			resourceSearch(args, "daemonsets")
 		},
 	}
 	// deploymentsCmd represents the pods command
 	deploymentsCmd = &cobra.Command{
-		Use:   "deployments",
-		Short: "Search Deployments by keyword, by namespace",
+		Use:     "deployments",
+		Aliases: []string{"deploy", "deployment"},
+		Short:   "Search Deployments by keyword, by namespace",
 		Run: func(cmd *cobra.Command, args []string) {
 			resourceSearch(args, "deployments")
 		},
 	}
 	// hpasCmd represents the hpas command
 	hpasCmd = &cobra.Command{
-		Use:   "hpas",
-		Short: "Search HPAs by keyword, by namespace",
+		Use:     "hpas",
+		Aliases: []string{"hpa"},
+		Short:   "Search HPAs by keyword, by namespace",
 		Run: func(cmd *cobra.Command, args []string) {
 			resourceSearch(args, "hpas")
 		},
 	}
 	// nodesCmd represents the nodes command
 	nodesCmd = &cobra.Command{
-		Use:   "nodes",
-		Short: "Search Nodes by keyword",
+		Use:     "nodes",
+		Aliases: []string{"no", "nodes"},
+		Short:   "Search Nodes by keyword",
 		Run: func(cmd *cobra.Command, args []string) {
 			resourceSearch(args, "nodes")
 		},
 	}
 	// podsCmd represents the pods command
 	podsCmd = &cobra.Command{
-		Use:   "pods",
-		Short: "Search Pods by keyword, by namespace",
+		Use:     "pods",
+		Aliases: []string{"po", "pod"},
+		Short:   "Search Pods by keyword, by namespace",
 		Run: func(cmd *cobra.Command, args []string) {
 			resourceSearch(args, "pods")
 		},
 	}
 	// statefulsetsCmd represents the statefulsets command
 	statefulsetsCmd = &cobra.Command{
-		Use:   "statefulsets",
-		Short: "Search Statefulsets by keyword, by namespace",
+		Use:     "statefulsets",
+		Aliases: []string{"sts", "statefulset"},
+		Short:   "Search Statefulsets by keyword, by namespace",
 		Run: func(cmd *cobra.Command, args []string) {
 			resourceSearch(args, "statefulsets")
 		},
