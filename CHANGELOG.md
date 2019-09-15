@@ -1,3 +1,19 @@
+# v1.2.0 / 2019-09-15
+
+* Upgrade to Kubernetes-1.15.3
+* Upgrade to Go 1.13.0
+* Added support for StatefulSets search
+* Added support for `-A` as the shortcut of `--all-namespaces`
+* Added support for install via `kubectl krew install grep`
+* Fixed `--help` not work for the root command
+* Support for command aliases:
+  - daemonsets, daemonset, ds
+  - deployments, deployment, deploy
+  - hpas, hpa
+  - nodes, node, no
+  - pods, pod, po
+  - statefulsets, stateful, sts
+
 # v1.1.0 / 2019-07-19
 
 * Upgrade to Kubernetes-1.15.1
