@@ -78,11 +78,7 @@ List all pods with specific keyword, under specific namespace,
 
 What kind of resource does current release supported?
 
-    now it support Nodes, Pods, Deployments, DaemonSets, and HPAs
-
-Is it possible to search StatefulSets, etc?
-
-    sure, but not yet supported, I need more time to write code, and tests
+    now it support Nodes, Pods, Deployments, DaemonSets, StatefulSets, and HPAs
 
 How do I check the tool's version?
 
