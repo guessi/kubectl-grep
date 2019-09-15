@@ -3,7 +3,7 @@ version: 2
 references:
   default_setup: &default_setup
     docker:
-      - image: circleci/golang:1.12
+      - image: circleci/golang:1.13
         environment:
           GO111MODULE: "on"
     working_directory: /go/src/github.com/guessi/kubectl-grep
