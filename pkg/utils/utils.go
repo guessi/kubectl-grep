@@ -104,6 +104,18 @@ func NodeList(opt *options.SearchOptions) *corev1.NodeList {
 	return list
 }
 
+// StatefulSetList - return a list of StatefulSets
+func StatefulSetList(opt *options.SearchOptions) *appsv1.StatefulSetList {
+	ns, o := setOptions(opt)
+	list, err := clientset.AppsV1().StatefulSets(ns).List(*o)
+	if err != nil {
+		log.WithFields(log.Fields{
+			"err": err.Error(),
+		}).Debug("Unable to get .StatefulSet List")
+	}
+	return list
+}
+
 // TrimQuoteAndSpace - remove Spaces, Tabs, SingleQuotes, DoubleQuites
 func TrimQuoteAndSpace(input string) string {
 	if len(input) >= 2 {

@@ -48,6 +48,14 @@ var (
 			resourceSearch(args, "pods")
 		},
 	}
+	// statefulsetsCmd represents the statefulsets command
+	statefulsetsCmd = &cobra.Command{
+		Use:   "statefulsets",
+		Short: "Search Statefulsets by keyword, by namespace",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "statefulsets")
+		},
+	}
 )
 
 func init() {
@@ -56,11 +64,13 @@ func init() {
 	rootCmd.AddCommand(hpasCmd)
 	rootCmd.AddCommand(nodesCmd)
 	rootCmd.AddCommand(podsCmd)
+	rootCmd.AddCommand(statefulsetsCmd)
 
 	daemonsetsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 	deploymentsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 	nodesCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 	podsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
+	statefulsetsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 }
 
 func resourceSearch(args []string, resourceType string) {
@@ -85,6 +95,9 @@ func resourceSearch(args []string, resourceType string) {
 		break
 	case "pods":
 		resources.Pods(searchOptions, keyword, output == "wide")
+		break
+	case "statefulsets":
+		resources.Statefulsets(searchOptions, keyword, output == "wide")
 		break
 	default:
 		break
