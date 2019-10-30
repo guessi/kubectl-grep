@@ -10,7 +10,6 @@ import (
 )
 
 var (
-	cfgFile                 string
 	output                  string
 	rootCmdDescriptionShort = "Filter Kubernetes resources by matching their names"
 	rootCmdDescriptionLong  = `Filter Kubernetes resources by matching their names
