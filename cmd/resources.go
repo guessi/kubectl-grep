@@ -89,22 +89,16 @@ func resourceSearch(args []string, resourceType string) {
 	switch resourceType {
 	case "daemonsets":
 		resources.Daemonsets(searchOptions, keyword, output == "wide")
-		break
 	case "deployments":
 		resources.Deployments(searchOptions, keyword, output == "wide")
-		break
 	case "hpas":
 		resources.Hpas(searchOptions, keyword)
-		break
 	case "nodes":
 		resources.Nodes(searchOptions, keyword, output == "wide")
-		break
 	case "pods":
 		resources.Pods(searchOptions, keyword, output == "wide")
-		break
 	case "statefulsets":
 		resources.Statefulsets(searchOptions, keyword, output == "wide")
-		break
 	default:
 		break
 	}
