@@ -3,7 +3,6 @@ package client
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
@@ -14,22 +13,12 @@ import (
 
 // InitClient - Kubernetes Client
 func InitClient() *kubernetes.Clientset {
-	// determine which kubeconfig to use
-	var kubeConfig string
-
-	if home := homeDir(); home != "" {
-		kubeConfig = filepath.Join(home, ".kube", "config")
-	}
-
-	if _, err := os.Stat(kubeConfig); err != nil {
-		fmt.Fprintf(os.Stderr, "Fatal: Unable to open %s\n", kubeConfig)
-		os.Exit(1)
-	}
-
-	// use the current context in kubeconfig
-	config, err := clientcmd.BuildConfigFromFlags("", kubeConfig)
+	kubeConfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
+		clientcmd.NewDefaultClientConfigLoadingRules(),
+		&clientcmd.ConfigOverrides{})
+	config, err := kubeConfig.ClientConfig()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Fatal: Unable to get config from %s\n", kubeConfig)
+		fmt.Fprintf(os.Stderr, "Fatal: Unable to get config\n")
 		os.Exit(1)
 	}
 
@@ -43,9 +32,3 @@ func InitClient() *kubernetes.Clientset {
 	return clientset
 }
 
-func homeDir() string {
-	if h := os.Getenv("HOME"); h != "" {
-		return h
-	}
-	return os.Getenv("USERPROFILE") // windows
-}
