@@ -31,4 +31,3 @@ func InitClient() *kubernetes.Clientset {
 
 	return clientset
 }
-
