@@ -10,33 +10,39 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/duration"
-	"k8s.io/client-go/kubernetes"
 
 	"github.com/guessi/kubectl-grep/pkg/client"
 	"github.com/guessi/kubectl-grep/pkg/options"
 )
 
 var (
-	clientset *kubernetes.Clientset
-)
-
-func init() {
 	clientset = client.InitClient()
-}
+)
 
 // setOptions - set common options for clientset
 func setOptions(opt *options.SearchOptions) (string, *metav1.ListOptions) {
-	var namespace string
-	if len(opt.Namespace) <= 0 {
-		namespace = "default"
-	} else {
-		namespace = opt.Namespace
-	}
+	// set default namespace as "default"
+	namespace := "default"
 
+	// override `namespace` if `--all-namespaces` exist
 	if opt.AllNamespaces {
 		namespace = ""
+	} else {
+		if len(opt.Namespace) > 0 {
+			namespace = opt.Namespace
+		} else {
+			ns, _, err := client.ClientConfig().Namespace()
+			if err != nil {
+				log.WithFields(log.Fields{
+					"err": err.Error(),
+				}).Debug("Failed to resolve namespace")
+			} else {
+				namespace = ns
+			}
+		}
 	}
 
+	// retrieve listOptions from meta
 	listOptions := &metav1.ListOptions{
 		LabelSelector: opt.Selector,
 		FieldSelector: opt.FieldSelector,
