@@ -11,12 +11,17 @@ import (
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 )
 
-// InitClient - Kubernetes Client
-func InitClient() *kubernetes.Clientset {
-	kubeConfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
+// ClientConfig
+func ClientConfig() clientcmd.ClientConfig {
+	return clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
 		clientcmd.NewDefaultClientConfigLoadingRules(),
 		&clientcmd.ConfigOverrides{})
-	config, err := kubeConfig.ClientConfig()
+}
+
+// InitClient - Kubernetes Client
+func InitClient() *kubernetes.Clientset {
+	clientConfig := ClientConfig()
+	config, err := clientConfig.ClientConfig()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Fatal: Unable to get config\n")
 		os.Exit(1)
