@@ -1,3 +1,9 @@
+# v1.2.1 / 2019-11-15
+
+* Upgrade to Kubernetes-1.15.6
+* Fix KUBECONFIG not working issue, @tsaarni thanks ([#14](https://github.com/guessi/kubectl-grep/pull/14))
+* Fix namespace not respect the setting from KUBECONFIG, reported by @fredleger ([#13](https://github.com/guessi/kubectl-grep/issues/13), [#15](https://github.com/guessi/kubectl-grep/pull/15))
+
 # v1.2.0 / 2019-09-15
 
 * Upgrade to Kubernetes-1.15.3
