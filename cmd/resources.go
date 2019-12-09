@@ -12,7 +12,7 @@ var (
 	daemonsetsCmd = &cobra.Command{
 		Use:     "daemonsets",
 		Aliases: []string{"ds", "daemonset"},
-		Short:   "Search Daemonsets by keyword, by namespace (",
+		Short:   "Search Daemonsets by keyword, by namespace",
 		Run: func(cmd *cobra.Command, args []string) {
 			resourceSearch(args, "daemonsets")
 		},
