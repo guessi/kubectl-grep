@@ -1,3 +1,7 @@
+# v1.2.2 / 2019-12-09
+
+* Release with LICENSE, resolved [#16](https://github.com/guessi/kubectl-grep/issues/16)
+
 # v1.2.1 / 2019-11-15
 
 * Upgrade to Kubernetes-1.15.6
