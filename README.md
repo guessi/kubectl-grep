@@ -46,9 +46,9 @@ Installation via [krew](https://github.com/kubernetes-sigs/krew)
 
 Manual Installation
 
-    $ export KUBECTL_VERSION="v1.2.2"
-    $ wget https://github.com/guessi/kubectl-grep/releases/download/${KUBECTL_VERSION}/kubectl-grep-`uname -s`-`uname -m`.tar.gz
-    $ tar zxvf kubectl-grep-`uname -s`-`uname -m`.tar.gz
+    $ export KUBECTL_GREP_VERSION=$(curl -s https://api.github.com/repos/guessi/kubectl-grep/releases/latest | jq -r .tag_name)
+    $ curl -L -O https://github.com/guessi/kubectl-grep/releases/download/${KUBECTL_GREP_VERSION}/kubectl-grep-$(uname -s)-$(uname -m).tar.gz
+    $ tar zxvf kubectl-grep-$(uname -s)-$(uname -m).tar.gz
     $ mv kubectl-grep /usr/local/bin
     $ chmod +x /usr/local/bin/kubectl-grep
 
