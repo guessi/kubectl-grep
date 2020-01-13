@@ -1,3 +1,11 @@
+# v1.2.3 / 2020-01-13
+
+* Upgrade to Kubernetes-1.16.4
+* Added support for ConfigMaps search, with command aliases:
+  - configmaps, configmap, cm
+* Added support for Secrets search, with command aliases:
+  - secrets, secret
+
 # v1.2.2 / 2019-12-09
 
 * Release with LICENSE, resolved [#16](https://github.com/guessi/kubectl-grep/issues/16)
