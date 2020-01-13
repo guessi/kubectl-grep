@@ -13,6 +13,7 @@ const (
 	StatefulsetHeader     = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tAGE"
 	StatefulsetHeaderWide = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tAGE\tCONTAINERS\tIMAGES"
 	ConfigMapHeader       = "NAMESPACE\tNAME\tDATA\tAGE"
+	SecretHeader          = "NAMESPACE\tNAME\tTYPE\tDATA\tAGE"
 
 	DaemonsetRowTemplate       = "%s\t%s\t%d\t%d\t%d\t%d\t%s\t%s"
 	DaemonsetRowTemplateWide   = "%s\t%s\t%d\t%d\t%d\t%d\t%s\t%s\t%s\t%s\t%s"
@@ -26,4 +27,5 @@ const (
 	StatefulsetRowTemplate     = "%s\t%s\t%d\t%d\t%s"
 	StatefulsetRowTemplateWide = "%s\t%s\t%d\t%d\t%s\t%s\t%s"
 	ConfigMapRowTemplate       = "%s\t%s\t%d\t%s"
+	SecretRowTemplate          = "%s\t%s\t%s\t%d\t%s"
 )

@@ -122,6 +122,18 @@ func ConfigMapList(opt *options.SearchOptions) *corev1.ConfigMapList {
 	return list
 }
 
+// SecretList - return a list of Secret(s)
+func SecretList(opt *options.SearchOptions) *corev1.SecretList {
+	ns, o := setOptions(opt)
+	list, err := clientset.CoreV1().Secrets(ns).List(*o)
+	if err != nil {
+		log.WithFields(log.Fields{
+			"err": err.Error(),
+		}).Debug("Unable to get Secret List")
+	}
+	return list
+}
+
 // StatefulSetList - return a list of StatefulSets
 func StatefulSetList(opt *options.SearchOptions) *appsv1.StatefulSetList {
 	ns, o := setOptions(opt)
