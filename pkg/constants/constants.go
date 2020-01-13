@@ -12,6 +12,7 @@ const (
 	PodHeaderWide         = "NAMESPACE\tNAME\tREADY\tSTATUS\tRESTART\tAGE\tIP\tNODENAME"
 	StatefulsetHeader     = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tAGE"
 	StatefulsetHeaderWide = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tAGE\tCONTAINERS\tIMAGES"
+	ConfigMapHeader       = "NAMESPACE\tNAME\tDATA\tAGE"
 
 	DaemonsetRowTemplate       = "%s\t%s\t%d\t%d\t%d\t%d\t%s\t%s"
 	DaemonsetRowTemplateWide   = "%s\t%s\t%d\t%d\t%d\t%d\t%s\t%s\t%s\t%s\t%s"
@@ -24,4 +25,5 @@ const (
 	PodRowTemplateWide         = "%s\t%s\t%d/%d\t%s\t%d\t%s\t%s\t%s"
 	StatefulsetRowTemplate     = "%s\t%s\t%d\t%d\t%s"
 	StatefulsetRowTemplateWide = "%s\t%s\t%d\t%d\t%s\t%s\t%s"
+	ConfigMapRowTemplate       = "%s\t%s\t%d\t%s"
 )

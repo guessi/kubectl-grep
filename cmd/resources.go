@@ -53,6 +53,15 @@ var (
 			resourceSearch(args, "pods")
 		},
 	}
+	// configmapsCmd represents the configmaps command
+	configmapsCmd = &cobra.Command{
+		Use:     "configmaps",
+		Aliases: []string{"cm", "configmap"},
+		Short:   "Search ConfigMaps by keyword, by namespace",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "configmaps")
+		},
+	}
 	// statefulsetsCmd represents the statefulsets command
 	statefulsetsCmd = &cobra.Command{
 		Use:     "statefulsets",
@@ -70,6 +79,7 @@ func init() {
 	rootCmd.AddCommand(hpasCmd)
 	rootCmd.AddCommand(nodesCmd)
 	rootCmd.AddCommand(podsCmd)
+	rootCmd.AddCommand(configmapsCmd)
 	rootCmd.AddCommand(statefulsetsCmd)
 
 	daemonsetsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
@@ -97,6 +107,8 @@ func resourceSearch(args []string, resourceType string) {
 		resources.Nodes(searchOptions, keyword, output == "wide")
 	case "pods":
 		resources.Pods(searchOptions, keyword, output == "wide")
+	case "configmaps":
+		resources.ConfigMaps(searchOptions, keyword)
 	case "statefulsets":
 		resources.Statefulsets(searchOptions, keyword, output == "wide")
 	default:

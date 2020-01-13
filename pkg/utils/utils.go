@@ -110,6 +110,18 @@ func NodeList(opt *options.SearchOptions) *corev1.NodeList {
 	return list
 }
 
+// ConfigMapList - return a list of ConfigMap(s)
+func ConfigMapList(opt *options.SearchOptions) *corev1.ConfigMapList {
+	ns, o := setOptions(opt)
+	list, err := clientset.CoreV1().ConfigMaps(ns).List(*o)
+	if err != nil {
+		log.WithFields(log.Fields{
+			"err": err.Error(),
+		}).Debug("Unable to get ConfigMap List")
+	}
+	return list
+}
+
 // StatefulSetList - return a list of StatefulSets
 func StatefulSetList(opt *options.SearchOptions) *appsv1.StatefulSetList {
 	ns, o := setOptions(opt)
