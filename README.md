@@ -1,4 +1,4 @@
-# Kubectl Grep (Formerly Known as Kubectl-Search)
+# Kubectl Grep
 
 [![CircleCI](https://circleci.com/gh/guessi/kubectl-grep.svg?style=svg)](https://circleci.com/gh/guessi/kubectl-grep)
 [![GoDoc](https://godoc.org/github.com/guessi/kubectl-grep?status.svg)](https://godoc.org/github.com/guessi/kubectl-grep)
@@ -18,7 +18,7 @@ playing with Kubernetes is my daily job, and I normally search pods by `pipe`,
 `grep`, `--label`, `--field-selector`, etc. while hunting abnormal pods, but
 typing such long commands are quite annoyed.
 
-Before change, we usually search pods by the following commands,
+Before change, we usually filter pods by the following commands,
 
     $ kubectl get pods                           | grep "keyword"
     $ kubectl get pods -o wide                   | grep "keyword"
@@ -28,7 +28,7 @@ Before change, we usually search pods by the following commands,
     $ kubectl get pods -l "key=value" -n "my-ns" | grep "keyword"
     $ kubectl get pods -l "key=value" -A         | grep "keyword"
 
-With this plugin installed, you can search pod with `kubectl grep` easily
+With this plugin installed, you can filter pod with `kubectl grep` easily
 
     $ kubectl grep pods "keyword"
     $ kubectl grep pods "keyword" -o wide
