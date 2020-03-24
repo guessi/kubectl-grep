@@ -1,3 +1,7 @@
+# v1.2.4 / 2020-03-25
+
+* Upgrade to Kubernetes-1.16.8
+
 # v1.2.3 / 2020-01-13
 
 * Upgrade to Kubernetes-1.16.4
