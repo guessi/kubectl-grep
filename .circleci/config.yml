@@ -4,8 +4,6 @@ references:
   default_setup: &default_setup
     docker:
       - image: circleci/golang:1.13
-        environment:
-          GO111MODULE: "on"
     working_directory: /go/src/github.com/guessi/kubectl-grep
 
   filter_tag_only: &filter_tag_only
@@ -41,6 +39,7 @@ jobs:
       - run:
           name: Run tests
           command: |
+            go version
             go fmt ./...
             go vet ./...
             # go test -v ./...

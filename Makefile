@@ -11,8 +11,6 @@ REPO    := github.com/guessi/kubectl-grep
 VERSION := v$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)$(VERSION_SUFFIX)
 LDFLAGS := -s -w -X $(REPO)/cmd.version=$(VERSION)
 
-export GO111MODULE=on
-
 default: build
 
 utilities:
