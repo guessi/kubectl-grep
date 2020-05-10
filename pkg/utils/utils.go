@@ -16,10 +16,6 @@ import (
 	"github.com/guessi/kubectl-grep/pkg/options"
 )
 
-var (
-	clientset = client.InitClient()
-)
-
 // setOptions - set common options for clientset
 func setOptions(opt *options.SearchOptions) (string, *metav1.ListOptions) {
 	// set default namespace as "default"
@@ -53,6 +49,7 @@ func setOptions(opt *options.SearchOptions) (string, *metav1.ListOptions) {
 
 // DaemonsetList - return a list of DaemonSet(s)
 func DaemonsetList(opt *options.SearchOptions) *appsv1.DaemonSetList {
+	clientset := client.InitClient()
 	ns, o := setOptions(opt)
 	list, err := clientset.AppsV1().DaemonSets(ns).List(context.TODO(), *o)
 	if err != nil {
@@ -65,6 +62,7 @@ func DaemonsetList(opt *options.SearchOptions) *appsv1.DaemonSetList {
 
 // DeploymentList - return a list of Deployment(s)
 func DeploymentList(opt *options.SearchOptions) *appsv1.DeploymentList {
+	clientset := client.InitClient()
 	ns, o := setOptions(opt)
 	list, err := clientset.AppsV1().Deployments(ns).List(context.TODO(), *o)
 	if err != nil {
@@ -77,6 +75,7 @@ func DeploymentList(opt *options.SearchOptions) *appsv1.DeploymentList {
 
 // HpaList - return a list of HPA(s)
 func HpaList(opt *options.SearchOptions) *autoscalingv1.HorizontalPodAutoscalerList {
+	clientset := client.InitClient()
 	ns, o := setOptions(opt)
 	list, err := clientset.AutoscalingV1().HorizontalPodAutoscalers(ns).List(context.TODO(), *o)
 	if err != nil {
@@ -89,6 +88,7 @@ func HpaList(opt *options.SearchOptions) *autoscalingv1.HorizontalPodAutoscalerL
 
 // PodList - return a list of Pod(s)
 func PodList(opt *options.SearchOptions) *corev1.PodList {
+	clientset := client.InitClient()
 	ns, o := setOptions(opt)
 	list, err := clientset.CoreV1().Pods(ns).List(context.TODO(), *o)
 	if err != nil {
@@ -101,6 +101,7 @@ func PodList(opt *options.SearchOptions) *corev1.PodList {
 
 // NodeList - return a list of Node(s)
 func NodeList(opt *options.SearchOptions) *corev1.NodeList {
+	clientset := client.InitClient()
 	_, o := setOptions(opt)
 	list, err := clientset.CoreV1().Nodes().List(context.TODO(), *o)
 	if err != nil {
@@ -113,6 +114,7 @@ func NodeList(opt *options.SearchOptions) *corev1.NodeList {
 
 // ConfigMapList - return a list of ConfigMap(s)
 func ConfigMapList(opt *options.SearchOptions) *corev1.ConfigMapList {
+	clientset := client.InitClient()
 	ns, o := setOptions(opt)
 	list, err := clientset.CoreV1().ConfigMaps(ns).List(context.TODO(), *o)
 	if err != nil {
@@ -125,6 +127,7 @@ func ConfigMapList(opt *options.SearchOptions) *corev1.ConfigMapList {
 
 // SecretList - return a list of Secret(s)
 func SecretList(opt *options.SearchOptions) *corev1.SecretList {
+	clientset := client.InitClient()
 	ns, o := setOptions(opt)
 	list, err := clientset.CoreV1().Secrets(ns).List(context.TODO(), *o)
 	if err != nil {
@@ -137,6 +140,7 @@ func SecretList(opt *options.SearchOptions) *corev1.SecretList {
 
 // StatefulSetList - return a list of StatefulSets
 func StatefulSetList(opt *options.SearchOptions) *appsv1.StatefulSetList {
+	clientset := client.InitClient()
 	ns, o := setOptions(opt)
 	list, err := clientset.AppsV1().StatefulSets(ns).List(context.TODO(), *o)
 	if err != nil {
