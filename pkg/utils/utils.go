@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"context"
 	"strings"
 	"time"
 
@@ -53,7 +54,7 @@ func setOptions(opt *options.SearchOptions) (string, *metav1.ListOptions) {
 // DaemonsetList - return a list of DaemonSet(s)
 func DaemonsetList(opt *options.SearchOptions) *appsv1.DaemonSetList {
 	ns, o := setOptions(opt)
-	list, err := clientset.AppsV1().DaemonSets(ns).List(*o)
+	list, err := clientset.AppsV1().DaemonSets(ns).List(context.TODO(), *o)
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
@@ -65,7 +66,7 @@ func DaemonsetList(opt *options.SearchOptions) *appsv1.DaemonSetList {
 // DeploymentList - return a list of Deployment(s)
 func DeploymentList(opt *options.SearchOptions) *appsv1.DeploymentList {
 	ns, o := setOptions(opt)
-	list, err := clientset.AppsV1().Deployments(ns).List(*o)
+	list, err := clientset.AppsV1().Deployments(ns).List(context.TODO(), *o)
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
@@ -77,7 +78,7 @@ func DeploymentList(opt *options.SearchOptions) *appsv1.DeploymentList {
 // HpaList - return a list of HPA(s)
 func HpaList(opt *options.SearchOptions) *autoscalingv1.HorizontalPodAutoscalerList {
 	ns, o := setOptions(opt)
-	list, err := clientset.AutoscalingV1().HorizontalPodAutoscalers(ns).List(*o)
+	list, err := clientset.AutoscalingV1().HorizontalPodAutoscalers(ns).List(context.TODO(), *o)
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
@@ -89,7 +90,7 @@ func HpaList(opt *options.SearchOptions) *autoscalingv1.HorizontalPodAutoscalerL
 // PodList - return a list of Pod(s)
 func PodList(opt *options.SearchOptions) *corev1.PodList {
 	ns, o := setOptions(opt)
-	list, err := clientset.CoreV1().Pods(ns).List(*o)
+	list, err := clientset.CoreV1().Pods(ns).List(context.TODO(), *o)
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
@@ -101,7 +102,7 @@ func PodList(opt *options.SearchOptions) *corev1.PodList {
 // NodeList - return a list of Node(s)
 func NodeList(opt *options.SearchOptions) *corev1.NodeList {
 	_, o := setOptions(opt)
-	list, err := clientset.CoreV1().Nodes().List(*o)
+	list, err := clientset.CoreV1().Nodes().List(context.TODO(), *o)
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
@@ -113,7 +114,7 @@ func NodeList(opt *options.SearchOptions) *corev1.NodeList {
 // ConfigMapList - return a list of ConfigMap(s)
 func ConfigMapList(opt *options.SearchOptions) *corev1.ConfigMapList {
 	ns, o := setOptions(opt)
-	list, err := clientset.CoreV1().ConfigMaps(ns).List(*o)
+	list, err := clientset.CoreV1().ConfigMaps(ns).List(context.TODO(), *o)
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
@@ -125,7 +126,7 @@ func ConfigMapList(opt *options.SearchOptions) *corev1.ConfigMapList {
 // SecretList - return a list of Secret(s)
 func SecretList(opt *options.SearchOptions) *corev1.SecretList {
 	ns, o := setOptions(opt)
-	list, err := clientset.CoreV1().Secrets(ns).List(*o)
+	list, err := clientset.CoreV1().Secrets(ns).List(context.TODO(), *o)
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
@@ -137,7 +138,7 @@ func SecretList(opt *options.SearchOptions) *corev1.SecretList {
 // StatefulSetList - return a list of StatefulSets
 func StatefulSetList(opt *options.SearchOptions) *appsv1.StatefulSetList {
 	ns, o := setOptions(opt)
-	list, err := clientset.AppsV1().StatefulSets(ns).List(*o)
+	list, err := clientset.AppsV1().StatefulSets(ns).List(context.TODO(), *o)
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
