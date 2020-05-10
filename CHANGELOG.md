@@ -1,3 +1,8 @@
+# v1.2.5 / 2020-05-11
+
+* Upgrade to Kubernetes-1.18.2
+* Fix logic error for client init process
+
 # v1.2.4 / 2020-03-25
 
 * Upgrade to Kubernetes-1.16.8
