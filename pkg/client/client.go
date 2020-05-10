@@ -23,16 +23,9 @@ func InitClient() *kubernetes.Clientset {
 	clientConfig := ClientConfig()
 	config, err := clientConfig.ClientConfig()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Fatal: Unable to get config\n")
+		fmt.Fprintf(os.Stderr, err.Error())
 		os.Exit(1)
 	}
 
-	// create the clientset
-	clientset, err := kubernetes.NewForConfig(config)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Fatal: Unable to get create client\n")
-		os.Exit(1)
-	}
-
-	return clientset
+	return kubernetes.NewForConfigOrDie(config)
 }
