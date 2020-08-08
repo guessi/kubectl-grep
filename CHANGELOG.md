@@ -1,3 +1,11 @@
+# v1.2.6 / 2020-08-08
+
+* Upgrade to Go 1.14
+* Upgrade to Kubernetes-1.18.6
+* Upgrade dependencies:
+  - spf13/cobra v1.0.0
+  - sirupsen/logrus v1.6.0
+
 # v1.2.5 / 2020-05-11
 
 * Upgrade to Kubernetes-1.18.2
