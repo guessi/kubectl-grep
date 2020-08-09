@@ -3,7 +3,7 @@ version: 2
 references:
   default_setup: &default_setup
     docker:
-      - image: circleci/golang:1.13
+      - image: circleci/golang:1.14
     working_directory: /go/src/github.com/guessi/kubectl-grep
 
   filter_tag_only: &filter_tag_only
