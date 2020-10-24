@@ -16,6 +16,7 @@ Filter Kubernetes resources by matching their names
 
 - Kubernetes 1.10.0+
 - Kubectl 1.13.0+
+- Krew 0.4.0+
 
 # Compatibility
 
@@ -51,9 +52,11 @@ With this plugin installed, you can filter pod with `kubectl grep` easily
 
 # Installation
 
-Installation via [krew](https://github.com/kubernetes-sigs/krew)
+Installation via [krew](https://krew.sigs.k8s.io/docs/user-guide/setup/install/)
 
-    $ kubectl krew [install|upgrade] grep
+    $ kubectl krew version # make sure you are running 0.4.0+
+    $ kubectl krew install grep
+    $ kubectl krew upgrade
 
 Manual Installation
 
