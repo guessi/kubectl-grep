@@ -1,3 +1,13 @@
+# v1.2.7 / 2020-10-25
+
+* Added support for the following resources
+  - Jobs
+  - Ingresses
+* Upgrade to Kubernetes-1.18.10
+* Upgrade dependencies:
+  - spf13/cobra v1.1.1
+  - sirupsen/logrus v1.7.0
+
 # v1.2.6 / 2020-08-08
 
 * Upgrade to Go 1.14
