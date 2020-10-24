@@ -50,6 +50,19 @@ With this plugin installed, you can filter pod with `kubectl grep` easily
     $ kubectl grep pods "keyword" -l "key=value" -n "my-ns"
     $ kubectl grep pods "keyword" -l "key=value" -A
 
+# Supported Resources
+
+- [X] ConfigMaps
+- [X] DaemonSets
+- [X] Deployments
+- [X] HPAs
+- [X] Ingresses
+- [X] Jobs
+- [X] Nodes
+- [X] Pods
+- [X] Secrets
+- [X] StatefulSets
+
 # Installation
 
 Installation via [krew](https://krew.sigs.k8s.io/docs/user-guide/setup/install/)
@@ -89,10 +102,6 @@ List all pods with specific keyword, under specific namespace,
     $ make all
 
 # FAQ
-
-What kind of resource does current release supported?
-
-    now it support Nodes, Pods, Deployments, DaemonSets, StatefulSets, ConfigMaps, Secrets, HPAs, Ingresses, Jobs, ...
 
 How do I check the tool's version?
 
