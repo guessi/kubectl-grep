@@ -80,6 +80,24 @@ var (
 			resourceSearch(args, "statefulsets")
 		},
 	}
+	// ingressesCmd represents the ingresses command
+	ingressesCmd = &cobra.Command{
+		Use:     "ingresses",
+		Aliases: []string{"ing", "ingress"},
+		Short:   "Search Ingresses by keyword, by namespace",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "ingresses")
+		},
+	}
+	// jobsCmd represents the jobs command
+	jobsCmd = &cobra.Command{
+		Use:     "jobs",
+		Aliases: []string{"job"},
+		Short:   "Search Jobs by keyword, by namespace",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "jobs")
+		},
+	}
 )
 
 func init() {
@@ -91,6 +109,8 @@ func init() {
 	rootCmd.AddCommand(configmapsCmd)
 	rootCmd.AddCommand(secretsCmd)
 	rootCmd.AddCommand(statefulsetsCmd)
+	rootCmd.AddCommand(ingressesCmd)
+	rootCmd.AddCommand(jobsCmd)
 
 	daemonsetsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 	deploymentsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
@@ -123,6 +143,10 @@ func resourceSearch(args []string, resourceType string) {
 		resources.Secrets(searchOptions, keyword)
 	case "statefulsets":
 		resources.Statefulsets(searchOptions, keyword, output == "wide")
+	case "ingresses":
+		resources.Ingresses(searchOptions, keyword)
+	case "jobs":
+		resources.Jobs(searchOptions, keyword)
 	default:
 		break
 	}
