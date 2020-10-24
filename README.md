@@ -4,6 +4,11 @@
 [![GoDoc](https://godoc.org/github.com/guessi/kubectl-grep?status.svg)](https://godoc.org/github.com/guessi/kubectl-grep)
 [![Go Report Card](https://goreportcard.com/badge/github.com/guessi/kubectl-grep)](https://goreportcard.com/report/github.com/guessi/kubectl-grep)
 [![GitHub release](https://img.shields.io/github/release/guessi/kubectl-grep.svg)](https://github.com/guessi/kubectl-grep/releases/latest)
+[![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/guessi/kubectl-grep)](https://github.com/guessi/kubectl-grep/blob/master/go.mod)
+
+[![GitHub watchers](https://img.shields.io/github/watchers/guessi/kubectl-grep?style=social)](https://github.com/guessi/kubectl-grep/watchers)
+[![GitHub Repo stars](https://img.shields.io/github/stars/guessi/kubectl-grep?style=social)](https://github.com/guessi/kubectl-grep/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/guessi/kubectl-grep?style=social)](https://github.com/guessi/kubectl-grep/network/members)
 
 Filter Kubernetes resources by matching their names
 
