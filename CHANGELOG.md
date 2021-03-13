@@ -1,3 +1,12 @@
+# v1.3.0 / 2021-03-15
+
+* Drop support for Kubernetes 1.16 or earlier
+* Upgrade to Kubernetes-1.20.4
+* Upgrade dependencies:
+  - spf13/cobra v1.1.3
+  - sirupsen/logrus v1.8.1
+* Build with go 1.15
+
 # v1.2.7 / 2020-10-25
 
 * Added support for the following resources
