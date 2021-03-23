@@ -1,3 +1,7 @@
+# v1.3.1 / 2021-03-24
+
+* Introduce krew-release-bot for release automation
+
 # v1.3.0 / 2021-03-15
 
 * Drop support for Kubernetes 1.16 or earlier

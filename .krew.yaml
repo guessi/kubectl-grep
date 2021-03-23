@@ -1,0 +1,54 @@
+apiVersion: krew.googlecontainertools.github.com/v1alpha2
+kind: Plugin
+metadata:
+  name: grep
+spec:
+  platforms:
+  - {{addURIAndSha "https://github.com/guessi/kubectl-grep/releases/download/{{ .TagName }}/kubectl-grep-Darwin-x86_64.tar.gz" .TagName }}
+    bin: kubectl-grep
+    files:
+    - from: kubectl-grep
+      to: .
+    - from: LICENSE
+      to: .
+    selector:
+      matchLabels:
+        os: darwin
+        arch: amd64
+  - {{addURIAndSha "https://github.com/guessi/kubectl-grep/releases/download/{{ .TagName }}/kubectl-grep-Linux-x86_64.tar.gz" .TagName }}
+    bin: kubectl-grep
+    files:
+    - from: kubectl-grep
+      to: .
+    - from: LICENSE
+      to: .
+    selector:
+      matchLabels:
+        os: linux
+        arch: amd64
+  - {{addURIAndSha "https://github.com/guessi/kubectl-grep/releases/download/{{ .TagName }}/kubectl-grep-Windows-x86_64.tar.gz" .TagName }}
+    bin: kubectl-grep.exe
+    files:
+    - from: kubectl-grep.exe
+      to: .
+    - from: LICENSE.txt
+      to: .
+    selector:
+      matchLabels:
+        os: windows
+        arch: amd64
+  version: {{ .TagName }}
+  homepage: https://github.com/guessi/kubectl-grep
+  shortDescription: Filter Kubernetes resources by matching their names
+  description: |
+    Filter Kubernetes resources by matching their names
+
+    Examples:
+
+    List all pods in all namespaces
+    $ kubectl grep pods --all-namespaces
+
+    List all pods in namespace "star-lab" which contain the keyword "flash"
+    $ kubectl grep pods -n star-lab flash
+
+    No more pipe, built-in grep :-)

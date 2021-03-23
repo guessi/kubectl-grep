@@ -70,6 +70,12 @@ jobs:
       - run:
           name: Release
           command: make release
+      - run:
+          name: Krew Release Bot
+          command: |
+            curl -LO https://github.com/rajatjindal/krew-release-bot/releases/download/v0.0.39/krew-release-bot_v0.0.39_linux_amd64.tar.gz
+            tar -xvf krew-release-bot_v0.0.39_linux_amd64.tar.gz
+            ./krew-release-bot action
 
 workflows:
   version: 2
