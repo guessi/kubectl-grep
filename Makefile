@@ -52,7 +52,7 @@ clean:
 release:
 	@echo "Creating Releases..."
 	go get -u github.com/tcnksm/ghr
-	ghr -t ${GITHUB_TOKEN} $(VERSION) releases/$(VERSION)/
+	ghr --replace --recreate -t ${GITHUB_TOKEN} $(VERSION) releases/$(VERSION)/
 	sha1sum releases/$(VERSION)/*.tar.gz > releases/$(VERSION)/SHA1SUM
 
 all: utilities lint dependency clean build
