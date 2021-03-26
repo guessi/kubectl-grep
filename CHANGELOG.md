@@ -1,3 +1,7 @@
+# v1.3.2 / 2021-03-26
+
+* NO CHANGE, to fix incorrect sha256sum on krew-index
+
 # v1.3.1 / 2021-03-24
 
 * Introduce krew-release-bot for release automation
