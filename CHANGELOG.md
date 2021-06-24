@@ -1,3 +1,8 @@
+# v1.3.3 / 2021-06-25
+
+* Upgrade to Kubernetes-1.20.8
+* Bump golang.org/x/crypto for CVE-2020-29652
+
 # v1.3.2 / 2021-03-26
 
 * NO CHANGE, to fix incorrect sha256sum on krew-index
