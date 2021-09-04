@@ -1,3 +1,8 @@
+# v1.4.0 / 2021-09-04
+
+* Upgrade to Kubernetes-1.21.4
+* Build with go 1.16
+
 # v1.3.3 / 2021-06-25
 
 * Upgrade to Kubernetes-1.20.8
