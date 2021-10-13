@@ -127,6 +127,7 @@ func init() {
 	nodesCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 	podsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 	statefulsetsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
+	servicesCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 }
 
 func resourceSearch(args []string, resourceType string) {
@@ -158,7 +159,7 @@ func resourceSearch(args []string, resourceType string) {
 	case "jobs":
 		resources.Jobs(searchOptions, keyword)
 	case "services":
-		resources.Services(searchOptions, keyword)
+		resources.Services(searchOptions, keyword, output == "wide")
 	default:
 		break
 	}
