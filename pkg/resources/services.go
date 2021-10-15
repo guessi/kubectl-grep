@@ -41,11 +41,11 @@ func Services(opt *options.SearchOptions, keyword string, wide bool) {
 		for _, p := range s.Spec.Ports {
 			var concatenated string
 			if p.NodePort != 0 {
-				concatenated = fmt.Sprintf("%d:%d/%s", p.Port ,p.NodePort , p.Protocol)
+				concatenated = fmt.Sprintf("%d:%d/%s", p.Port, p.NodePort, p.Protocol)
 			} else {
-				concatenated = fmt.Sprintf("%d/%s", p.Port , p.Protocol)
+				concatenated = fmt.Sprintf("%d/%s", p.Port, p.Protocol)
 			}
-			ports = append(ports, concatenated )
+			ports = append(ports, concatenated)
 		}
 
 		var selectors []string
@@ -79,7 +79,7 @@ func Services(opt *options.SearchOptions, keyword string, wide bool) {
 				age,
 				selectorOutput,
 			)
-		 } else {
+		} else {
 			serviceInfo = fmt.Sprintf(constants.ServicesRowTemplate,
 				s.Namespace,
 				s.Name,
