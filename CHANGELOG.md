@@ -1,3 +1,9 @@
+# v1.4.1 / 2021-10-16
+
+* Added support for the following resources
+  - Services, thanks to @wshihadeh
+* Upgrade to Kubernetes-1.21.5
+
 # v1.4.0 / 2021-09-04
 
 * Upgrade to Kubernetes-1.21.4
