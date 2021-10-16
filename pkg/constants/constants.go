@@ -16,6 +16,8 @@ const (
 	SecretHeader          = "NAMESPACE\tNAME\tTYPE\tDATA\tAGE"
 	IngressHeader         = "NAMESPACE\tNAME\tCLASS\tHOSTS\tADDRESS\tPORTS\tAGE"
 	JobsHeader            = "NAMESPACE\tNAME\tCOMPLETIONS\tDURATION\tAGE"
+	ServicesHeader        = "NAMESPACE\tNAME\tTYPE\tCLUSTER-IP\tEXTERNAL-IP\tPORT(S)\tAGE"
+	ServicesHeaderWide    = "NAMESPACE\tNAME\tTYPE\tCLUSTER-IP\tEXTERNAL-IP\tPORT(S)\tAGE\tSELECTOR"
 
 	DaemonsetRowTemplate       = "%s\t%s\t%d\t%d\t%d\t%d\t%s\t%s"
 	DaemonsetRowTemplateWide   = "%s\t%s\t%d\t%d\t%d\t%d\t%s\t%s\t%s\t%s\t%s"
@@ -32,4 +34,6 @@ const (
 	SecretRowTemplate          = "%s\t%s\t%s\t%d\t%s"
 	IngressRowTemplate         = "%s\t%s\t%s\t%s\t%s\t%s\t%s"
 	JobsRowTemplate            = "%s\t%s\t%d/%d\t%s\t%s"
+	ServicesRowTemplate        = "%s\t%s\t%s\t%s\t%s\t%s\t%s"
+	ServicesRowTemplateWide    = "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"
 )

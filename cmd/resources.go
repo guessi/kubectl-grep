@@ -98,6 +98,15 @@ var (
 			resourceSearch(args, "jobs")
 		},
 	}
+	// servicesCmd represents the service command
+	servicesCmd = &cobra.Command{
+		Use:     "services",
+		Aliases: []string{"svc", "service"},
+		Short:   "Search Services by keyword, by namespace",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "services")
+		},
+	}
 )
 
 func init() {
@@ -111,12 +120,14 @@ func init() {
 	rootCmd.AddCommand(statefulsetsCmd)
 	rootCmd.AddCommand(ingressesCmd)
 	rootCmd.AddCommand(jobsCmd)
+	rootCmd.AddCommand(servicesCmd)
 
 	daemonsetsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 	deploymentsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 	nodesCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 	podsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 	statefulsetsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
+	servicesCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 }
 
 func resourceSearch(args []string, resourceType string) {
@@ -147,6 +158,8 @@ func resourceSearch(args []string, resourceType string) {
 		resources.Ingresses(searchOptions, keyword)
 	case "jobs":
 		resources.Jobs(searchOptions, keyword)
+	case "services":
+		resources.Services(searchOptions, keyword, output == "wide")
 	default:
 		break
 	}

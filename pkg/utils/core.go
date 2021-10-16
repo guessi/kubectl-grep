@@ -61,3 +61,16 @@ func SecretList(opt *options.SearchOptions) *corev1.SecretList {
 	}
 	return list
 }
+
+// ServiceList - return a list of Services
+func ServiceList(opt *options.SearchOptions) *corev1.ServiceList {
+	clientset := client.InitClient()
+	ns, o := setOptions(opt)
+	list, err := clientset.CoreV1().Services(ns).List(context.TODO(), *o)
+	if err != nil {
+		log.WithFields(log.Fields{
+			"err": err.Error(),
+		}).Debug("Unable to get Service List")
+	}
+	return list
+}
