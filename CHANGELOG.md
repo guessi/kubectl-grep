@@ -1,3 +1,7 @@
+# v1.4.1 / 2021-10-17
+
+* Fix incorrect node role display
+
 # v1.4.1 / 2021-10-16
 
 * Added support for the following resources
