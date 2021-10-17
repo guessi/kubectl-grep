@@ -1,4 +1,4 @@
-# v1.4.1 / 2021-10-17
+# v1.4.2 / 2021-10-17
 
 * Fix incorrect node role display
 
