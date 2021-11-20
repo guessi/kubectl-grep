@@ -1,3 +1,7 @@
+# v1.4.3 / 2021-11-21
+
+* Upgrade to Kubernetes-1.21.7
+
 # v1.4.2 / 2021-10-17
 
 * Fix incorrect node role display
