@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 references:
   default_setup: &default_setup
