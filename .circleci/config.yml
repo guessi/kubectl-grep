@@ -39,11 +39,7 @@ jobs:
           command: make utilities
       - run:
           name: Run tests
-          command: |
-            go version
-            go fmt ./...
-            go vet ./...
-            # go test -v ./...
+          command: make test
       - run:
           name: Code Lint
           command: make lint
@@ -73,10 +69,7 @@ jobs:
           command: make release
       - run:
           name: Krew Release Bot
-          command: |
-            curl -LO https://github.com/rajatjindal/krew-release-bot/releases/download/v0.0.40/krew-release-bot_v0.0.40_linux_amd64.tar.gz
-            tar -xvf krew-release-bot_v0.0.40_linux_amd64.tar.gz
-            ./krew-release-bot action
+          command: make krew-release-bot
 
 workflows:
   version: 2

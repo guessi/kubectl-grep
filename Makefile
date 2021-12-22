@@ -22,6 +22,12 @@ lint:
 	@echo "Source Code Lint..."
 	@for i in $(PKGS); do echo $${i}; golint $${i}; done
 
+test:
+	go version
+	go fmt ./...
+	go vet ./...
+	# go test -v ./...
+
 dependency:
 	go mod download
 
@@ -47,12 +53,18 @@ build: build-linux build-darwin build-windows
 
 clean:
 	@echo "Cleanup Releases..."
-	rm -rf ./releases/*
+	rm -rvf ./releases/*
 
 release:
 	@echo "Creating Releases..."
 	go get -u github.com/tcnksm/ghr
 	ghr --replace --recreate -t ${GITHUB_TOKEN} $(VERSION) releases/$(VERSION)/
 	sha1sum releases/$(VERSION)/*.tar.gz > releases/$(VERSION)/SHA1SUM
+
+krew-release-bot:
+	@echo "Preparing krew-release-bot"
+	@curl -LO https://github.com/rajatjindal/krew-release-bot/releases/download/v0.0.40/krew-release-bot_v0.0.40_linux_amd64.tar.gz
+	@tar -xvf krew-release-bot_v0.0.40_linux_amd64.tar.gz
+	./krew-release-bot action
 
 all: utilities lint dependency clean build
