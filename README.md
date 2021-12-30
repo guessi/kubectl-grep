@@ -24,7 +24,7 @@ Example: `kubectl-grep` build with Kubernetes-1.21.x should be compatable with K
 
 playing with Kubernetes is my daily job, and I normally search pods by `pipe`,
 `grep`, `--label`, `--field-selector`, etc. while hunting abnormal pods, but
-typing such long commands are quite annoyed.
+typing such long commands is quite annoying.
 
 Before change, we usually filter pods by the following commands,
 
