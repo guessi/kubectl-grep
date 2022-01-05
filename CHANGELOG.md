@@ -1,3 +1,11 @@
+# v1.4.4 / 2022-01-05
+
+* Upgrade krew-release-bot to v0.0.40
+* Upgrade to Kubernetes-1.21.8
+* Upgrade dependencies:
+  - spf13/cobra v1.3.0
+* Cleanup CircleCI configuration
+
 # v1.4.3 / 2021-11-21
 
 * Upgrade to Kubernetes-1.21.7
