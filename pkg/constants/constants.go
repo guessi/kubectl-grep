@@ -18,6 +18,8 @@ const (
 	JobsHeader            = "NAMESPACE\tNAME\tCOMPLETIONS\tDURATION\tAGE"
 	ServicesHeader        = "NAMESPACE\tNAME\tTYPE\tCLUSTER-IP\tEXTERNAL-IP\tPORT(S)\tAGE"
 	ServicesHeaderWide    = "NAMESPACE\tNAME\tTYPE\tCLUSTER-IP\tEXTERNAL-IP\tPORT(S)\tAGE\tSELECTOR"
+	StorageClassesHeader  = "NAME\tPROVISIONER\tRECLAIMPOLICY\tVOLUMEBINDINGMODE\tALLOWVOLUMEEXPANSION\tAGE"
+	CsiDriversHeader      = "NAME\tATTACHREQUIRED\tPODINFOONMOUNT\tSTORAGECAPACITY\tTOKENREQUESTS\tREQUIRESREPUBLISH\tMODES\tAGE"
 
 	DaemonsetRowTemplate       = "%s\t%s\t%d\t%d\t%d\t%d\t%s\t%s"
 	DaemonsetRowTemplateWide   = "%s\t%s\t%d\t%d\t%d\t%d\t%s\t%s\t%s\t%s\t%s"
@@ -36,4 +38,6 @@ const (
 	JobsRowTemplate            = "%s\t%s\t%d/%d\t%s\t%s"
 	ServicesRowTemplate        = "%s\t%s\t%s\t%s\t%s\t%s\t%s"
 	ServicesRowTemplateWide    = "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"
+	StorageClassesRowTemplate  = "%s %s\t%s\t%s\t%s\t%s\t%s"
+	CsiDriversRowTemplate      = "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"
 )

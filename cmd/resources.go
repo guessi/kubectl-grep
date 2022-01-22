@@ -107,6 +107,24 @@ var (
 			resourceSearch(args, "services")
 		},
 	}
+	// storageClassesCmd represents the storageclasses command
+	storageClassesCmd = &cobra.Command{
+		Use:     "storageclasses",
+		Aliases: []string{"storageclasses", "storageclasse", "sc"},
+		Short:   "Search storageclasses by keyword",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "storageclasses")
+		},
+	}
+	// csiDriversCmd represents the csidrivers command
+	csiDriversCmd = &cobra.Command{
+		Use:     "csidrivers",
+		Aliases: []string{"csidrivers"},
+		Short:   "Search csidrivers by keyword",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "csidrivers")
+		},
+	}
 )
 
 func init() {
@@ -121,6 +139,8 @@ func init() {
 	rootCmd.AddCommand(ingressesCmd)
 	rootCmd.AddCommand(jobsCmd)
 	rootCmd.AddCommand(servicesCmd)
+	rootCmd.AddCommand(storageClassesCmd)
+	rootCmd.AddCommand(csiDriversCmd)
 
 	daemonsetsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 	deploymentsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
@@ -160,6 +180,10 @@ func resourceSearch(args []string, resourceType string) {
 		resources.Jobs(searchOptions, keyword)
 	case "services":
 		resources.Services(searchOptions, keyword, output == "wide")
+	case "storageclasses":
+		resources.StorageClasses(searchOptions, keyword)
+	case "csidrivers":
+		resources.CsiDrivers(searchOptions, keyword)
 	default:
 		break
 	}

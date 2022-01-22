@@ -59,6 +59,8 @@ With this plugin installed, you can filter pod with `kubectl grep` easily
 - [X] Secrets
 - [X] StatefulSets
 - [X] Services
+- [X] StorageClasses
+- [X] CSIDrivers
 
 # Installation
 

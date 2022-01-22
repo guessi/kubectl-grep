@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"strconv"
 	"strings"
 	"time"
 
@@ -59,4 +60,17 @@ func TrimQuoteAndSpace(input string) string {
 // GetAge - return human readable time expression
 func GetAge(d time.Duration) string {
 	return duration.HumanDuration(d)
+}
+
+// BoolValue
+func BoolValue(b *bool) bool {
+	if b != nil {
+		return *b
+	}
+	return false
+}
+
+// BoolString
+func BoolString(b *bool) string {
+	return strconv.FormatBool(BoolValue(b))
 }
