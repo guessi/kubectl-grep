@@ -1,3 +1,11 @@
+# v1.5.0 / 2022-01-23
+
+* Upgrade to Kubernetes-1.22.6 (Required Kubernetes 1.20)
+* Cleanup go.mod
+* Added support for the following resources
+  - CSIDrivers
+  - StorageClasses
+
 # v1.4.4 / 2022-01-05
 
 * Upgrade krew-release-bot to v0.0.40

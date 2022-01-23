@@ -1,8 +1,8 @@
 .PHONY: utilities lint dependency clean build release all
 
 VERSION_MAJOR  := 1
-VERSION_MINOR  := 4
-VERSION_PATCH  := 4
+VERSION_MINOR  := 5
+VERSION_PATCH  := 0
 VERSION_SUFFIX := # -dev
 
 COMMIT  := $(shell git describe --always)
