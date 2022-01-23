@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	// daemonsetsCmd represents the pods command
+	// apps/v1
 	daemonsetsCmd = &cobra.Command{
 		Use:     "daemonsets",
 		Aliases: []string{"ds", "daemonset"},
@@ -17,7 +17,6 @@ var (
 			resourceSearch(args, "daemonsets")
 		},
 	}
-	// deploymentsCmd represents the pods command
 	deploymentsCmd = &cobra.Command{
 		Use:     "deployments",
 		Aliases: []string{"deploy", "deployment"},
@@ -26,52 +25,6 @@ var (
 			resourceSearch(args, "deployments")
 		},
 	}
-	// hpasCmd represents the hpas command
-	hpasCmd = &cobra.Command{
-		Use:     "hpas",
-		Aliases: []string{"hpa"},
-		Short:   "Search HPAs by keyword, by namespace",
-		Run: func(cmd *cobra.Command, args []string) {
-			resourceSearch(args, "hpas")
-		},
-	}
-	// nodesCmd represents the nodes command
-	nodesCmd = &cobra.Command{
-		Use:     "nodes",
-		Aliases: []string{"no", "nodes"},
-		Short:   "Search Nodes by keyword",
-		Run: func(cmd *cobra.Command, args []string) {
-			resourceSearch(args, "nodes")
-		},
-	}
-	// podsCmd represents the pods command
-	podsCmd = &cobra.Command{
-		Use:     "pods",
-		Aliases: []string{"po", "pod"},
-		Short:   "Search Pods by keyword, by namespace",
-		Run: func(cmd *cobra.Command, args []string) {
-			resourceSearch(args, "pods")
-		},
-	}
-	// configmapsCmd represents the configmaps command
-	configmapsCmd = &cobra.Command{
-		Use:     "configmaps",
-		Aliases: []string{"cm", "configmap"},
-		Short:   "Search ConfigMaps by keyword, by namespace",
-		Run: func(cmd *cobra.Command, args []string) {
-			resourceSearch(args, "configmaps")
-		},
-	}
-	// secretsCmd represents the secrets command
-	secretsCmd = &cobra.Command{
-		Use:     "secrets",
-		Aliases: []string{"secret"},
-		Short:   "Search Secrets by keyword, by namespace",
-		Run: func(cmd *cobra.Command, args []string) {
-			resourceSearch(args, "secrets")
-		},
-	}
-	// statefulsetsCmd represents the statefulsets command
 	statefulsetsCmd = &cobra.Command{
 		Use:     "statefulsets",
 		Aliases: []string{"sts", "statefulset"},
@@ -80,16 +33,18 @@ var (
 			resourceSearch(args, "statefulsets")
 		},
 	}
-	// ingressesCmd represents the ingresses command
-	ingressesCmd = &cobra.Command{
-		Use:     "ingresses",
-		Aliases: []string{"ing", "ingress"},
-		Short:   "Search Ingresses by keyword, by namespace",
+
+	// autoscaling/v1
+	hpasCmd = &cobra.Command{
+		Use:     "hpas",
+		Aliases: []string{"hpa"},
+		Short:   "Search HPAs by keyword, by namespace",
 		Run: func(cmd *cobra.Command, args []string) {
-			resourceSearch(args, "ingresses")
+			resourceSearch(args, "hpas")
 		},
 	}
-	// jobsCmd represents the jobs command
+
+	// batch/v1
 	jobsCmd = &cobra.Command{
 		Use:     "jobs",
 		Aliases: []string{"job"},
@@ -98,25 +53,18 @@ var (
 			resourceSearch(args, "jobs")
 		},
 	}
-	// servicesCmd represents the service command
-	servicesCmd = &cobra.Command{
-		Use:     "services",
-		Aliases: []string{"svc", "service"},
-		Short:   "Search Services by keyword, by namespace",
+
+	// networking.k8s.io/v1
+	ingressesCmd = &cobra.Command{
+		Use:     "ingresses",
+		Aliases: []string{"ing", "ingress"},
+		Short:   "Search Ingresses by keyword, by namespace",
 		Run: func(cmd *cobra.Command, args []string) {
-			resourceSearch(args, "services")
+			resourceSearch(args, "ingresses")
 		},
 	}
-	// storageClassesCmd represents the storageclasses command
-	storageClassesCmd = &cobra.Command{
-		Use:     "storageclasses",
-		Aliases: []string{"storageclasses", "storageclasse", "sc"},
-		Short:   "Search storageclasses by keyword",
-		Run: func(cmd *cobra.Command, args []string) {
-			resourceSearch(args, "storageclasses")
-		},
-	}
-	// csiDriversCmd represents the csidrivers command
+
+	// storage.k8s.io/v1
 	csiDriversCmd = &cobra.Command{
 		Use:     "csidrivers",
 		Aliases: []string{"csidrivers"},
@@ -125,29 +73,97 @@ var (
 			resourceSearch(args, "csidrivers")
 		},
 	}
+	storageClassesCmd = &cobra.Command{
+		Use:     "storageclasses",
+		Aliases: []string{"storageclasses", "storageclasse", "sc"},
+		Short:   "Search storageclasses by keyword",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "storageclasses")
+		},
+	}
+
+	// v1
+	configmapsCmd = &cobra.Command{
+		Use:     "configmaps",
+		Aliases: []string{"cm", "configmap"},
+		Short:   "Search ConfigMaps by keyword, by namespace",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "configmaps")
+		},
+	}
+	nodesCmd = &cobra.Command{
+		Use:     "nodes",
+		Aliases: []string{"no", "nodes"},
+		Short:   "Search Nodes by keyword",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "nodes")
+		},
+	}
+	podsCmd = &cobra.Command{
+		Use:     "pods",
+		Aliases: []string{"po", "pod"},
+		Short:   "Search Pods by keyword, by namespace",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "pods")
+		},
+	}
+	secretsCmd = &cobra.Command{
+		Use:     "secrets",
+		Aliases: []string{"secret"},
+		Short:   "Search Secrets by keyword, by namespace",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "secrets")
+		},
+	}
+	servicesCmd = &cobra.Command{
+		Use:     "services",
+		Aliases: []string{"svc", "service"},
+		Short:   "Search Services by keyword, by namespace",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "services")
+		},
+	}
 )
 
 func init() {
+	// apps/v1
 	rootCmd.AddCommand(daemonsetsCmd)
+	daemonsetsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
+
 	rootCmd.AddCommand(deploymentsCmd)
-	rootCmd.AddCommand(hpasCmd)
-	rootCmd.AddCommand(nodesCmd)
-	rootCmd.AddCommand(podsCmd)
-	rootCmd.AddCommand(configmapsCmd)
-	rootCmd.AddCommand(secretsCmd)
+	deploymentsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
+
 	rootCmd.AddCommand(statefulsetsCmd)
-	rootCmd.AddCommand(ingressesCmd)
+	statefulsetsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
+
+	// autoscaling/v1
+	rootCmd.AddCommand(hpasCmd)
+
+	// batch/v1
 	rootCmd.AddCommand(jobsCmd)
-	rootCmd.AddCommand(servicesCmd)
-	rootCmd.AddCommand(storageClassesCmd)
+
+	// networking.k8s.io/v1
+	rootCmd.AddCommand(ingressesCmd)
+
+	// storage.k8s.io/v1
 	rootCmd.AddCommand(csiDriversCmd)
 
-	daemonsetsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
-	deploymentsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
+	rootCmd.AddCommand(storageClassesCmd)
+
+	// v1
+	rootCmd.AddCommand(configmapsCmd)
+
+	rootCmd.AddCommand(nodesCmd)
 	nodesCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
+
+	rootCmd.AddCommand(podsCmd)
 	podsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
-	statefulsetsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
+
+	rootCmd.AddCommand(secretsCmd)
+
+	rootCmd.AddCommand(servicesCmd)
 	servicesCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
+
 }
 
 func resourceSearch(args []string, resourceType string) {
@@ -158,32 +174,45 @@ func resourceSearch(args []string, resourceType string) {
 	}
 
 	switch resourceType {
+	// apps/v1
 	case "daemonsets":
 		resources.Daemonsets(searchOptions, keyword, output == "wide")
 	case "deployments":
 		resources.Deployments(searchOptions, keyword, output == "wide")
+	case "statefulsets":
+		resources.Statefulsets(searchOptions, keyword, output == "wide")
+
+	// autoscaling/v1
 	case "hpas":
 		resources.Hpas(searchOptions, keyword)
+
+	// batch/v1
+	case "jobs":
+		resources.Jobs(searchOptions, keyword)
+
+	// networking.k8s.io/v1
+	case "ingresses":
+		resources.Ingresses(searchOptions, keyword)
+
+	// storage.k8s.io/v1
+	case "csidrivers":
+		resources.CsiDrivers(searchOptions, keyword)
+	case "storageclasses":
+		resources.StorageClasses(searchOptions, keyword)
+
+	// v1
+	case "configmaps":
+		resources.ConfigMaps(searchOptions, keyword)
 	case "nodes":
 		resources.Nodes(searchOptions, keyword, output == "wide")
 	case "pods":
 		resources.Pods(searchOptions, keyword, output == "wide")
-	case "configmaps":
-		resources.ConfigMaps(searchOptions, keyword)
 	case "secrets":
 		resources.Secrets(searchOptions, keyword)
-	case "statefulsets":
-		resources.Statefulsets(searchOptions, keyword, output == "wide")
-	case "ingresses":
-		resources.Ingresses(searchOptions, keyword)
-	case "jobs":
-		resources.Jobs(searchOptions, keyword)
 	case "services":
 		resources.Services(searchOptions, keyword, output == "wide")
-	case "storageclasses":
-		resources.StorageClasses(searchOptions, keyword)
-	case "csidrivers":
-		resources.CsiDrivers(searchOptions, keyword)
+
+	// default
 	default:
 		break
 	}

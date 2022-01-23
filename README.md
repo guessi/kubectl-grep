@@ -48,19 +48,36 @@ With this plugin installed, you can filter pod with `kubectl grep` easily
 
 # Supported Resources
 
-- [X] ConfigMaps
+### apps/v1
+
 - [X] DaemonSets
 - [X] Deployments
+- [X] StatefulSets
+
+### autoscaling/v1
+
 - [X] HPAs
-- [X] Ingresses
+
+### batch/v1
+
 - [X] Jobs
+
+### networking.k8s.io/v1
+
+- [X] Ingresses
+
+### storage.k8s.io/v1
+
+- [X] CSIDrivers
+- [X] StorageClasses
+
+### v1
+
+- [X] ConfigMaps
 - [X] Nodes
 - [X] Pods
 - [X] Secrets
-- [X] StatefulSets
 - [X] Services
-- [X] StorageClasses
-- [X] CSIDrivers
 
 # Installation
 

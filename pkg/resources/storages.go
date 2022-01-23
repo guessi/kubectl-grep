@@ -12,53 +12,6 @@ import (
 	"github.com/guessi/kubectl-grep/pkg/utils"
 )
 
-// StorageClasses - a public function for searching storageclasses with keyword
-func StorageClasses(opt *options.SearchOptions, keyword string) {
-	var storageClassInfo string
-
-	storageClassList := utils.StorageClassList(opt)
-
-	buf := bytes.NewBuffer(nil)
-	w := tabwriter.NewWriter(buf, 0, 0, 3, ' ', 0)
-
-	fmt.Fprintln(w, constants.StorageClassesHeader)
-
-	for _, s := range storageClassList.Items {
-		// return all storages under namespace if no keyword specific
-		if len(keyword) > 0 {
-			match := strings.Contains(s.Name, keyword)
-			if !match {
-				continue
-			}
-		}
-
-		age := utils.GetAge(time.Since(s.CreationTimestamp.Time))
-
-		var isDefaultClass string
-		for k, v := range s.Annotations {
-			if k == "storageclass.kubernetes.io/is-default-class" && v == "true" {
-				isDefaultClass = "(default)"
-				break
-			}
-		}
-
-		storageClassInfo = fmt.Sprintf(constants.StorageClassesRowTemplate,
-			s.Name,
-			isDefaultClass,
-			s.Provisioner,
-			*(s.ReclaimPolicy),
-			*(s.VolumeBindingMode),
-			utils.BoolString(s.AllowVolumeExpansion),
-			age,
-		)
-
-		fmt.Fprintln(w, storageClassInfo)
-	}
-	w.Flush()
-
-	fmt.Printf("%s", buf.String())
-}
-
 // CsiDrivers - a public function for searching csidrivers with keyword
 func CsiDrivers(opt *options.SearchOptions, keyword string) {
 	var csiDriverInfo string
@@ -103,6 +56,53 @@ func CsiDrivers(opt *options.SearchOptions, keyword string) {
 		)
 
 		fmt.Fprintln(w, csiDriverInfo)
+	}
+	w.Flush()
+
+	fmt.Printf("%s", buf.String())
+}
+
+// StorageClasses - a public function for searching storageclasses with keyword
+func StorageClasses(opt *options.SearchOptions, keyword string) {
+	var storageClassInfo string
+
+	storageClassList := utils.StorageClassList(opt)
+
+	buf := bytes.NewBuffer(nil)
+	w := tabwriter.NewWriter(buf, 0, 0, 3, ' ', 0)
+
+	fmt.Fprintln(w, constants.StorageClassesHeader)
+
+	for _, s := range storageClassList.Items {
+		// return all storages under namespace if no keyword specific
+		if len(keyword) > 0 {
+			match := strings.Contains(s.Name, keyword)
+			if !match {
+				continue
+			}
+		}
+
+		age := utils.GetAge(time.Since(s.CreationTimestamp.Time))
+
+		var isDefaultClass string
+		for k, v := range s.Annotations {
+			if k == "storageclass.kubernetes.io/is-default-class" && v == "true" {
+				isDefaultClass = "(default)"
+				break
+			}
+		}
+
+		storageClassInfo = fmt.Sprintf(constants.StorageClassesRowTemplate,
+			s.Name,
+			isDefaultClass,
+			s.Provisioner,
+			*(s.ReclaimPolicy),
+			*(s.VolumeBindingMode),
+			utils.BoolString(s.AllowVolumeExpansion),
+			age,
+		)
+
+		fmt.Fprintln(w, storageClassInfo)
 	}
 	w.Flush()
 
