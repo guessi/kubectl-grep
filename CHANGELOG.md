@@ -1,3 +1,8 @@
+# v1.5.1 / 2022-03-19
+
+* Upgrade to Kubernetes-1.22.8 (Required Kubernetes 1.20)
+* Cleanup go.mod
+
 # v1.5.0 / 2022-01-23
 
 * Upgrade to Kubernetes-1.22.6 (Required Kubernetes 1.20)
