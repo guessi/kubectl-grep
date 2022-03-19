@@ -15,8 +15,8 @@ default: build
 
 utilities:
 	@echo "Download Utilities..."
-	go get -u golang.org/x/lint/golint
-	go get -u github.com/tcnksm/ghr
+	go get golang.org/x/lint/golint
+	go get github.com/tcnksm/ghr
 
 lint:
 	@echo "Source Code Lint..."
@@ -57,7 +57,7 @@ clean:
 
 release:
 	@echo "Creating Releases..."
-	go get -u github.com/tcnksm/ghr
+	go get github.com/tcnksm/ghr
 	ghr --replace --recreate -t ${GITHUB_TOKEN} $(VERSION) releases/$(VERSION)/
 	sha1sum releases/$(VERSION)/*.tar.gz > releases/$(VERSION)/SHA1SUM
 
