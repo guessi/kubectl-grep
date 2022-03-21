@@ -1,3 +1,11 @@
+# v1.6.0 / 2022-03-22
+
+* Build with github.com/spf13/cobra v1.4.0
+* Build with next-gen convenience image: cimg/go:1.16
+* Added support for the following resources
+  - CronJobs
+  - ReplicaSets
+
 # v1.5.1 / 2022-03-19
 
 * Upgrade to Kubernetes-1.22.8 (Required Kubernetes 1.20)
