@@ -25,6 +25,14 @@ var (
 			resourceSearch(args, "deployments")
 		},
 	}
+	replicasetsCmd = &cobra.Command{
+		Use:     "replicasets",
+		Aliases: []string{"rs", "replicaset"},
+		Short:   "Search Replicasets by keyword, by namespace",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "replicasets")
+		},
+	}
 	statefulsetsCmd = &cobra.Command{
 		Use:     "statefulsets",
 		Aliases: []string{"sts", "statefulset"},
@@ -133,6 +141,9 @@ func init() {
 	rootCmd.AddCommand(deploymentsCmd)
 	deploymentsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 
+	rootCmd.AddCommand(replicasetsCmd)
+	replicasetsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
+
 	rootCmd.AddCommand(statefulsetsCmd)
 	statefulsetsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 
@@ -179,6 +190,8 @@ func resourceSearch(args []string, resourceType string) {
 		resources.Daemonsets(searchOptions, keyword, output == "wide")
 	case "deployments":
 		resources.Deployments(searchOptions, keyword, output == "wide")
+	case "replicasets":
+		resources.Replicasets(searchOptions, keyword, output == "wide")
 	case "statefulsets":
 		resources.Statefulsets(searchOptions, keyword, output == "wide")
 

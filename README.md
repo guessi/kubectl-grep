@@ -52,7 +52,7 @@ With this plugin installed, you can filter pod with `kubectl grep` easily
 
 - [X] DaemonSet
 - [X] Deployment
-- [ ] ReplicaSet
+- [X] ReplicaSet
 - [X] StatefulSet
 
 ### autoscaling/v1

@@ -14,6 +14,12 @@ const (
 	DeploymentHeaderWide      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tUP-TO-DATE\tAVAILABLE\tAGE\tCONTAINERS\tIMAGES"
 	DeploymentRowTemplateWide = "%s\t%s\t%d\t%d\t%d\t%d\t%s\t%s\t%s"
 
+	ReplicasetHeader      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tAGE"
+	ReplicasetRowTemplate = "%s\t%s\t%d\t%d\t%s"
+
+	ReplicasetHeaderWide      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tAGE\tCONTAINERS\tIMAGES\tSELECTOR"
+	ReplicasetRowTemplateWide = "%s\t%s\t%d\t%d\t%s\t%s\t%s\t%s"
+
 	StatefulsetHeader      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tAGE"
 	StatefulsetRowTemplate = "%s\t%s\t%d\t%d\t%s"
 
