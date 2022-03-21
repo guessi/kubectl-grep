@@ -46,38 +46,70 @@ With this plugin installed, you can filter pod with `kubectl grep` easily
     $ kubectl grep pods "keyword" -l "key=value" -n "my-ns"
     $ kubectl grep pods "keyword" -l "key=value" -A
 
-# Supported Resources
+# Supported APIs
 
 ### apps/v1
 
-- [X] DaemonSets
-- [X] Deployments
-- [X] StatefulSets
+- [X] DaemonSet
+- [X] Deployment
+- [ ] ReplicaSet
+- [X] StatefulSet
 
 ### autoscaling/v1
 
-- [X] HPAs
+- [X] HPA
 
 ### batch/v1
 
-- [X] Jobs
+- [ ] CronJob
+- [X] Job
+
+### discovery.k8s.io/v1
+
+- [ ] EndpointSlice
 
 ### networking.k8s.io/v1
 
-- [X] Ingresses
+- [X] Ingress
+- [ ] IngressClass
+- [ ] NetworkPolicy
+
+### policy/v1
+
+- [ ] PodDisruptionBudget
+
+### rbac.authorization.k8s.io/v1
+
+- [ ] ClusterRole
+- [ ] ClusterRoleBinding
+- [ ] Role
+- [ ] RoleBinding
+
+### scheduling.k8s.io/v1
+
+- [ ] PriorityClass
 
 ### storage.k8s.io/v1
 
-- [X] CSIDrivers
-- [X] StorageClasses
+- [X] CSIDriver
+- [X] StorageClass
 
 ### v1
 
-- [X] ConfigMaps
-- [X] Nodes
-- [X] Pods
-- [X] Secrets
-- [X] Services
+- [X] ConfigMap
+- [ ] Endpoints
+- [ ] LimitRange
+- [ ] Namespace
+- [X] Node
+- [ ] PersistentVolume
+- [ ] PersistentVolumeClaim
+- [X] Pod
+- [ ] PriorityClass
+- [ ] ReplicationController
+- [ ] ResourceQuota
+- [X] Secret
+- [X] Service
+- [ ] ServiceAccount
 
 # Installation
 
