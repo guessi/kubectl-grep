@@ -31,6 +31,9 @@ const (
 	HpaRowTemplate = "%s\t%s\t%s/%s\t%d%%/%d%%\t%d\t%d\t%d\t%s"
 
 	// batch/v1
+	CronJobsHeader      = "NAMESPACE\tNAME\tSCHEDULE\tSUSPEND\tACTIVE\tLAST SCHEDULE\tAGE"
+	CronJobsRowTemplate = "%s\t%s\t%s\t%s\t%d\t%s\t%s"
+
 	JobsHeader      = "NAMESPACE\tNAME\tCOMPLETIONS\tDURATION\tAGE"
 	JobsRowTemplate = "%s\t%s\t%d/%d\t%s\t%s"
 

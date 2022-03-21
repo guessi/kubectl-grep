@@ -61,7 +61,7 @@ With this plugin installed, you can filter pod with `kubectl grep` easily
 
 ### batch/v1
 
-- [ ] CronJob
+- [X] CronJob
 - [X] Job
 
 ### discovery.k8s.io/v1

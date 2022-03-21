@@ -53,6 +53,14 @@ var (
 	}
 
 	// batch/v1
+	cronjobsCmd = &cobra.Command{
+		Use:     "cronjobs",
+		Aliases: []string{"cj", "cronjob"},
+		Short:   "Search CronJobs by keyword, by namespace",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "cronjobs")
+		},
+	}
 	jobsCmd = &cobra.Command{
 		Use:     "jobs",
 		Aliases: []string{"job"},
@@ -151,6 +159,7 @@ func init() {
 	rootCmd.AddCommand(hpasCmd)
 
 	// batch/v1
+	rootCmd.AddCommand(cronjobsCmd)
 	rootCmd.AddCommand(jobsCmd)
 
 	// networking.k8s.io/v1
@@ -200,6 +209,8 @@ func resourceSearch(args []string, resourceType string) {
 		resources.Hpas(searchOptions, keyword)
 
 	// batch/v1
+	case "cronjobs":
+		resources.CronJobs(searchOptions, keyword)
 	case "jobs":
 		resources.Jobs(searchOptions, keyword)
 
