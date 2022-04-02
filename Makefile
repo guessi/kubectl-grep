@@ -63,8 +63,8 @@ release:
 
 krew-release-bot:
 	@echo "Preparing krew-release-bot"
-	@curl -LO https://github.com/rajatjindal/krew-release-bot/releases/download/v0.0.40/krew-release-bot_v0.0.40_linux_amd64.tar.gz
-	@tar -xvf krew-release-bot_v0.0.40_linux_amd64.tar.gz
+	@curl -LO https://github.com/rajatjindal/krew-release-bot/releases/download/v0.0.42/krew-release-bot_v0.0.42_linux_amd64.tar.gz
+	@tar -xvf krew-release-bot_v0.0.42_linux_amd64.tar.gz
 	./krew-release-bot action
 
 all: utilities lint dependency clean build
