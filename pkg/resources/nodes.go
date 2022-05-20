@@ -18,6 +18,19 @@ func Nodes(opt *options.SearchOptions, keyword string, wide bool) {
 
 	nodeList := utils.NodeList(opt)
 
+	if len(nodeList.Items) <= 0 {
+		if opt.AllNamespaces {
+			fmt.Printf("No resources found.\n")
+		} else {
+			var ns = opt.Namespace
+			if len(opt.Namespace) <= 0 {
+				ns = "default"
+			}
+			fmt.Printf("No resources found in %s namespace.\n", ns)
+		}
+		return
+	}
+
 	buf := bytes.NewBuffer(nil)
 	w := tabwriter.NewWriter(buf, 0, 0, 3, ' ', 0)
 
