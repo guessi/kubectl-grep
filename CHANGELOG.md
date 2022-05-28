@@ -1,3 +1,9 @@
+# v1.7.0 / 2022-05-28
+
+* Upgrade to kubernetes-1.23.7
+* Release with krew-release-bot v0.0.42
+* Keep output aligned when no resource found
+
 # v1.6.0 / 2022-03-22
 
 * Build with github.com/spf13/cobra v1.4.0
