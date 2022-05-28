@@ -102,7 +102,7 @@ replace (
 	google.golang.org/protobuf => google.golang.org/protobuf v1.27.1
 	gopkg.in/check.v1 => gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f
 	gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.4.0
-	gopkg.in/yaml.v3 => gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
+	gopkg.in/yaml.v3 => gopkg.in/yaml.v3 v3.0.1
 	k8s.io/klog/v2 => k8s.io/klog/v2 v2.30.0
 	k8s.io/utils => k8s.io/utils v0.0.0-20211116205334-6203023598ed
 	sigs.k8s.io/json => sigs.k8s.io/json v0.0.0-20211020170558-c049b76a60c6
