@@ -1,3 +1,8 @@
+# v1.7.2 / 2022-08-29
+
+* Upgrade to kubernetes-1.23.10
+* Bump krew-release-bot v0.0.43
+
 # v1.7.1 / 2022-05-28
 
 * CVE-2022-28948
