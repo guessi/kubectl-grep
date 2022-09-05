@@ -31,11 +31,17 @@ test:
 dependency:
 	go mod download
 
-build-linux:
+build-linux-x86_64:
 	@echo "Creating Build for Linux (x86_64)..."
 	@CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Linux-x86_64/kubectl-grep
 	@cp ./LICENSE ./releases/$(VERSION)/Linux-x86_64/LICENSE
 	@tar zcf ./releases/$(VERSION)/kubectl-grep-Linux-x86_64.tar.gz -C releases/$(VERSION)/Linux-x86_64 kubectl-grep LICENSE
+
+build-linux-arm64:
+	@echo "Creating Build for Linux (arm64)..."
+	@CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Linux-arm64/kubectl-grep
+	@cp ./LICENSE ./releases/$(VERSION)/Linux-arm64/LICENSE
+	@tar zcf ./releases/$(VERSION)/kubectl-grep-Linux-arm64.tar.gz -C releases/$(VERSION)/Linux-arm64 kubectl-grep LICENSE
 
 build-darwin-x86_64:
 	@echo "Creating Build for macOS (x86_64)..."
@@ -49,13 +55,13 @@ build-darwin-arm64:
 	@cp ./LICENSE ./releases/$(VERSION)/Darwin-arm64/LICENSE
 	@tar zcf ./releases/$(VERSION)/kubectl-grep-Darwin-arm64.tar.gz -C releases/$(VERSION)/Darwin-arm64 kubectl-grep LICENSE
 
-build-windows:
+build-windows-x86_64:
 	@echo "Creating Build for Windows (x86_64)..."
 	@CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Windows-x86_64/kubectl-grep.exe
 	@cp ./LICENSE ./releases/$(VERSION)/Windows-x86_64/LICENSE.txt
 	@tar zcf ./releases/$(VERSION)/kubectl-grep-Windows-x86_64.tar.gz -C releases/$(VERSION)/Windows-x86_64 kubectl-grep.exe LICENSE.txt
 
-build: build-linux build-darwin-x86_64 build-darwin-arm64 build-windows
+build: build-linux-x86_64 build-linux-arm64 build-darwin-x86_64 build-darwin-arm64 build-windows-x86_64
 
 clean:
 	@echo "Cleanup Releases..."
