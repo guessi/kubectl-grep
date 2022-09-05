@@ -46,71 +46,6 @@ With this plugin installed, you can filter pod with `kubectl grep` easily
     $ kubectl grep pods "keyword" -l "key=value" -n "my-ns"
     $ kubectl grep pods "keyword" -l "key=value" -A
 
-# Supported APIs
-
-### apps/v1
-
-- [X] DaemonSet
-- [X] Deployment
-- [X] ReplicaSet
-- [X] StatefulSet
-
-### autoscaling/v1
-
-- [X] HPA
-
-### batch/v1
-
-- [X] CronJob
-- [X] Job
-
-### discovery.k8s.io/v1
-
-- [ ] EndpointSlice
-
-### networking.k8s.io/v1
-
-- [X] Ingress
-- [ ] IngressClass
-- [ ] NetworkPolicy
-
-### policy/v1
-
-- [ ] PodDisruptionBudget
-
-### rbac.authorization.k8s.io/v1
-
-- [ ] ClusterRole
-- [ ] ClusterRoleBinding
-- [ ] Role
-- [ ] RoleBinding
-
-### scheduling.k8s.io/v1
-
-- [ ] PriorityClass
-
-### storage.k8s.io/v1
-
-- [X] CSIDriver
-- [X] StorageClass
-
-### v1
-
-- [X] ConfigMap
-- [ ] Endpoints
-- [ ] LimitRange
-- [ ] Namespace
-- [X] Node
-- [ ] PersistentVolume
-- [ ] PersistentVolumeClaim
-- [X] Pod
-- [ ] PriorityClass
-- [ ] ReplicationController
-- [ ] ResourceQuota
-- [X] Secret
-- [X] Service
-- [ ] ServiceAccount
-
 # Installation
 
 Installation via [krew](https://krew.sigs.k8s.io/docs/user-guide/setup/install/)
@@ -153,11 +88,15 @@ List all pods with specific keyword, under specific namespace,
 
 How do I check the tool's version?
 
-    $ kubectl grep version
+* `kubectl grep version`
 
 Can I use version X `kubectl` with version Y `kubectl-grep`?
 
-    sure, no problem
+* Sure, no problem
+
+What kind of resource(s) `kubectl-grep` support?
+
+* Please refer to [Resource Types](RESOURCE_TYPES.md)
 
 # Reference
 
