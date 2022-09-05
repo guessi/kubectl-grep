@@ -1,3 +1,11 @@
+# v1.8.0 / 2022-09-06
+
+* Initial support for arm-based Linux
+* Initial support for arm-based macOS (M1/M2-series)
+* Upgrade dependencies:
+  - spf13/cobra v1.5.0
+  - sirupsen/logrus v1.9.0
+
 # v1.7.2 / 2022-08-29
 
 * Upgrade to kubernetes-1.23.10
