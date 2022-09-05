@@ -15,6 +15,17 @@ spec:
       matchLabels:
         os: darwin
         arch: amd64
+  - {{addURIAndSha "https://github.com/guessi/kubectl-grep/releases/download/{{ .TagName }}/kubectl-grep-Darwin-arm64.tar.gz" .TagName }}
+    bin: kubectl-grep
+    files:
+    - from: kubectl-grep
+      to: .
+    - from: LICENSE
+      to: .
+    selector:
+      matchLabels:
+        os: darwin
+        arch: arm64
   - {{addURIAndSha "https://github.com/guessi/kubectl-grep/releases/download/{{ .TagName }}/kubectl-grep-Linux-x86_64.tar.gz" .TagName }}
     bin: kubectl-grep
     files:
@@ -26,6 +37,17 @@ spec:
       matchLabels:
         os: linux
         arch: amd64
+  - {{addURIAndSha "https://github.com/guessi/kubectl-grep/releases/download/{{ .TagName }}/kubectl-grep-Linux-arm64.tar.gz" .TagName }}
+    bin: kubectl-grep
+    files:
+    - from: kubectl-grep
+      to: .
+    - from: LICENSE
+      to: .
+    selector:
+      matchLabels:
+        os: linux
+        arch: arm64
   - {{addURIAndSha "https://github.com/guessi/kubectl-grep/releases/download/{{ .TagName }}/kubectl-grep-Windows-x86_64.tar.gz" .TagName }}
     bin: kubectl-grep.exe
     files:
