@@ -10,15 +10,15 @@ Filter Kubernetes resources by matching their names
 
 # Requirements
 
-- Kubernetes 1.20.0+
-- Kubectl 1.20.0+
-- Krew 0.4.0+
+- Kubernetes 1.22.0+
+- Kubectl 1.22.0+
+- Krew 0.4.3+
 
 # Compatibility
 
 please refer to [Kubernetes version policy](https://kubernetes.io/docs/setup/release/version-skew-policy/#kubectl) and [CHANGELOG](CHANGELOG.md) for supported version matrix.
 
-Example: `kubectl-grep` build with Kubernetes-1.21.x should be compatable with Kubernetes cluster version 1.20, 1.21, 1.22.
+Example: `kubectl-grep` build with Kubernetes-1.23.x should be compatable with Kubernetes cluster version 1.22, 1.23, 1.24.
 
 # Why we need it?
 
@@ -115,7 +115,7 @@ With this plugin installed, you can filter pod with `kubectl grep` easily
 
 Installation via [krew](https://krew.sigs.k8s.io/docs/user-guide/setup/install/)
 
-    $ kubectl krew version # make sure you are running 0.4.0+
+    $ kubectl krew version # make sure you are running 0.4.3+
     $ kubectl krew install grep
     $ kubectl krew upgrade
 
@@ -155,7 +155,7 @@ How do I check the tool's version?
 
     $ kubectl grep version
 
-Can I run Kubernetes 1.20.0 with kubectl 1.21.0?
+Can I use version X `kubectl` with version Y `kubectl-grep`?
 
     sure, no problem
 
