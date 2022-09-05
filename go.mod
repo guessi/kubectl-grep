@@ -3,8 +3,8 @@ module github.com/guessi/kubectl-grep
 go 1.17
 
 require (
-	github.com/sirupsen/logrus v1.8.1
-	github.com/spf13/cobra v1.4.0
+	github.com/sirupsen/logrus v1.9.0
+	github.com/spf13/cobra v1.5.0
 	k8s.io/api v0.23.10
 	k8s.io/apimachinery v0.23.10
 	k8s.io/client-go v0.23.10
