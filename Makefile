@@ -1,7 +1,7 @@
 .PHONY: utilities lint dependency clean build release all
 
 VERSION_MAJOR  := 1
-VERSION_MINOR  := 8
+VERSION_MINOR  := 9
 VERSION_PATCH  := 0
 VERSION_SUFFIX := # -dev
 

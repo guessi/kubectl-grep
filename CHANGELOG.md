@@ -1,3 +1,12 @@
+# v1.9.0 / 2022-09-11
+
+* Added support for the following resources
+  - ClusterRoleBindings
+  - ClusterRoles
+  - RoleBindings
+  - Roles
+  - ServiceAccounts
+
 # v1.8.0 / 2022-09-06
 
 * Initial support for arm-based Linux
