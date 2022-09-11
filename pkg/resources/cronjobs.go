@@ -37,7 +37,7 @@ func CronJobs(opt *options.SearchOptions, keyword string) {
 	fmt.Fprintln(w, constants.CronJobsHeader)
 
 	for _, j := range cronjobList.Items {
-		// return all jobs under namespace if no keyword specific
+		// return all if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(j.Name, keyword)
 			if !match {

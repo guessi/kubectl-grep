@@ -41,7 +41,7 @@ func Ingresses(opt *options.SearchOptions, keyword string) {
 		var ingressClassName string
 		var hosts, ports, addresses []string
 
-		// return all ingresses under namespace if no keyword specific
+		// return all if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(i.Name, keyword)
 			if !match {

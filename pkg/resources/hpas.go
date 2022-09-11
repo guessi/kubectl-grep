@@ -34,7 +34,7 @@ func Hpas(opt *options.SearchOptions, keyword string) {
 
 	fmt.Fprintln(w, constants.HpaHeader)
 	for _, h := range hpaList.Items {
-		// return all hpas under namespace if no keyword specific
+		// return all if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(h.Name, keyword)
 			if !match {

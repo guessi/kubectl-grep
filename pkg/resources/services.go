@@ -41,7 +41,7 @@ func Services(opt *options.SearchOptions, keyword string, wide bool) {
 	}
 	for _, s := range serviceList.Items {
 		var ports []string
-		// return all services under namespace if no keyword specific
+		// return all if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(s.Name, keyword)
 			if !match {

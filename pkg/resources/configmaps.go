@@ -37,7 +37,7 @@ func ConfigMaps(opt *options.SearchOptions, keyword string) {
 	fmt.Fprintln(w, constants.ConfigMapHeader)
 
 	for _, cm := range configMapList.Items {
-		// return all configmaps under namespace if no keyword specific
+		// return all if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(cm.Name, keyword)
 			if !match {

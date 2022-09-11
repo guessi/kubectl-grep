@@ -40,7 +40,7 @@ func Nodes(opt *options.SearchOptions, keyword string, wide bool) {
 		fmt.Fprintln(w, constants.NodeHeader)
 	}
 	for _, n := range nodeList.Items {
-		// return all pods under namespace if no keyword specific
+		// return all if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(n.Name, keyword)
 			if !match {

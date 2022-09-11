@@ -41,7 +41,7 @@ func Replicasets(opt *options.SearchOptions, keyword string, wide bool) {
 	}
 
 	for _, s := range replicasetList.Items {
-		// return all replicasets under namespace if no keyword specific
+		// return all if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(s.Name, keyword)
 			if !match {

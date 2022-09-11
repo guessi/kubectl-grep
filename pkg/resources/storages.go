@@ -37,7 +37,7 @@ func CsiDrivers(opt *options.SearchOptions, keyword string) {
 	fmt.Fprintln(w, constants.CsiDriversHeader)
 
 	for _, s := range csiDriverList.Items {
-		// return all storages under namespace if no keyword specific
+		// return all if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(s.Name, keyword)
 			if !match {

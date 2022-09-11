@@ -37,7 +37,7 @@ func Secrets(opt *options.SearchOptions, keyword string) {
 	fmt.Fprintln(w, constants.SecretHeader)
 
 	for _, s := range secretList.Items {
-		// return all secrets under namespace if no keyword specific
+		// return all if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(s.Name, keyword)
 			if !match {

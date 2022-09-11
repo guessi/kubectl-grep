@@ -40,7 +40,7 @@ func Deployments(opt *options.SearchOptions, keyword string, wide bool) {
 		fmt.Fprintln(w, constants.DeploymentHeader)
 	}
 	for _, d := range deploymentList.Items {
-		// return all deployments under namespace if no keyword specific
+		// return all if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(d.Name, keyword)
 			if !match {
