@@ -131,6 +131,14 @@ var (
 			resourceSearch(args, "secrets")
 		},
 	}
+	serviceAccountsCmd = &cobra.Command{
+		Use:     "serviceaccounts",
+		Aliases: []string{"sa", "serviceaccount"},
+		Short:   "Search ServiceAccounts by keyword, by namespace",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "serviceaccounts")
+		},
+	}
 	servicesCmd = &cobra.Command{
 		Use:     "services",
 		Aliases: []string{"svc", "service"},
@@ -180,6 +188,8 @@ func init() {
 	podsCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
 
 	rootCmd.AddCommand(secretsCmd)
+
+	rootCmd.AddCommand(serviceAccountsCmd)
 
 	rootCmd.AddCommand(servicesCmd)
 	servicesCmd.Flags().StringVarP(&output, "output", "o", "", "Output format.")
@@ -233,6 +243,8 @@ func resourceSearch(args []string, resourceType string) {
 		resources.Pods(searchOptions, keyword, output == "wide")
 	case "secrets":
 		resources.Secrets(searchOptions, keyword)
+	case "serviceaccounts":
+		resources.ServiceAccounts(searchOptions, keyword)
 	case "services":
 		resources.Services(searchOptions, keyword, output == "wide")
 

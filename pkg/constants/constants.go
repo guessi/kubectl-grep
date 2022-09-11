@@ -67,6 +67,9 @@ const (
 	SecretHeader      = "NAMESPACE\tNAME\tTYPE\tDATA\tAGE"
 	SecretRowTemplate = "%s\t%s\t%s\t%d\t%s"
 
+	ServiceAccountsHeader      = "NAMESPACE\tNAME\tSECRETS\tAGE"
+	ServiceAccountsRowTemplate = "%s\t%s\t%d\t%s"
+
 	ServicesHeaderWide      = "NAMESPACE\tNAME\tTYPE\tCLUSTER-IP\tEXTERNAL-IP\tPORT(S)\tAGE\tSELECTOR"
 	ServicesRowTemplateWide = "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"
 
