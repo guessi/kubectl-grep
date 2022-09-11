@@ -32,10 +32,10 @@
 
 ### rbac.authorization.k8s.io/v1
 
-- [ ] ClusterRole
-- [ ] ClusterRoleBinding
-- [ ] Role
-- [ ] RoleBinding
+- [X] ClusterRole
+- [X] ClusterRoleBinding
+- [X] Role
+- [X] RoleBinding
 
 ### scheduling.k8s.io/v1
 

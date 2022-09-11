@@ -80,6 +80,43 @@ var (
 		},
 	}
 
+	// rbac.authorization.k8s.io/v1
+	rolesCmd = &cobra.Command{
+		Use:     "roles",
+		Aliases: []string{"role"},
+		Short:   "Search Roles by keyword, by namespace",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "roles")
+		},
+	}
+
+	roleBindingsCmd = &cobra.Command{
+		Use:     "rolebindings",
+		Aliases: []string{"rolebinding"},
+		Short:   "Search RoleBindings by keyword, by namespace",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "rolebindings")
+		},
+	}
+
+	clusterRolesCmd = &cobra.Command{
+		Use:     "clusterroles",
+		Aliases: []string{"clusterrole"},
+		Short:   "Search ClusterRoles by keyword",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "clusterroles")
+		},
+	}
+
+	clusterRoleBindingsCmd = &cobra.Command{
+		Use:     "clusterrolebindings",
+		Aliases: []string{"clusterrolebinding"},
+		Short:   "Search ClusterRoleBindings by keyword",
+		Run: func(cmd *cobra.Command, args []string) {
+			resourceSearch(args, "clusterrolebindings")
+		},
+	}
+
 	// storage.k8s.io/v1
 	csiDriversCmd = &cobra.Command{
 		Use:     "csidrivers",
@@ -173,6 +210,12 @@ func init() {
 	// networking.k8s.io/v1
 	rootCmd.AddCommand(ingressesCmd)
 
+	// rbac.authorization.k8s.io/v1
+	rootCmd.AddCommand(rolesCmd)
+	rootCmd.AddCommand(roleBindingsCmd)
+	rootCmd.AddCommand(clusterRolesCmd)
+	rootCmd.AddCommand(clusterRoleBindingsCmd)
+
 	// storage.k8s.io/v1
 	rootCmd.AddCommand(csiDriversCmd)
 
@@ -227,6 +270,16 @@ func resourceSearch(args []string, resourceType string) {
 	// networking.k8s.io/v1
 	case "ingresses":
 		resources.Ingresses(searchOptions, keyword)
+
+	// rbac.authorization.k8s.io/v1
+	case "roles":
+		resources.Roles(searchOptions, keyword)
+	case "rolebindings":
+		resources.RoleBindings(searchOptions, keyword)
+	case "clusterroles":
+		resources.ClusterRoles(searchOptions, keyword)
+	case "clusterrolebindings":
+		resources.ClusterRoleBindings(searchOptions, keyword)
 
 	// storage.k8s.io/v1
 	case "csidrivers":

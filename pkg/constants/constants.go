@@ -41,6 +41,19 @@ const (
 	IngressHeader      = "NAMESPACE\tNAME\tCLASS\tHOSTS\tADDRESS\tPORTS\tAGE"
 	IngressRowTemplate = "%s\t%s\t%s\t%s\t%s\t%s\t%s"
 
+	// rbac.authorization.k8s.io/v1
+	RolesHeader      = "NAMESPACE\tNAME\tCREATED AT"
+	RolesRowTemplate = "%s\t%s\t%s"
+
+	RoleBindingsHeader      = "NAMESPACE\tNAME\tROLE\tAGE"
+	RoleBindingsRowTemplate = "%s\t%s\t%s\t%s"
+
+	ClusterRolesHeader      = "NAME\tCREATED AT"
+	ClusterRolesRowTemplate = "%s\t%s"
+
+	ClusterRoleBindingsHeader      = "NAME\tROLE\tAGE"
+	ClusterRoleBindingsRowTemplate = "%s\t%s\t%s"
+
 	// storage.k8s.io/v1
 	CsiDriversHeader      = "NAME\tATTACHREQUIRED\tPODINFOONMOUNT\tSTORAGECAPACITY\tTOKENREQUESTS\tREQUIRESREPUBLISH\tMODES\tAGE"
 	CsiDriversRowTemplate = "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"
