@@ -31,20 +31,14 @@ Before change, we usually filter pods by the following commands,
     $ kubectl get pods                           | grep "keyword"
     $ kubectl get pods -o wide                   | grep "keyword"
     $ kubectl get pods -n "my-ns"                | grep "keyword"
-    $ kubectl get pods -A                        | grep "keyword"
-    $ kubectl get pods -l "key=value"            | grep "keyword"
-    $ kubectl get pods -l "key=value" -n "my-ns" | grep "keyword"
-    $ kubectl get pods -l "key=value" -A         | grep "keyword"
+    $ kubectl get pods --all-namespaces          | grep "keyword"
 
 With this plugin installed, you can filter pod with `kubectl grep` easily
 
     $ kubectl grep pods "keyword"
     $ kubectl grep pods "keyword" -o wide
     $ kubectl grep pods "keyword" -n "my-ns"
-    $ kubectl grep pods "keyword" -A
-    $ kubectl grep pods "keyword" -l "key=value"
-    $ kubectl grep pods "keyword" -l "key=value" -n "my-ns"
-    $ kubectl grep pods "keyword" -l "key=value" -A
+    $ kubectl grep pods "keyword" --all-namespaces
 
 # Installation
 
