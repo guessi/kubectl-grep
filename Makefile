@@ -57,7 +57,11 @@ build-windows-x86_64:
 	@cp ./LICENSE ./releases/$(GITVERSION)/Windows-x86_64/LICENSE.txt
 	@tar zcf ./releases/$(GITVERSION)/kubectl-grep-Windows-x86_64.tar.gz -C releases/$(GITVERSION)/Windows-x86_64 kubectl-grep.exe LICENSE.txt
 
-build: build-linux-x86_64 build-linux-arm64 build-darwin-x86_64 build-darwin-arm64 build-windows-x86_64
+build-linux: build-linux-x86_64 build-linux-arm64
+build-darwin: build-darwin-x86_64 build-darwin-arm64
+build-windows: build-windows-x86_64
+
+build: build-linux build-darwin build-windows
 
 clean:
 	@echo "Cleanup Releases..."
