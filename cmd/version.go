@@ -2,12 +2,14 @@ package cmd
 
 import (
 	"fmt"
+	"regexp"
 
 	"github.com/spf13/cobra"
 )
 
 var (
-	version      = "undefined"
+	gitVersion   = "v0.0.0"
+	goVersion    = "v0.0.0"
 	shortVersion bool
 )
 
@@ -25,9 +27,13 @@ func init() {
 }
 
 func showVersion() {
+	r, _ := regexp.Compile("v[0-9]\\.[0-9]+\\.[0-9]+")
+	versionInfo := r.FindString(gitVersion)
 	if shortVersion {
-		fmt.Println(version)
+		fmt.Println(versionInfo)
 	} else {
-		fmt.Println("kubectl-grep version:", version)
+		fmt.Println("kubectl-grep", versionInfo)
+		fmt.Println(" Git Commit:", gitVersion)
+		fmt.Println(" Build with:", goVersion)
 	}
 }

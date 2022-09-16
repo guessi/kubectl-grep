@@ -1,15 +1,10 @@
 .PHONY: utilities lint dependency clean build release all
 
-VERSION_MAJOR  := 1
-VERSION_MINOR  := 9
-VERSION_PATCH  := 0
-VERSION_SUFFIX := # -dev
-
-COMMIT  := $(shell git describe --always)
-PKGS    := $(shell go list ./...)
-REPO    := github.com/guessi/kubectl-grep
-VERSION := v$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)$(VERSION_SUFFIX)
-LDFLAGS := -s -w -X $(REPO)/cmd.version=$(VERSION)
+PKGS       := $(shell go list ./...)
+REPO       := github.com/guessi/kubectl-grep
+GITVERSION := $(shell git describe --tags --abbrev=8)
+GOVERSION  := $(shell go version | cut -d' ' -f3)
+LDFLAGS    := -s -w -X "$(REPO)/cmd.gitVersion=$(GITVERSION)" -X "$(REPO)/cmd.goVersion=$(GOVERSION)"
 
 default: build
 
@@ -33,33 +28,33 @@ dependency:
 
 build-linux-x86_64:
 	@echo "Creating Build for Linux (x86_64)..."
-	@CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Linux-x86_64/kubectl-grep
-	@cp ./LICENSE ./releases/$(VERSION)/Linux-x86_64/LICENSE
-	@tar zcf ./releases/$(VERSION)/kubectl-grep-Linux-x86_64.tar.gz -C releases/$(VERSION)/Linux-x86_64 kubectl-grep LICENSE
+	@CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(GITVERSION)/Linux-x86_64/kubectl-grep
+	@cp ./LICENSE ./releases/$(GITVERSION)/Linux-x86_64/LICENSE
+	@tar zcf ./releases/$(GITVERSION)/kubectl-grep-Linux-x86_64.tar.gz -C releases/$(GITVERSION)/Linux-x86_64 kubectl-grep LICENSE
 
 build-linux-arm64:
 	@echo "Creating Build for Linux (arm64)..."
-	@CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Linux-arm64/kubectl-grep
-	@cp ./LICENSE ./releases/$(VERSION)/Linux-arm64/LICENSE
-	@tar zcf ./releases/$(VERSION)/kubectl-grep-Linux-arm64.tar.gz -C releases/$(VERSION)/Linux-arm64 kubectl-grep LICENSE
+	@CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(GITVERSION)/Linux-arm64/kubectl-grep
+	@cp ./LICENSE ./releases/$(GITVERSION)/Linux-arm64/LICENSE
+	@tar zcf ./releases/$(GITVERSION)/kubectl-grep-Linux-arm64.tar.gz -C releases/$(GITVERSION)/Linux-arm64 kubectl-grep LICENSE
 
 build-darwin-x86_64:
 	@echo "Creating Build for macOS (x86_64)..."
-	@CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Darwin-x86_64/kubectl-grep
-	@cp ./LICENSE ./releases/$(VERSION)/Darwin-x86_64/LICENSE
-	@tar zcf ./releases/$(VERSION)/kubectl-grep-Darwin-x86_64.tar.gz -C releases/$(VERSION)/Darwin-x86_64 kubectl-grep LICENSE
+	@CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(GITVERSION)/Darwin-x86_64/kubectl-grep
+	@cp ./LICENSE ./releases/$(GITVERSION)/Darwin-x86_64/LICENSE
+	@tar zcf ./releases/$(GITVERSION)/kubectl-grep-Darwin-x86_64.tar.gz -C releases/$(GITVERSION)/Darwin-x86_64 kubectl-grep LICENSE
 
 build-darwin-arm64:
 	@echo "Creating Build for macOS (arm64)..."
-	@CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Darwin-arm64/kubectl-grep
-	@cp ./LICENSE ./releases/$(VERSION)/Darwin-arm64/LICENSE
-	@tar zcf ./releases/$(VERSION)/kubectl-grep-Darwin-arm64.tar.gz -C releases/$(VERSION)/Darwin-arm64 kubectl-grep LICENSE
+	@CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(GITVERSION)/Darwin-arm64/kubectl-grep
+	@cp ./LICENSE ./releases/$(GITVERSION)/Darwin-arm64/LICENSE
+	@tar zcf ./releases/$(GITVERSION)/kubectl-grep-Darwin-arm64.tar.gz -C releases/$(GITVERSION)/Darwin-arm64 kubectl-grep LICENSE
 
 build-windows-x86_64:
 	@echo "Creating Build for Windows (x86_64)..."
-	@CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Windows-x86_64/kubectl-grep.exe
-	@cp ./LICENSE ./releases/$(VERSION)/Windows-x86_64/LICENSE.txt
-	@tar zcf ./releases/$(VERSION)/kubectl-grep-Windows-x86_64.tar.gz -C releases/$(VERSION)/Windows-x86_64 kubectl-grep.exe LICENSE.txt
+	@CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(GITVERSION)/Windows-x86_64/kubectl-grep.exe
+	@cp ./LICENSE ./releases/$(GITVERSION)/Windows-x86_64/LICENSE.txt
+	@tar zcf ./releases/$(GITVERSION)/kubectl-grep-Windows-x86_64.tar.gz -C releases/$(GITVERSION)/Windows-x86_64 kubectl-grep.exe LICENSE.txt
 
 build: build-linux-x86_64 build-linux-arm64 build-darwin-x86_64 build-darwin-arm64 build-windows-x86_64
 
@@ -70,8 +65,8 @@ clean:
 release:
 	@echo "Creating Releases..."
 	go get github.com/tcnksm/ghr
-	ghr --replace --recreate -t ${GITHUB_TOKEN} $(VERSION) releases/$(VERSION)/
-	sha1sum releases/$(VERSION)/*.tar.gz > releases/$(VERSION)/SHA1SUM
+	ghr --replace --recreate -t ${GITHUB_TOKEN} $(GITVERSION) releases/$(GITVERSION)/
+	sha1sum releases/$(GITVERSION)/*.tar.gz > releases/$(VERSION)/SHA1SUM
 
 krew-release-bot:
 	@echo "Preparing krew-release-bot"
