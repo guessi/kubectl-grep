@@ -2,9 +2,10 @@
 
 PKGS       := $(shell go list ./...)
 REPO       := github.com/guessi/kubectl-grep
+BUILDTIME  := $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
 GITVERSION := $(shell git describe --tags --abbrev=8)
 GOVERSION  := $(shell go version | cut -d' ' -f3)
-LDFLAGS    := -s -w -X "$(REPO)/cmd.gitVersion=$(GITVERSION)" -X "$(REPO)/cmd.goVersion=$(GOVERSION)"
+LDFLAGS    := -s -w -X "$(REPO)/cmd.gitVersion=$(GITVERSION)" -X "$(REPO)/cmd.goVersion=$(GOVERSION)" -X "$(REPO)/cmd.buildTime=$(BUILDTIME)"
 
 default: build
 

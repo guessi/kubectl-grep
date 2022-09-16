@@ -10,6 +10,7 @@ import (
 var (
 	gitVersion   = "v0.0.0"
 	goVersion    = "v0.0.0"
+	buildTime    = "undefined"
 	shortVersion bool
 )
 
@@ -35,5 +36,6 @@ func showVersion() {
 		fmt.Println("kubectl-grep", versionInfo)
 		fmt.Println(" Git Commit:", gitVersion)
 		fmt.Println(" Build with:", goVersion)
+		fmt.Println(" Build time:", buildTime)
 	}
 }
