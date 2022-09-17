@@ -1,9 +1,17 @@
+# v1.10.1 / 2022-09-17
+
+* Build with golang 1.18.x (CI)
+* Replace deprecated golint with Staticcheck
+* Download ghr binary directly
+
 # v1.10.0 / 2022-09-17
 
 * Bump Kubernetes Client SDK v1.24.5
 * Build with golang 1.18.x
 * Include more info for "version" command
 * Introduce stable bot
+
+**Known issue:** it is actually build with golang 1.17, please use v1.10.1 instead.
 
 # v1.9.0 / 2022-09-11
 
