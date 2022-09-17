@@ -3,7 +3,7 @@ version: 2.1
 references:
   default_setup: &default_setup
     docker:
-      - image: cimg/go:1.17
+      - image: cimg/go:1.18
     resource_class: medium
     working_directory: /home/circleci/project
 
@@ -24,7 +24,7 @@ jobs:
           name: Setup Dependencies
           command: make dependency
       - save_cache:
-          key: v1-17-{{ checksum "go.mod" }}-source-ng
+          key: v1-18-{{ checksum "go.mod" }}
           paths:
             - /home/circleci/go/pkg/mod
   lint:
@@ -33,7 +33,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-17-{{ checksum "go.mod" }}-source-ng
+            - v1-18-{{ checksum "go.mod" }}
       - run:
           name: Setup Utilities
           command: make utilities
@@ -49,12 +49,12 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-17-{{ checksum "go.mod" }}-source-ng
+            - v1-18-{{ checksum "go.mod" }}
       - run:
           name: Build Code
           command: make
       - save_cache:
-          key: v1-17-{{ .Environment.CIRCLE_SHA1 }}-workspace-ng
+          key: v1-18-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - /home/circleci/project
   release:
@@ -62,8 +62,8 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - v1-17-{{ .Environment.CIRCLE_SHA1 }}-workspace-ng
-            - v1-17-{{ checksum "go.mod" }}-source-ng
+            - v1-18-{{ .Environment.CIRCLE_SHA1 }}
+            - v1-18-{{ checksum "go.mod" }}
       - run:
           name: Release
           command: make release
