@@ -1,3 +1,10 @@
+# v1.10.0 / 2022-09-17
+
+* Bump Kubernetes Client SDK v1.24.5
+* Build with golang 1.18.x
+* Include more info for "version" command
+* Introduce stable bot
+
 # v1.9.0 / 2022-09-11
 
 * Added support for the following resources
