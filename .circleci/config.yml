@@ -35,9 +35,6 @@ jobs:
           keys:
             - v1-18-{{ checksum "go.mod" }}
       - run:
-          name: Setup Utilities
-          command: make utilities
-      - run:
           name: Run tests
           command: make test
       - run:
