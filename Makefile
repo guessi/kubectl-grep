@@ -1,4 +1,4 @@
-.PHONY: utilities lint dependency clean build release all
+.PHONY: utilities staticcheck dependency clean build release all
 
 PKGS       := $(shell go list ./...)
 REPO       := github.com/guessi/kubectl-grep
@@ -11,12 +11,12 @@ default: build
 
 utilities:
 	@echo "Download Utilities..."
-	go get golang.org/x/lint/golint
+	go install honnef.co/go/tools/cmd/staticcheck@latest
 	go get github.com/tcnksm/ghr
 
-lint:
-	@echo "Source Code Lint..."
-	@for i in $(PKGS); do echo $${i}; golint $${i}; done
+staticcheck:
+	@echo "staticcheck..."
+	@for i in $(PKGS); do echo $${i}; staticcheck $${i}; done
 
 test:
 	go version
@@ -79,4 +79,4 @@ krew-release-bot:
 	@tar -xvf krew-release-bot_v0.0.43_linux_amd64.tar.gz
 	./krew-release-bot action
 
-all: utilities lint dependency clean build
+all: utilities staticcheck dependency clean build

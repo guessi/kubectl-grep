@@ -51,7 +51,7 @@ func Nodes(opt *options.SearchOptions, keyword string, wide bool) {
 		var roles []string
 		var nodeStatus string
 
-		for label, _ := range n.Labels {
+		for label := range n.Labels {
 			if strings.HasPrefix(label, "node-role.kubernetes.io") {
 				roles = append(roles, strings.SplitN(label, "/", 2)[1])
 			}

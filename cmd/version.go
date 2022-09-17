@@ -28,7 +28,7 @@ func init() {
 }
 
 func showVersion() {
-	r, _ := regexp.Compile("v[0-9]\\.[0-9]+\\.[0-9]+")
+	r, _ := regexp.Compile(`v[0-9]\.[0-9]+\.[0-9]+`)
 	versionInfo := r.FindString(gitVersion)
 	if shortVersion {
 		fmt.Println(versionInfo)

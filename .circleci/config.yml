@@ -27,7 +27,7 @@ jobs:
           key: v1-18-{{ checksum "go.mod" }}
           paths:
             - /home/circleci/go/pkg/mod
-  lint:
+  staticcheck:
     <<: *default_setup
     steps:
       - checkout
@@ -41,8 +41,8 @@ jobs:
           name: Run tests
           command: make test
       - run:
-          name: Code Lint
-          command: make lint
+          name: Code staticcheck
+          command: make staticcheck
   build:
     <<: *default_setup
     steps:
@@ -83,32 +83,32 @@ workflows:
                 - master
     jobs:
       - bootstrap
-      - lint:
+      - staticcheck:
           requires:
             - bootstrap
       - build:
           requires:
-            - lint
+            - staticcheck
   main-workflow:
     jobs:
       - bootstrap
-      - lint:
+      - staticcheck:
           requires:
             - bootstrap
       - build:
           requires:
-            - lint
+            - staticcheck
   release-workflow:
     jobs:
       - bootstrap:
           <<: *filter_tag_only
-      - lint:
+      - staticcheck:
           requires:
             - bootstrap
           <<: *filter_tag_only
       - build:
           requires:
-            - lint
+            - staticcheck
           <<: *filter_tag_only
       - release:
           requires:
