@@ -1,3 +1,7 @@
+# v1.10.2 / 2022-10-16
+
+* Bump Kubernetes Client SDK v1.24.7
+
 # v1.10.1 / 2022-09-17
 
 * Build with golang 1.18.x (CI)
