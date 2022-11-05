@@ -65,8 +65,8 @@ clean:
 
 release:
 	@echo "Creating Releases..."
-	@curl -LO https://github.com/tcnksm/ghr/releases/download/v0.15.0/ghr_v0.15.0_linux_amd64.tar.gz
-	@tar --strip-components=1 -xvf ghr_v0.15.0_linux_amd64.tar.gz ghr_v0.15.0_linux_amd64/ghr
+	@curl -LO https://github.com/tcnksm/ghr/releases/download/v0.16.0/ghr_v0.16.0_linux_amd64.tar.gz
+	@tar --strip-components=1 -xvf ghr_v0.16.0_linux_amd64.tar.gz ghr_v0.16.0_linux_amd64/ghr
 	./ghr -version
 	./ghr -replace -recreate -token ${GITHUB_TOKEN} $(GITVERSION) releases/$(GITVERSION)/
 	sha1sum releases/$(GITVERSION)/*.tar.gz > releases/$(VERSION)/SHA1SUM
