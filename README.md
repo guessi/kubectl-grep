@@ -28,17 +28,11 @@ typing such long commands is quite annoying.
 
 Before change, we usually filter pods by the following commands,
 
-    $ kubectl get pods                           | grep "keyword"
-    $ kubectl get pods -o wide                   | grep "keyword"
-    $ kubectl get pods -n "my-ns"                | grep "keyword"
-    $ kubectl get pods --all-namespaces          | grep "keyword"
+    $ kubectl get pods -n star-lab | grep "flash"
 
 With this plugin installed, you can filter pod with `kubectl grep` easily
 
-    $ kubectl grep pods "keyword"
-    $ kubectl grep pods "keyword" -o wide
-    $ kubectl grep pods "keyword" -n "my-ns"
-    $ kubectl grep pods "keyword" --all-namespaces
+    $ kubectl grep pods -n star-lab flash
 
 # Installation
 
@@ -55,20 +49,6 @@ Manual Installation
     $ tar zxvf kubectl-grep-$(uname -s)-$(uname -m).tar.gz
     $ mv kubectl-grep /usr/local/bin
     $ chmod +x /usr/local/bin/kubectl-grep
-
-# Examples
-
-List all pods in default namespace,
-
-    $ kubectl grep pods
-
-List all pods in all namespaces,
-
-    $ kubectl grep pods -A
-
-List all pods with specific keyword, under specific namespace,
-
-    $ kubectl grep pods -n star-lab flash
 
 # How to get developer build?
 
