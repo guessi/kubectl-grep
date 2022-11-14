@@ -1,3 +1,10 @@
+# v1.10.3 / 2022-11-14
+
+* Base: bump Kubernetes Client SDK v1.24.8
+  * Mitigated CVEs: [CVE-2022-3162](https://discuss.kubernetes.io/t/security-advisory-cve-2022-3162-unauthorized-read-of-custom-resources/21902), [CVE-2022-3294](https://discuss.kubernetes.io/t/security-advisory-cve-2022-3294-node-address-isnt-always-verified-when-proxying/21903)
+* Upgrade dependencies:
+  - spf13/cobra v1.6.1
+
 # v1.10.2 / 2022-10-16
 
 * Bump Kubernetes Client SDK v1.24.7
