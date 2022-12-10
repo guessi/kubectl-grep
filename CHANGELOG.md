@@ -1,3 +1,8 @@
+# v1.10.4 / 2022-12-11
+
+* Base: bump Kubernetes Client SDK v1.24.9
+  * Mitigated CVEs: CVE-2022-41717, CVE-2022-27664
+
 # v1.10.3 / 2022-11-14
 
 * Base: bump Kubernetes Client SDK v1.24.8
