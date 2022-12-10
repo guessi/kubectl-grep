@@ -5,9 +5,9 @@ go 1.18
 require (
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/cobra v1.6.1
-	k8s.io/api v0.24.8
-	k8s.io/apimachinery v0.24.8
-	k8s.io/client-go v0.24.8
+	k8s.io/api v0.24.9
+	k8s.io/apimachinery v0.24.9
+	k8s.io/client-go v0.24.9
 )
 
 require (
@@ -41,15 +41,16 @@ require (
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292 // indirect
-	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd // indirect
+	golang.org/x/net v0.3.1-0.20221206200815-1e63c2f08a10 // indirect
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8 // indirect
-	golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8 // indirect
-	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
-	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/sys v0.3.0 // indirect
+	golang.org/x/term v0.3.0 // indirect
+	golang.org/x/text v0.5.0 // indirect
 	golang.org/x/time v0.0.0-20220210224613-90d013bbcef8 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
+	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/klog/v2 v2.60.1 // indirect
@@ -96,11 +97,11 @@ replace (
 	github.com/munnerz/goautoneg => github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822
 	github.com/spf13/pflag => github.com/spf13/pflag v1.0.5
 	golang.org/x/crypto => golang.org/x/crypto v0.0.0-20220214200702-86341886e292
-	golang.org/x/net => golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd
+	golang.org/x/net => golang.org/x/net v0.3.1-0.20221206200815-1e63c2f08a10
 	golang.org/x/oauth2 => golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
-	golang.org/x/sys => golang.org/x/sys v0.0.0-20220209214540-3681064d5158
-	golang.org/x/term => golang.org/x/term v0.0.0-20210927222741-03fcf44c2211
-	golang.org/x/text => golang.org/x/text v0.3.7
+	golang.org/x/sys => golang.org/x/sys v0.3.0
+	golang.org/x/term => golang.org/x/term v0.3.0
+	golang.org/x/text => golang.org/x/text v0.5.0
 	golang.org/x/time => golang.org/x/time v0.0.0-20220210224613-90d013bbcef8
 	google.golang.org/appengine => google.golang.org/appengine v1.6.7
 	google.golang.org/protobuf => google.golang.org/protobuf v1.27.1
