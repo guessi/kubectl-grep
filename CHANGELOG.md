@@ -1,6 +1,6 @@
 # v1.11.0 / 2023-01-03
 
-* Relase with GitHub Actions
+* Release with GitHub Actions
 
 # v1.10.4 / 2022-12-11
 
