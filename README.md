@@ -1,6 +1,6 @@
 # Kubectl Grep
 
-[![CircleCI](https://img.shields.io/circleci/build/github/guessi/kubectl-grep?token=39cb1435f15bbd1fd965997db3484aed48d458b0)](https://circleci.com/gh/guessi/kubectl-grep)
+[![GitHub Actions](https://github.com/guessi/kubectl-grep/actions/workflows/go.yml/badge.svg?branch=master)](https://github.com/guessi/kubectl-grep/actions/workflows/go.yml)
 [![GoDoc](https://godoc.org/github.com/guessi/kubectl-grep?status.svg)](https://godoc.org/github.com/guessi/kubectl-grep)
 [![Go Report Card](https://goreportcard.com/badge/github.com/guessi/kubectl-grep)](https://goreportcard.com/report/github.com/guessi/kubectl-grep)
 [![GitHub release](https://img.shields.io/github/release/guessi/kubectl-grep.svg)](https://github.com/guessi/kubectl-grep/releases/latest)
