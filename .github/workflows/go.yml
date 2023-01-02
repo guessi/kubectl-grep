@@ -1,0 +1,96 @@
+name: Go
+
+on:
+  push:
+    branches:
+    - master
+    schedule:
+    - cron: '0 3 * * *'
+    tags:
+    - "v1.[0-9]+.[0-9]+"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.18
+
+    - name: Run make test
+      run: make test
+
+    - name: Run make staticcheck
+      run: make staticcheck
+
+  build:
+    needs:
+    - lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        platform: ['darwin', 'linux', 'windows']
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.18
+
+    - name: Run make build-${{ matrix.platform }}
+      run: make build-${{ matrix.platform }}
+
+    - name: Check outputs
+      run: find ./releases -type f
+
+    - name: Cache builds
+      uses: actions/cache@v3
+      with:
+        path: ./releases
+        key: ${{ runner.os }}-go-${{ matrix.platform }}-${{ hashFiles('**/go.sum') }}-${{ github.ref_name }}
+
+  release:
+    # only work when it is a tagged release
+    # ref: https://docs.github.com/en/actions/learn-github-actions/expressions
+    if: ${{ github.ref_type == 'tag' && contains(github.ref, 'v1.') }}
+    needs:
+    - build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Restore cache-darwin
+      uses: actions/cache@v3
+      with:
+        path: ./releases
+        key: ${{ runner.os }}-go-darwin-${{ hashFiles('**/go.sum') }}-${{ github.ref_name }}
+
+    - name: Restore cache-linux
+      uses: actions/cache@v3
+      with:
+        path: ./releases
+        key: ${{ runner.os }}-go-linux-${{ hashFiles('**/go.sum') }}-${{ github.ref_name }}
+
+    - name: Restore cache-windows
+      uses: actions/cache@v3
+      with:
+        path: ./releases
+        key: ${{ runner.os }}-go-windows-${{ hashFiles('**/go.sum') }}-${{ github.ref_name }}
+
+    - name: Check outputs
+      run: find ./releases -type f
+
+    - name: Run make release
+      run: make release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Run make krew-release-bot
+      run: make krew-release-bot
