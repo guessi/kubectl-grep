@@ -1,3 +1,10 @@
+# v1.12.0 / 2023-01-25
+
+* CI: upgrade actions/stale@v7
+* Base: build with Kubernetes Client SDK v1.24.10 and Golang 1.19
+  * https://github.com/kubernetes/kubernetes/pull/113956
+  * https://github.com/kubernetes/kubernetes/pull/115012
+
 # v1.11.0 / 2023-01-03
 
 * Release with GitHub Actions
