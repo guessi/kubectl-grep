@@ -1,3 +1,11 @@
+# v1.12.1 / 2023-02-18
+
+* Address vulnerabilities
+  * https://pkg.go.dev/vuln/GO-2022-0619
+  * https://pkg.go.dev/vuln/GO-2023-1571
+  * https://pkg.go.dev/vuln/GO-2023-1570
+  * https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E
+
 # v1.12.0 / 2023-01-25
 
 * CI: upgrade actions/stale@v7
