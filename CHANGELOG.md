@@ -1,3 +1,8 @@
+# v1.12.2 / 2023-03-12
+
+* Base: build with Kubernetes Client SDK v1.24.11
+* Address vulnerabilities fixes
+
 # v1.12.1 / 2023-02-18
 
 * Address vulnerabilities
