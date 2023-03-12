@@ -40,22 +40,19 @@ Installation via [krew](https://krew.sigs.k8s.io/docs/user-guide/setup/install/)
 
     $ kubectl krew version # make sure you are running 0.4.3+
     $ kubectl krew install grep
-    $ kubectl krew upgrade
+    $ kubectl krew update
+    $ kubectl krew upgrade grep
 
 Manual Installation
 
-    $ export KUBECTL_GREP_VERSION=$(curl -s https://api.github.com/repos/guessi/kubectl-grep/releases/latest | jq -r .tag_name)
-    $ curl -L -O https://github.com/guessi/kubectl-grep/releases/download/${KUBECTL_GREP_VERSION}/kubectl-grep-$(uname -s)-$(uname -m).tar.gz
+    $ curl -fsSL -O https://github.com/guessi/kubectl-grep/releases/latest/download/kubectl-grep-$(uname -s)-$(uname -m).tar.gz
     $ tar zxvf kubectl-grep-$(uname -s)-$(uname -m).tar.gz
     $ mv kubectl-grep /usr/local/bin
-    $ chmod +x /usr/local/bin/kubectl-grep
 
 # How to get developer build?
 
     $ go get -u github.com/guessi/kubectl-grep
-
     $ cd ${GOPATH}/src/github.com/guessi/kubectl-grep
-
     $ make all
 
 # FAQ
