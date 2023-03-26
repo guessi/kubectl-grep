@@ -1,3 +1,9 @@
+# v1.12.3 / 2023-03-26
+
+* Base: build with Kubernetes Client SDK v1.24.12
+* Misc: release with krew-release-bot v0.0.44
+* Misc: bump actions/setup-go@v4
+
 # v1.12.2 / 2023-03-12
 
 * Base: build with Kubernetes Client SDK v1.24.11
