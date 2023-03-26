@@ -92,5 +92,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Run make krew-release-bot
-      run: make krew-release-bot
+    - name: Update new version in krew-index
+      uses: rajatjindal/krew-release-bot@v0.0.44

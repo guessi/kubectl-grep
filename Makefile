@@ -71,10 +71,4 @@ release:
 	./ghr -replace -recreate -token ${GITHUB_TOKEN} $(GITVERSION) releases/$(GITVERSION)/
 	sha1sum releases/$(GITVERSION)/*.tar.gz > releases/$(GITVERSION)/SHA1SUM
 
-krew-release-bot:
-	@echo "Preparing krew-release-bot"
-	@curl -LO https://github.com/rajatjindal/krew-release-bot/releases/download/v0.0.43/krew-release-bot_v0.0.43_linux_amd64.tar.gz
-	@tar -xvf krew-release-bot_v0.0.43_linux_amd64.tar.gz
-	./krew-release-bot action
-
 all: staticcheck dependency clean build
