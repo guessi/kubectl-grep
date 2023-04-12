@@ -10,6 +10,7 @@ import (
 	"github.com/guessi/kubectl-grep/pkg/constants"
 	"github.com/guessi/kubectl-grep/pkg/options"
 	"github.com/guessi/kubectl-grep/pkg/utils"
+	v1 "k8s.io/api/core/v1"
 )
 
 // Nodes - a public function for searching nodes with keyword
@@ -49,7 +50,6 @@ func Nodes(opt *options.SearchOptions, keyword string, wide bool) {
 		}
 
 		var roles []string
-		var nodeStatus string
 
 		for label := range n.Labels {
 			if strings.HasPrefix(label, "node-role.kubernetes.io") {
@@ -60,17 +60,26 @@ func Nodes(opt *options.SearchOptions, keyword string, wide bool) {
 			roles = append(roles, "<none>")
 		}
 
-		if !n.Spec.Unschedulable {
-			nodeStatus = "Ready"
-		} else {
-			nodeStatus = "Ready,SchedulingDisabled"
+		var nodeStatus string = "Unknown"
+		for _, condition := range n.Status.Conditions {
+			if condition.Type == v1.NodeReady {
+				if condition.Status == v1.ConditionTrue {
+					nodeStatus = "Ready"
+				} else {
+					nodeStatus = "NotReady"
+				}
+			}
+		}
+
+		if n.Spec.Unschedulable {
+			nodeStatus = nodeStatus + ",SchedulingDisabled"
 		}
 
 		age := utils.GetAge(time.Since(n.CreationTimestamp.Time))
 
 		if wide {
-			var extAddr string
-			var intAddr string
+			var extAddr string = "<none>"
+			var intAddr string = "<none>"
 
 			for _, addr := range n.Status.Addresses {
 				if addr.Type == "ExternalIP" {

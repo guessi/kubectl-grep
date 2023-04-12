@@ -64,8 +64,8 @@ func Statefulsets(opt *options.SearchOptions, keyword string, wide bool) {
 			statefulsetInfo = fmt.Sprintf(constants.StatefulsetRowTemplateWide,
 				s.Namespace,
 				s.Name,
-				s.Status.Replicas,
 				s.Status.ReadyReplicas,
+				*s.Spec.Replicas,
 				age,
 				strings.Join(names, ","),
 				strings.Join(images, ","),
@@ -74,8 +74,8 @@ func Statefulsets(opt *options.SearchOptions, keyword string, wide bool) {
 			statefulsetInfo = fmt.Sprintf(constants.StatefulsetRowTemplate,
 				s.Namespace,
 				s.Name,
-				s.Status.Replicas,
 				s.Status.ReadyReplicas,
+				*s.Spec.Replicas,
 				age,
 			)
 		}

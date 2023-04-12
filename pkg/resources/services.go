@@ -74,11 +74,16 @@ func Services(opt *options.SearchOptions, keyword string, wide bool) {
 			selectorOutput = strings.Join(selectors, ",")
 		}
 
-		var externalips []string
+		var externalIPs []string
 		if s.Spec.ExternalIPs == nil {
 			for _, i := range s.Status.LoadBalancer.Ingress {
-				externalips = append(externalips, i.Hostname)
+				externalIPs = append(externalIPs, i.Hostname)
 			}
+		}
+
+		var externalIPsDisplay string = "<none>"
+		if len(externalIPs) > 0 {
+			externalIPsDisplay = strings.Join(externalIPs, ",")
 		}
 
 		if wide {
@@ -87,7 +92,7 @@ func Services(opt *options.SearchOptions, keyword string, wide bool) {
 				s.Name,
 				s.Spec.Type,
 				s.Spec.ClusterIP,
-				strings.Join(externalips, ","),
+				externalIPsDisplay,
 				strings.Join(ports, ","),
 				age,
 				selectorOutput,
@@ -98,7 +103,7 @@ func Services(opt *options.SearchOptions, keyword string, wide bool) {
 				s.Name,
 				s.Spec.Type,
 				s.Spec.ClusterIP,
-				strings.Join(externalips, ","),
+				externalIPsDisplay,
 				strings.Join(ports, ","),
 				age,
 			)

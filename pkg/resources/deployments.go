@@ -52,31 +52,37 @@ func Deployments(opt *options.SearchOptions, keyword string, wide bool) {
 		containers := d.Spec.Template.Spec.Containers
 
 		if wide {
-			names := []string{}
-			images := []string{}
+			var names []string
+			var images []string
+			var selectors []string
 
 			for _, n := range containers {
 				names = append(names, n.Name)
 				images = append(images, n.Image)
 			}
 
+			for k, v := range d.Spec.Selector.MatchLabels {
+				selectors = append(selectors, fmt.Sprintf("%s=%s", k, v))
+			}
+
 			deploymentInfo = fmt.Sprintf(constants.DeploymentRowTemplateWide,
 				d.Namespace,
 				d.Name,
-				d.Status.Replicas,
 				d.Status.ReadyReplicas,
+				*d.Spec.Replicas,
 				d.Status.UpdatedReplicas,
 				d.Status.AvailableReplicas,
 				age,
 				strings.Join(names, ","),
 				strings.Join(images, ","),
+				strings.Join(selectors, ","),
 			)
 		} else {
 			deploymentInfo = fmt.Sprintf(constants.DeploymentRowTemplate,
 				d.Namespace,
 				d.Name,
-				d.Status.Replicas,
 				d.Status.ReadyReplicas,
+				*d.Spec.Replicas,
 				d.Status.UpdatedReplicas,
 				d.Status.AvailableReplicas,
 				age,

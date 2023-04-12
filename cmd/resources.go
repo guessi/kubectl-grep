@@ -146,7 +146,7 @@ var (
 	}
 	nodesCmd = &cobra.Command{
 		Use:     "nodes",
-		Aliases: []string{"no", "nodes"},
+		Aliases: []string{"no", "node", "nodes"},
 		Short:   "Search Nodes by keyword",
 		Run: func(cmd *cobra.Command, args []string) {
 			resourceSearch(args, "nodes")

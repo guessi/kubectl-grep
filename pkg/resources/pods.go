@@ -48,7 +48,7 @@ func Pods(opt *options.SearchOptions, keyword string, wide bool) {
 			}
 		}
 
-		var containerCount int = len(p.Status.ContainerStatuses)
+		var containerCount int = len(p.Spec.Containers)
 		var readyCount int32
 		var restartCount int32
 
@@ -57,6 +57,16 @@ func Pods(opt *options.SearchOptions, keyword string, wide bool) {
 			if cs.Ready {
 				readyCount++
 			}
+		}
+
+		var podIP string = "<none>"
+		if len(p.Status.PodIP) > 0 {
+			podIP = p.Status.PodIP
+		}
+
+		var nodeName string = "<none>"
+		if len(p.Spec.NodeName) > 0 {
+			nodeName = p.Spec.NodeName
 		}
 
 		age := utils.GetAge(time.Since(p.CreationTimestamp.Time))
@@ -69,8 +79,8 @@ func Pods(opt *options.SearchOptions, keyword string, wide bool) {
 				p.Status.Phase,
 				restartCount,
 				age,
-				p.Status.PodIP,
-				p.Spec.NodeName,
+				podIP,
+				nodeName,
 			)
 		} else {
 			podInfo = fmt.Sprintf(constants.PodRowTemplate,

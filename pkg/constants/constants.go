@@ -2,33 +2,33 @@ package constants
 
 const (
 	// apps/v1
-	DaemonsetHeader      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tUP-TO-DATE\tAVAILABLE\tNODE SELECTOR\tAGE"
-	DaemonsetRowTemplate = "%s\t%s\t%d\t%d\t%d\t%d\t%s\t%s"
+	DaemonsetHeader      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tREADY\tUP-TO-DATE\tAVAILABLE\tNODE SELECTOR\tAGE"
+	DaemonsetRowTemplate = "%s\t%s\t%d\t%d\t%d\t%d\t%d\t%s\t%s"
 
-	DaemonsetHeaderWide      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tUP-TO-DATE\tAVAILABLE\tNODE SELECTOR\tAGE\tCONTAINERS\tIMAGES\tSELECTOR"
-	DaemonsetRowTemplateWide = "%s\t%s\t%d\t%d\t%d\t%d\t%s\t%s\t%s\t%s\t%s"
+	DaemonsetHeaderWide      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tREADY\tUP-TO-DATE\tAVAILABLE\tNODE SELECTOR\tAGE\tCONTAINERS\tIMAGES\tSELECTOR"
+	DaemonsetRowTemplateWide = "%s\t%s\t%d\t%d\t%d\t%d\t%d\t%s\t%s\t%s\t%s\t%s"
 
-	DeploymentHeader      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tUP-TO-DATE\tAVAILABLE\tAGE"
-	DeploymentRowTemplate = "%s\t%s\t%d\t%d\t%d\t%d\t%s"
+	DeploymentHeader      = "NAMESPACE\tNAME\tREADY\tUP-TO-DATE\tAVAILABLE\tAGE"
+	DeploymentRowTemplate = "%s\t%s\t%d/%d\t%d\t%d\t%s"
 
-	DeploymentHeaderWide      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tUP-TO-DATE\tAVAILABLE\tAGE\tCONTAINERS\tIMAGES"
-	DeploymentRowTemplateWide = "%s\t%s\t%d\t%d\t%d\t%d\t%s\t%s\t%s"
+	DeploymentHeaderWide      = "NAMESPACE\tNAME\tREADY\tUP-TO-DATE\tAVAILABLE\tAGE\tCONTAINERS\tIMAGES\tSELECTOR"
+	DeploymentRowTemplateWide = "%s\t%s\t%d/%d\t%d\t%d\t%s\t%s\t%s\t%s"
 
-	ReplicasetHeader      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tAGE"
-	ReplicasetRowTemplate = "%s\t%s\t%d\t%d\t%s"
+	ReplicasetHeader      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tREADY\tAGE"
+	ReplicasetRowTemplate = "%s\t%s\t%d\t%d\t%d\t%s"
 
-	ReplicasetHeaderWide      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tAGE\tCONTAINERS\tIMAGES\tSELECTOR"
-	ReplicasetRowTemplateWide = "%s\t%s\t%d\t%d\t%s\t%s\t%s\t%s"
+	ReplicasetHeaderWide      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tREADY\tAGE\tCONTAINERS\tIMAGES\tSELECTOR"
+	ReplicasetRowTemplateWide = "%s\t%s\t%d\t%d\t%d\t%s\t%s\t%s\t%s"
 
-	StatefulsetHeader      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tAGE"
-	StatefulsetRowTemplate = "%s\t%s\t%d\t%d\t%s"
+	StatefulsetHeader      = "NAMESPACE\tNAME\tREADY\tAGE"
+	StatefulsetRowTemplate = "%s\t%s\t%d/%d\t%s"
 
-	StatefulsetHeaderWide      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tAGE\tCONTAINERS\tIMAGES"
-	StatefulsetRowTemplateWide = "%s\t%s\t%d\t%d\t%s\t%s\t%s"
+	StatefulsetHeaderWide      = "NAMESPACE\tNAME\tREADY\tAGE\tCONTAINERS\tIMAGES"
+	StatefulsetRowTemplateWide = "%s\t%s\t%d/%d\t%s\t%s\t%s"
 
 	// autoscaling/v1
 	HpaHeader      = "NAMESPACE\tNAME\tREFERENCE\tTARGETS\tMINPODS\tMAXPODS\tREPLICAS\tAGE"
-	HpaRowTemplate = "%s\t%s\t%s/%s\t%d%%/%d%%\t%d\t%d\t%d\t%s"
+	HpaRowTemplate = "%s\t%s\t%s/%s\t%s/%d%%\t%d\t%d\t%d\t%s"
 
 	// batch/v1
 	CronJobsHeader      = "NAMESPACE\tNAME\tSCHEDULE\tSUSPEND\tACTIVE\tLAST SCHEDULE\tAGE"
