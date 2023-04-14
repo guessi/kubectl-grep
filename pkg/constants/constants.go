@@ -71,10 +71,10 @@ const (
 	NodeHeaderWide      = "NAME\tSTATUS\tROLES\tAGE\tVERSION\tINTERNAL-IP\tEXTERNAL-IP\tOS-IMAGE\tKERNEL-VERSION\tCONTAINER-RUNTIME"
 	NodeRowTemplateWide = "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"
 
-	PodHeader      = "NAMESPACE\tNAME\tREADY\tSTATUS\tRESTART\tAGE"
+	PodHeader      = "NAMESPACE\tNAME\tREADY\tSTATUS\tRESTARTS\tAGE"
 	PodRowTemplate = "%s\t%s\t%d/%d\t%s\t%d\t%s"
 
-	PodHeaderWide      = "NAMESPACE\tNAME\tREADY\tSTATUS\tRESTART\tAGE\tIP\tNODENAME"
+	PodHeaderWide      = "NAMESPACE\tNAME\tREADY\tSTATUS\tRESTARTS\tAGE\tIP\tNODENAME"
 	PodRowTemplateWide = "%s\t%s\t%d/%d\t%s\t%d\t%s\t%s\t%s"
 
 	SecretHeader      = "NAMESPACE\tNAME\tTYPE\tDATA\tAGE"
