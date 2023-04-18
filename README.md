@@ -10,15 +10,15 @@ Filter Kubernetes resources by matching their names
 
 # Requirements
 
-- Kubernetes 1.23.0+
-- Kubectl 1.23.0+
+- Kubernetes 1.24.0+
+- Kubectl 1.24.0+
 - Krew 0.4.3+
 
 # Compatibility
 
 please refer to [Kubernetes version policy](https://kubernetes.io/docs/setup/release/version-skew-policy/#kubectl) and [CHANGELOG](CHANGELOG.md) for supported version matrix.
 
-Example: `kubectl-grep` build with Kubernetes-1.24.x should be compatable with Kubernetes cluster version 1.23, 1.24, 1.25.
+Example: `kubectl-grep` build with Kubernetes-1.24.x should be compatable with Kubernetes cluster version 1.24, 1.25, 1.26.
 
 # Why we need it?
 

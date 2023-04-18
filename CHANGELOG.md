@@ -1,3 +1,11 @@
+# v1.13.0 / 2023-04-19
+
+* Release with krew-release-bot v0.0.46
+* Build with Kubernetes Client SDK v1.25.9
+* Keep output aligned with kubectl and bug fixes
+* Trigger actions/stale once per week
+* Bump actions/stale@v8
+
 # v1.12.3 / 2023-03-26
 
 * Base: build with Kubernetes Client SDK v1.24.12
