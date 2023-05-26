@@ -1,3 +1,7 @@
+# v1.13.1 / 2023-05-26
+
+* Build with Kubernetes Client SDK v1.25.10
+
 # v1.13.0 / 2023-04-19
 
 * Release with krew-release-bot v0.0.46
