@@ -28,7 +28,7 @@ const (
 
 	// autoscaling/v1
 	HpaHeader      = "NAMESPACE\tNAME\tREFERENCE\tTARGETS\tMINPODS\tMAXPODS\tREPLICAS\tAGE"
-	HpaRowTemplate = "%s\t%s\t%s/%s\t%s/%d%%\t%d\t%d\t%d\t%s"
+	HpaRowTemplate = "%s\t%s\t%s/%s\t%s/%s\t%d\t%d\t%d\t%s"
 
 	// batch/v1
 	CronJobsHeader      = "NAMESPACE\tNAME\tSCHEDULE\tSUSPEND\tACTIVE\tLAST SCHEDULE\tAGE"
