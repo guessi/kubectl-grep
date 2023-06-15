@@ -5,9 +5,9 @@ go 1.19
 require (
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/cobra v1.6.1
-	k8s.io/api v0.25.10
-	k8s.io/apimachinery v0.25.10
-	k8s.io/client-go v0.25.10
+	k8s.io/api v0.25.11
+	k8s.io/apimachinery v0.25.11
+	k8s.io/client-go v0.25.11
 )
 
 require (
@@ -87,14 +87,17 @@ replace (
 	github.com/google/gnostic => github.com/google/gnostic v0.5.7-v3refs
 	github.com/google/go-cmp => github.com/google/go-cmp v0.5.8
 	github.com/google/gofuzz => github.com/google/gofuzz v1.1.0
+	github.com/google/uuid => github.com/google/uuid v1.3.0
 	github.com/imdario/mergo => github.com/imdario/mergo v0.3.6
 	github.com/inconshreveable/mousetrap => github.com/inconshreveable/mousetrap v1.0.0
 	github.com/josharian/intern => github.com/josharian/intern v1.0.0
 	github.com/json-iterator/go => github.com/json-iterator/go v1.1.12
+	github.com/kr/pretty => github.com/kr/pretty v0.3.0
 	github.com/mailru/easyjson => github.com/mailru/easyjson v0.7.6
 	github.com/modern-go/concurrent => github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
 	github.com/modern-go/reflect2 => github.com/modern-go/reflect2 v1.0.2
 	github.com/munnerz/goautoneg => github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822
+	github.com/rogpeppe/go-internal => github.com/rogpeppe/go-internal v1.6.1
 	github.com/spf13/pflag => github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify => github.com/stretchr/testify v1.8.0
 	golang.org/x/crypto => golang.org/x/crypto v0.0.0-20220315160706-3147a52a75dd
@@ -118,16 +121,16 @@ replace (
 	gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.4.0
 	gopkg.in/yaml.v3 => gopkg.in/yaml.v3 v3.0.1
 	honnef.co/go/tools => honnef.co/go/tools v0.0.1-2020.1.4
-	k8s.io/api => k8s.io/api v0.25.10
-	k8s.io/apimachinery => k8s.io/apimachinery v0.25.10
-	k8s.io/cli-runtime => k8s.io/cli-runtime v0.25.10
-	k8s.io/client-go => k8s.io/client-go v0.25.10
-	k8s.io/code-generator => k8s.io/code-generator v0.25.10
-	k8s.io/component-base => k8s.io/component-base v0.25.10
-	k8s.io/component-helpers => k8s.io/component-helpers v0.25.10
+	k8s.io/api => k8s.io/api v0.25.11
+	k8s.io/apimachinery => k8s.io/apimachinery v0.25.11
+	k8s.io/cli-runtime => k8s.io/cli-runtime v0.25.11
+	k8s.io/client-go => k8s.io/client-go v0.25.11
+	k8s.io/code-generator => k8s.io/code-generator v0.25.11
+	k8s.io/component-base => k8s.io/component-base v0.25.11
+	k8s.io/component-helpers => k8s.io/component-helpers v0.25.11
 	k8s.io/klog/v2 => k8s.io/klog/v2 v2.70.1
 	k8s.io/kube-openapi => k8s.io/kube-openapi v0.0.0-20220803162953-67bda5d908f1
-	k8s.io/metrics => k8s.io/metrics v0.25.10
+	k8s.io/metrics => k8s.io/metrics v0.25.11
 	k8s.io/utils => k8s.io/utils v0.0.0-20220728103510-ee6ede2d64ed
 	sigs.k8s.io/json => sigs.k8s.io/json v0.0.0-20220713155537-f223a00ba0e2
 	sigs.k8s.io/structured-merge-diff/v4 => sigs.k8s.io/structured-merge-diff/v4 v4.2.3
