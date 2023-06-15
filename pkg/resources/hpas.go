@@ -10,6 +10,7 @@ import (
 	"github.com/guessi/kubectl-grep/pkg/constants"
 	"github.com/guessi/kubectl-grep/pkg/options"
 	"github.com/guessi/kubectl-grep/pkg/utils"
+	autoscalingv2 "k8s.io/api/autoscaling/v2"
 )
 
 // Hpas - a public function for searching hpas with keyword
@@ -43,10 +44,33 @@ func Hpas(opt *options.SearchOptions, keyword string) {
 		}
 
 		var age string = utils.GetAge(time.Since(h.CreationTimestamp.Time))
+
+		var targetCPUUtilizationPercentage string = "<unknown>"
 		var currentCPUUtilizationPercentage string = "<unknown>"
 
-		if h.Status.CurrentCPUUtilizationPercentage != nil {
-			currentCPUUtilizationPercentage = fmt.Sprintf("%d%%", *h.Status.CurrentCPUUtilizationPercentage)
+		// var targetMemoryUtilizationPercentage string = "<unknown>"
+		// var currentMemoryUtilizationPercentage string = "<unknown>"
+
+		for _, metric := range h.Spec.Metrics {
+			if metric.Type == autoscalingv2.ResourceMetricSourceType {
+				if metric.Resource.Name == "cpu" {
+					targetCPUUtilizationPercentage = fmt.Sprintf("%d%%", *metric.Resource.Target.AverageUtilization)
+				}
+				// if metric.Resource.Name == "memory" {
+				// 	targetMemoryUtilizationPercentage = fmt.Sprintf("%d%%", *metric.Resource.Target.AverageUtilization)
+				// }
+			}
+		}
+
+		for _, metric := range h.Status.CurrentMetrics {
+			if metric.Type == autoscalingv2.ResourceMetricSourceType {
+				if metric.Resource.Name == "cpu" {
+					currentCPUUtilizationPercentage = fmt.Sprintf("%d%%", *metric.Resource.Current.AverageUtilization)
+				}
+				// if metric.Resource.Name == "memory" {
+				// 	currentMemoryUtilizationPercentage = fmt.Sprintf("%d%%", *metric.Resource.Current.AverageUtilization)
+				// }
+			}
 		}
 
 		hpaInfo := fmt.Sprintf(constants.HpaRowTemplate,
@@ -55,7 +79,7 @@ func Hpas(opt *options.SearchOptions, keyword string) {
 			h.Spec.ScaleTargetRef.Kind,
 			h.Spec.ScaleTargetRef.Name,
 			currentCPUUtilizationPercentage,
-			*h.Spec.TargetCPUUtilizationPercentage,
+			targetCPUUtilizationPercentage,
 			*h.Spec.MinReplicas,
 			h.Spec.MaxReplicas,
 			h.Status.CurrentReplicas,
