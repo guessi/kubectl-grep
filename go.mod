@@ -5,9 +5,9 @@ go 1.19
 require (
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/cobra v1.6.1
-	k8s.io/api v0.26.6
-	k8s.io/apimachinery v0.26.6
-	k8s.io/client-go v0.26.6
+	k8s.io/api v0.26.7
+	k8s.io/apimachinery v0.26.7
+	k8s.io/client-go v0.26.7
 )
 
 require (
@@ -51,12 +51,12 @@ require (
 )
 
 replace (
-	k8s.io/api => k8s.io/api v0.26.6
-	k8s.io/apimachinery => k8s.io/apimachinery v0.26.6
-	k8s.io/cli-runtime => k8s.io/cli-runtime v0.26.6
-	k8s.io/client-go => k8s.io/client-go v0.26.6
-	k8s.io/code-generator => k8s.io/code-generator v0.26.6
-	k8s.io/component-base => k8s.io/component-base v0.26.6
-	k8s.io/component-helpers => k8s.io/component-helpers v0.26.6
-	k8s.io/metrics => k8s.io/metrics v0.26.6
+	k8s.io/api => k8s.io/api v0.26.7
+	k8s.io/apimachinery => k8s.io/apimachinery v0.26.7
+	k8s.io/cli-runtime => k8s.io/cli-runtime v0.26.7
+	k8s.io/client-go => k8s.io/client-go v0.26.7
+	k8s.io/code-generator => k8s.io/code-generator v0.26.7
+	k8s.io/component-base => k8s.io/component-base v0.26.7
+	k8s.io/component-helpers => k8s.io/component-helpers v0.26.7
+	k8s.io/metrics => k8s.io/metrics v0.26.7
 )
