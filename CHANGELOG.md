@@ -1,3 +1,7 @@
+# v1.14.1 / 2023-08-18
+
+* Build with Kubernetes Client SDK v1.26.7
+
 # v1.14.0 / 2023-07-23
 
 * Build with Kubernetes Client SDK v1.26.6
