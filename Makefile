@@ -10,8 +10,11 @@ LDFLAGS    := -s -w -X "$(REPO)/cmd.gitVersion=$(GITVERSION)" -X "$(REPO)/cmd.go
 default: build
 
 staticcheck:
-	@echo "Golang Staticcheck..."
+	@echo "Setup staticcheck..."
 	@go install honnef.co/go/tools/cmd/staticcheck@latest
+	@echo "Check staticcheck version..."
+	staticcheck --version
+	@echo "Run staticcheck..."
 	@for i in $(PKGS); do echo $${i}; staticcheck $${i}; done
 
 test:
