@@ -44,7 +44,7 @@ func ReplicaSetList(opt *options.SearchOptions) *appsv1.ReplicaSetList {
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get .ReplicaSet List")
+		}).Debug("Unable to get ReplicaSet List")
 	}
 	return list
 }
@@ -57,7 +57,7 @@ func StatefulSetList(opt *options.SearchOptions) *appsv1.StatefulSetList {
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get .StatefulSet List")
+		}).Debug("Unable to get StatefulSet List")
 	}
 	return list
 }
