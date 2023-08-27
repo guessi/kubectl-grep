@@ -1,3 +1,11 @@
+# v1.15.0 / 2023-08-27
+
+* Upstream k8s 1.27 built with go 1.20
+* Build with Kubernetes Client SDK v1.27.5
+* More detail for staticcheck
+* Bump github.com/sirupsen/logrus v1.9.3
+* Bump github.com/spf13/cobra v1.7.0
+
 # v1.14.1 / 2023-08-18
 
 * Build with Kubernetes Client SDK v1.26.7
