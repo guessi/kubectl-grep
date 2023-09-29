@@ -1,3 +1,7 @@
+# v1.15.1 / 2023-09-29
+
+* Build with Kubernetes Client SDK v1.27.6
+
 # v1.15.0 / 2023-08-27
 
 * Upstream k8s 1.27 built with go 1.20
