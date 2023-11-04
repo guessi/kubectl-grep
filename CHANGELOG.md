@@ -1,3 +1,8 @@
+# v1.15.2 / 2023-11-04
+
+* Build with Kubernetes Client SDK v1.27.7
+* Bump actions/checkout@v4
+
 # v1.15.1 / 2023-09-29
 
 * Build with Kubernetes Client SDK v1.27.6
