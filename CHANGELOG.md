@@ -1,3 +1,8 @@
+# v1.15.3/ 2023-11-19
+
+* Build with Kubernetes Client SDK v1.27.8
+* Bump github.com/spf13/cobra v1.8.0
+
 # v1.15.2 / 2023-11-04
 
 * Build with Kubernetes Client SDK v1.27.7
