@@ -17,4 +17,4 @@ jobs:
       pull-requests: write
 
     steps:
-    - uses: actions/stale@v8
+    - uses: actions/stale@v9
