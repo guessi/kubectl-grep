@@ -5,9 +5,9 @@ go 1.20
 require (
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.8.0
-	k8s.io/api v0.28.5
-	k8s.io/apimachinery v0.28.5
-	k8s.io/client-go v0.28.5
+	k8s.io/api v0.28.6
+	k8s.io/apimachinery v0.28.6
+	k8s.io/client-go v0.28.6
 )
 
 require (
@@ -32,11 +32,11 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	golang.org/x/net v0.17.0 // indirect
+	golang.org/x/net v0.19.0 // indirect
 	golang.org/x/oauth2 v0.8.0 // indirect
-	golang.org/x/sys v0.13.0 // indirect
-	golang.org/x/term v0.13.0 // indirect
-	golang.org/x/text v0.13.0 // indirect
+	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/term v0.15.0 // indirect
+	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
@@ -52,12 +52,12 @@ require (
 )
 
 replace (
-	k8s.io/api => k8s.io/api v0.28.5
-	k8s.io/apimachinery => k8s.io/apimachinery v0.28.5
-	k8s.io/cli-runtime => k8s.io/cli-runtime v0.28.5
-	k8s.io/client-go => k8s.io/client-go v0.28.5
-	k8s.io/code-generator => k8s.io/code-generator v0.28.5
-	k8s.io/component-base => k8s.io/component-base v0.28.5
-	k8s.io/component-helpers => k8s.io/component-helpers v0.28.5
-	k8s.io/metrics => k8s.io/metrics v0.28.5
+	k8s.io/api => k8s.io/api v0.28.6
+	k8s.io/apimachinery => k8s.io/apimachinery v0.28.6
+	k8s.io/cli-runtime => k8s.io/cli-runtime v0.28.6
+	k8s.io/client-go => k8s.io/client-go v0.28.6
+	k8s.io/code-generator => k8s.io/code-generator v0.28.6
+	k8s.io/component-base => k8s.io/component-base v0.28.6
+	k8s.io/component-helpers => k8s.io/component-helpers v0.28.6
+	k8s.io/metrics => k8s.io/metrics v0.28.6
 )
