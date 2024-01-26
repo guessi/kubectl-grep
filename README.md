@@ -30,7 +30,7 @@ With this plugin installed, you can filter pod with `kubectl grep` easily
 
 Installation via [krew](https://krew.sigs.k8s.io/docs/user-guide/setup/install/)
 
-    $ kubectl krew version # make sure you are running 0.4.3+
+    $ kubectl krew version # make sure you are running 0.4.4+
     $ kubectl krew install grep
     $ kubectl krew update
     $ kubectl krew upgrade grep
