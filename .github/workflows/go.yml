@@ -50,7 +50,7 @@ jobs:
       run: find ./releases -type f
 
     - name: Cache builds
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ./releases
         key: ${{ runner.os }}-go-${{ matrix.platform }}-${{ hashFiles('**/go.sum') }}-${{ github.ref_name }}
@@ -67,19 +67,19 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Restore cache-darwin
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ./releases
         key: ${{ runner.os }}-go-darwin-${{ hashFiles('**/go.sum') }}-${{ github.ref_name }}
 
     - name: Restore cache-linux
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ./releases
         key: ${{ runner.os }}-go-linux-${{ hashFiles('**/go.sum') }}-${{ github.ref_name }}
 
     - name: Restore cache-windows
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ./releases
         key: ${{ runner.os }}-go-windows-${{ hashFiles('**/go.sum') }}-${{ github.ref_name }}
