@@ -1,10 +1,15 @@
-# v1.16.0/ 2024-01-07
+# v1.16.1 / 2024-02-16
+
+* Build with Kubernetes Client SDK v1.28.7
+* Bump actions/cache@v4
+
+# v1.16.0 / 2024-01-07
 
 * Build with Kubernetes Client SDK v1.28.5
 * Bump actions/steup-go@v5
 * Bump actions/stale@v9
 
-# v1.15.3/ 2023-11-19
+# v1.15.3 / 2023-11-19
 
 * Build with Kubernetes Client SDK v1.27.8
 * Bump github.com/spf13/cobra v1.8.0
