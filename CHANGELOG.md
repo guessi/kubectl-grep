@@ -1,3 +1,8 @@
+# v1.19.0 / 2024-11-03
+
+* Build with Kubernetes Client SDK v1.31.2
+* Bump dependencies
+
 # v1.18.3 / 2024-09-30
 
 * Build with Kubernetes Client SDK v1.30.5
