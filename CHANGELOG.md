@@ -1,3 +1,8 @@
+# v1.19.1 / 2024-11-12
+
+* Implement --invert-match/-v support
+* Bump dependencies
+
 # v1.19.0 / 2024-11-03
 
 * Build with Kubernetes Client SDK v1.31.2
