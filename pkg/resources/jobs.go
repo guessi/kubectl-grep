@@ -19,12 +19,12 @@ func Jobs(opt *options.SearchOptions, keyword string) {
 
 	jobList := utils.JobList(opt)
 
-	if len(jobList.Items) <= 0 {
+	if len(jobList.Items) == 0 {
+		ns := opt.Namespace
 		if opt.AllNamespaces {
-			fmt.Printf("No resources found.\n")
+			fmt.Println("No resources found.")
 		} else {
-			var ns = opt.Namespace
-			if len(opt.Namespace) <= 0 {
+			if ns == "" {
 				ns = "default"
 			}
 			fmt.Printf("No resources found in %s namespace.\n", ns)

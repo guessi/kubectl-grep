@@ -16,12 +16,12 @@ import (
 func Hpas(opt *options.SearchOptions, keyword string) {
 	hpaList := utils.HpaList(opt)
 
-	if len(hpaList.Items) <= 0 {
+	if len(hpaList.Items) == 0 {
+		ns := opt.Namespace
 		if opt.AllNamespaces {
-			fmt.Printf("No resources found.\n")
+			fmt.Println("No resources found.")
 		} else {
-			var ns = opt.Namespace
-			if len(opt.Namespace) <= 0 {
+			if ns == "" {
 				ns = "default"
 			}
 			fmt.Printf("No resources found in %s namespace.\n", ns)
