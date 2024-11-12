@@ -54,6 +54,9 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(
 		&searchOptions.FieldSelector, "field-selector", "",
 		"Selector (field query) to filter on. (e.g. --field-selector key1=value1,key2=value2)")
+	rootCmd.PersistentFlags().BoolVarP(
+		&searchOptions.InvertMatch, "invert-match", "v", false,
+		"If present, filter out those not matching the specified patterns")
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

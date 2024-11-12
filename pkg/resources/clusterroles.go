@@ -32,7 +32,7 @@ func ClusterRoles(opt *options.SearchOptions, keyword string) {
 		// return all if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(c.Name, keyword)
-			if !match {
+			if match == opt.InvertMatch {
 				continue
 			}
 		}

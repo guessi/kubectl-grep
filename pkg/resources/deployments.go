@@ -43,7 +43,7 @@ func Deployments(opt *options.SearchOptions, keyword string, wide bool) {
 		// return all if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(d.Name, keyword)
-			if !match {
+			if match == opt.InvertMatch {
 				continue
 			}
 		}

@@ -40,7 +40,7 @@ func Roles(opt *options.SearchOptions, keyword string) {
 		// return all if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(r.Name, keyword)
-			if !match {
+			if match == opt.InvertMatch {
 				continue
 			}
 		}

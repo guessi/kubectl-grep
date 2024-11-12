@@ -7,6 +7,7 @@ type SearchOptions struct {
 	Namespace     string
 	Selector      string
 	FieldSelector string
+	InvertMatch   bool
 }
 
 // NewSearchOptions - genericclioptions wrapper for searchOptions

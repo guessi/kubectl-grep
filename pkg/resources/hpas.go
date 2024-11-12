@@ -37,7 +37,7 @@ func Hpas(opt *options.SearchOptions, keyword string) {
 		// return all if no keyword specific
 		if len(keyword) > 0 {
 			match := strings.Contains(h.Name, keyword)
-			if !match {
+			if match == opt.InvertMatch {
 				continue
 			}
 		}
