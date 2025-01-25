@@ -8,63 +8,81 @@
 
 Filter Kubernetes resources by matching their names
 
-# Compatibility
+## 🤔 Why we need this? what it is trying to resolve?
 
-please refer to [Kubernetes version policy](https://kubernetes.io/docs/setup/release/version-skew-policy/#kubectl) and [CHANGELOG](CHANGELOG.md) for supported version matrix.
+Playing with Kubernetes in our daily job, we normally search pods by `pipe`, `grep`, `--label`, `--field-selector`, etc. while hunting abnormal pods, but typing such long commands is quite annoying. With plugin installed, it could be easily be done by `kubectl grep`.
 
-# Why we need it?
+## 🔢 Prerequisites
 
-playing with Kubernetes is my daily job, and I normally search pods by `pipe`,
-`grep`, `--label`, `--field-selector`, etc. while hunting abnormal pods, but
-typing such long commands is quite annoying.
+* An existing Kubernetes cluster.
+* Have [kubectl](https://kubernetes.io/docs/tasks/tools/) installed.
+* Have [krew](https://krew.sigs.k8s.io/docs/user-guide/setup/install/) installed.
 
-Before change, we usually filter pods by the following commands,
+## 🚀 Quick start
 
-    $ kubectl get pods -n star-lab | grep "flash"
+```bash
+# Have krew plugin installed
+kubectl krew install grep
+```
 
-With this plugin installed, you can filter pod with `kubectl grep` easily
+```bash
+# Before change, we usually filter pods by the following commands,
+kubectl get pods -n star-lab | grep "flash"
+```
 
-    $ kubectl grep pods -n star-lab flash
+```bash
+# With this plugin installed, you can filter pod easily
+kubectl grep pods -n star-lab flash
+```
 
-# Installation
+## :accessibility: FAQ
 
-Installation via [krew](https://krew.sigs.k8s.io/docs/user-guide/setup/install/)
-
-    $ kubectl krew version # make sure you are running 0.4.4+
-    $ kubectl krew install grep
-    $ kubectl krew update
-    $ kubectl krew upgrade grep
-
-Manual Installation
-
-    $ curl -fsSL -O https://github.com/guessi/kubectl-grep/releases/latest/download/kubectl-grep-$(uname -s)-$(uname -m).tar.gz
-    $ tar zxvf kubectl-grep-$(uname -s)-$(uname -m).tar.gz
-    $ mv kubectl-grep /usr/local/bin
-
-# How to get developer build?
-
-    $ go get -u github.com/guessi/kubectl-grep
-    $ cd ${GOPATH}/src/github.com/guessi/kubectl-grep
-    $ make all
-
-# FAQ
-
-How do I check the tool's version?
+How do I check the version installed?
 
 * `kubectl grep version`
 
-Can I use version X `kubectl` with version Y `kubectl-grep`?
+How do I know the version installed is compatible with my cluster version?
 
-* Sure, no problem
+* Ideally, it should be compatible with [supported Kubernetes versions](https://kubernetes.io/releases/).
 
 What kind of resource(s) `kubectl-grep` support?
 
 * Please refer to [Resource Types](RESOURCE_TYPES.md)
 
-# Reference
+## 👷 Install
 
-- [Kubectl Plugins](https://kubernetes.io/docs/tasks/extend-kubectl/kubectl-plugins/)
+### Recommended way
 
-# License
+```bash
+kubectl krew install grep && kubectl krew update && kubectl krew upgrade grep
+```
+
+### Manual Installation
+
+<details><!-- markdownlint-disable-line -->
+<summary>Click to expand!</summary><!-- markdownlint-disable-line -->
+
+```bash
+curl -fsSL -O https://github.com/guessi/kubectl-grep/releases/latest/download/kubectl-grep-$(uname -s)-$(uname -m).tar.gz
+tar zxvf kubectl-grep-$(uname -s)-$(uname -m).tar.gz
+mv kubectl-grep /usr/local/bin
+```
+
+</details>
+
+### Developer build
+
+<details><!-- markdownlint-disable-line -->
+<summary>Click to expand!</summary><!-- markdownlint-disable-line -->
+  
+```bash
+go get -u github.com/guessi/kubectl-grep
+cd ${GOPATH}/src/github.com/guessi/kubectl-grep
+make all
+```
+
+</details>
+
+## ⚖️ License
 
 [Apache-2.0](LICENSE)
