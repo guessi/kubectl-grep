@@ -11,7 +11,7 @@ default: build
 
 staticcheck:
 	@echo "Setup staticcheck..."
-	@go install honnef.co/go/tools/cmd/staticcheck@2025.1 # https://github.com/dominikh/go-tools/releases/tag/2025.1
+	@go install honnef.co/go/tools/cmd/staticcheck@2025.1.1 # https://github.com/dominikh/go-tools/releases/tag/2025.1.1
 	@echo "Check staticcheck version..."
 	staticcheck --version
 	@echo "Run staticcheck..."
