@@ -3,11 +3,12 @@ package options
 // TODO: integrate with "k8s.io/cli-runtime/pkg/genericclioptions"
 
 type SearchOptions struct {
-	AllNamespaces bool
-	Namespace     string
-	Selector      string
-	FieldSelector string
-	InvertMatch   bool
+	AllNamespaces  bool
+	Namespace      string
+	Selector       string
+	FieldSelector  string
+	InvertMatch    bool
+	ExcludePattern string
 }
 
 // NewSearchOptions - genericclioptions wrapper for searchOptions

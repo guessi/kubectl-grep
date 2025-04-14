@@ -3,7 +3,6 @@ package resources
 import (
 	"bytes"
 	"fmt"
-	"strings"
 	"text/tabwriter"
 	"time"
 
@@ -37,12 +36,12 @@ func ServiceAccounts(opt *options.SearchOptions, keyword string) {
 	fmt.Fprintln(w, constants.ServiceAccountsHeader)
 
 	for _, s := range serviceAccountList.Items {
-		// return all if no keyword specific
-		if len(keyword) > 0 {
-			match := strings.Contains(s.Name, keyword)
-			if match == opt.InvertMatch {
-				continue
-			}
+		if !utils.MatchesKeyword(s.Name, keyword, opt.InvertMatch) {
+			continue
+		}
+
+		if utils.ShouldExcludeResource(s.Name, opt.ExcludePattern) {
+			continue
 		}
 
 		age := utils.GetAge(time.Since(s.CreationTimestamp.Time))

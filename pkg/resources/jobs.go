@@ -3,7 +3,6 @@ package resources
 import (
 	"bytes"
 	"fmt"
-	"strings"
 	"text/tabwriter"
 	"time"
 
@@ -40,12 +39,12 @@ func Jobs(opt *options.SearchOptions, keyword string) {
 	for _, j := range jobList.Items {
 		var jobDuration string
 
-		// return all if no keyword specific
-		if len(keyword) > 0 {
-			match := strings.Contains(j.Name, keyword)
-			if match == opt.InvertMatch {
-				continue
-			}
+		if !utils.MatchesKeyword(j.Name, keyword, opt.InvertMatch) {
+			continue
+		}
+
+		if utils.ShouldExcludeResource(j.Name, opt.ExcludePattern) {
+			continue
 		}
 
 		age := utils.GetAge(time.Since(j.CreationTimestamp.Time))

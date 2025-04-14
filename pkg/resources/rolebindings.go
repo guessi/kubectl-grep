@@ -3,7 +3,6 @@ package resources
 import (
 	"bytes"
 	"fmt"
-	"strings"
 	"text/tabwriter"
 	"time"
 
@@ -37,12 +36,12 @@ func RoleBindings(opt *options.SearchOptions, keyword string) {
 	fmt.Fprintln(w, constants.RoleBindingsHeader)
 
 	for _, r := range roleBindingList.Items {
-		// return all if no keyword specific
-		if len(keyword) > 0 {
-			match := strings.Contains(r.Name, keyword)
-			if match == opt.InvertMatch {
-				continue
-			}
+		if !utils.MatchesKeyword(r.Name, keyword, opt.InvertMatch) {
+			continue
+		}
+
+		if utils.ShouldExcludeResource(r.Name, opt.ExcludePattern) {
+			continue
 		}
 
 		age := utils.GetAge(time.Since(r.CreationTimestamp.Time))

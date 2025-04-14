@@ -3,7 +3,6 @@ package resources
 import (
 	"bytes"
 	"fmt"
-	"strings"
 	"text/tabwriter"
 	"time"
 
@@ -40,12 +39,12 @@ func Pods(opt *options.SearchOptions, keyword string, wide bool) {
 		fmt.Fprintln(w, constants.PodHeader)
 	}
 	for _, p := range podList.Items {
-		// return all if no keyword specific
-		if len(keyword) > 0 {
-			match := strings.Contains(p.Name, keyword)
-			if match == opt.InvertMatch {
-				continue
-			}
+		if !utils.MatchesKeyword(p.Name, keyword, opt.InvertMatch) {
+			continue
+		}
+
+		if utils.ShouldExcludeResource(p.Name, opt.ExcludePattern) {
+			continue
 		}
 
 		var containerCount int = len(p.Spec.Containers)

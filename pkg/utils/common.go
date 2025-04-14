@@ -74,3 +74,26 @@ func BoolValue(b *bool) bool {
 func BoolString(b *bool) string {
 	return strconv.FormatBool(BoolValue(b))
 }
+
+func MatchesKeyword(target string, keyword string, invertMatch bool) bool {
+	if len(keyword) == 0 {
+		return true
+	}
+	match := strings.Contains(target, keyword)
+	return match != invertMatch
+}
+
+func ShouldExcludeResource(target string, excludePattern string) bool {
+	excludePattern = strings.TrimSpace(excludePattern)
+	if excludePattern == "" {
+		return false
+	}
+
+	for _, exclude := range strings.Split(excludePattern, ",") {
+		exclude = strings.TrimSpace(exclude)
+		if exclude != "" && strings.Contains(target, exclude) {
+			return true
+		}
+	}
+	return false
+}

@@ -41,12 +41,12 @@ func Daemonsets(opt *options.SearchOptions, keyword string, wide bool) {
 	}
 
 	for _, d := range daemonsetList.Items {
-		// return all if no keyword specific
-		if len(keyword) > 0 {
-			match := strings.Contains(d.Name, keyword)
-			if match == opt.InvertMatch {
-				continue
-			}
+		if !utils.MatchesKeyword(d.Name, keyword, opt.InvertMatch) {
+			continue
+		}
+
+		if utils.ShouldExcludeResource(d.Name, opt.ExcludePattern) {
+			continue
 		}
 
 		age := utils.GetAge(time.Since(d.CreationTimestamp.Time))

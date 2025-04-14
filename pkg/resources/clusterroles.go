@@ -3,7 +3,6 @@ package resources
 import (
 	"bytes"
 	"fmt"
-	"strings"
 	"text/tabwriter"
 	"time"
 
@@ -29,12 +28,12 @@ func ClusterRoles(opt *options.SearchOptions, keyword string) {
 	fmt.Fprintln(w, constants.ClusterRolesHeader)
 
 	for _, c := range clusterRoleList.Items {
-		// return all if no keyword specific
-		if len(keyword) > 0 {
-			match := strings.Contains(c.Name, keyword)
-			if match == opt.InvertMatch {
-				continue
-			}
+		if !utils.MatchesKeyword(c.Name, keyword, opt.InvertMatch) {
+			continue
+		}
+
+		if utils.ShouldExcludeResource(c.Name, opt.ExcludePattern) {
+			continue
 		}
 
 		createdAt := c.CreationTimestamp.Time

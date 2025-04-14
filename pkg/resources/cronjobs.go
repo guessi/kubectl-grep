@@ -3,7 +3,6 @@ package resources
 import (
 	"bytes"
 	"fmt"
-	"strings"
 	"text/tabwriter"
 	"time"
 
@@ -37,12 +36,12 @@ func CronJobs(opt *options.SearchOptions, keyword string) {
 	fmt.Fprintln(w, constants.CronJobsHeader)
 
 	for _, j := range cronjobList.Items {
-		// return all if no keyword specific
-		if len(keyword) > 0 {
-			match := strings.Contains(j.Name, keyword)
-			if match == opt.InvertMatch {
-				continue
-			}
+		if !utils.MatchesKeyword(j.Name, keyword, opt.InvertMatch) {
+			continue
+		}
+
+		if utils.ShouldExcludeResource(j.Name, opt.ExcludePattern) {
+			continue
 		}
 
 		cronjobInfo = fmt.Sprintf(constants.CronJobsRowTemplate,

@@ -3,7 +3,6 @@ package resources
 import (
 	"bytes"
 	"fmt"
-	"strings"
 	"text/tabwriter"
 	"time"
 
@@ -34,12 +33,12 @@ func Hpas(opt *options.SearchOptions, keyword string) {
 
 	fmt.Fprintln(w, constants.HpaHeader)
 	for _, h := range hpaList.Items {
-		// return all if no keyword specific
-		if len(keyword) > 0 {
-			match := strings.Contains(h.Name, keyword)
-			if match == opt.InvertMatch {
-				continue
-			}
+		if !utils.MatchesKeyword(h.Name, keyword, opt.InvertMatch) {
+			continue
+		}
+
+		if utils.ShouldExcludeResource(h.Name, opt.ExcludePattern) {
+			continue
 		}
 
 		var age string = utils.GetAge(time.Since(h.CreationTimestamp.Time))

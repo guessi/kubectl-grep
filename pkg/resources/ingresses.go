@@ -41,12 +41,12 @@ func Ingresses(opt *options.SearchOptions, keyword string) {
 		var ingressClassName string
 		var hosts, ports, addresses []string
 
-		// return all if no keyword specific
-		if len(keyword) > 0 {
-			match := strings.Contains(i.Name, keyword)
-			if match == opt.InvertMatch {
-				continue
-			}
+		if !utils.MatchesKeyword(i.Name, keyword, opt.InvertMatch) {
+			continue
+		}
+
+		if utils.ShouldExcludeResource(i.Name, opt.ExcludePattern) {
+			continue
 		}
 
 		age := utils.GetAge(time.Since(i.CreationTimestamp.Time))

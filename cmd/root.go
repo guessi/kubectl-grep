@@ -57,6 +57,9 @@ func init() {
 	rootCmd.PersistentFlags().BoolVarP(
 		&searchOptions.InvertMatch, "invert-match", "v", false,
 		"If present, filter out those not matching the specified patterns")
+	rootCmd.PersistentFlags().StringVarP(
+		&searchOptions.ExcludePattern, "exclude", "x", "",
+		"If present, exclude those with specified pattern (comma-separated string)")
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

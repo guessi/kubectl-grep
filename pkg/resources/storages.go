@@ -37,12 +37,12 @@ func CsiDrivers(opt *options.SearchOptions, keyword string) {
 	fmt.Fprintln(w, constants.CsiDriversHeader)
 
 	for _, s := range csiDriverList.Items {
-		// return all if no keyword specific
-		if len(keyword) > 0 {
-			match := strings.Contains(s.Name, keyword)
-			if !match && !opt.InvertMatch {
-				continue
-			}
+		if !utils.MatchesKeyword(s.Name, keyword, opt.InvertMatch) {
+			continue
+		}
+
+		if utils.ShouldExcludeResource(s.Name, opt.ExcludePattern) {
+			continue
 		}
 
 		age := utils.GetAge(time.Since(s.CreationTimestamp.Time))
