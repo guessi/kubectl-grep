@@ -1,3 +1,9 @@
+# v1.21.0 / 2025-04-15
+
+* Implement --exclude/-x support
+* Build with go 1.24
+* Bump dependencies
+
 # v1.20.1 / 2025-03-13
 
 * Build with Kubernetes Client SDK v1.32.3
