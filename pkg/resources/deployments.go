@@ -51,6 +51,11 @@ func Deployments(opt *options.SearchOptions, keyword string, wide bool) {
 		age := utils.GetAge(time.Since(d.CreationTimestamp.Time))
 		containers := d.Spec.Template.Spec.Containers
 
+		var replicas int32 = 0
+		if d.Spec.Replicas != nil {
+			replicas = *d.Spec.Replicas
+		}
+
 		if wide {
 			var names []string
 			var images []string
@@ -69,7 +74,7 @@ func Deployments(opt *options.SearchOptions, keyword string, wide bool) {
 				d.Namespace,
 				d.Name,
 				d.Status.ReadyReplicas,
-				*d.Spec.Replicas,
+				replicas,
 				d.Status.UpdatedReplicas,
 				d.Status.AvailableReplicas,
 				age,
@@ -82,7 +87,7 @@ func Deployments(opt *options.SearchOptions, keyword string, wide bool) {
 				d.Namespace,
 				d.Name,
 				d.Status.ReadyReplicas,
-				*d.Spec.Replicas,
+				replicas,
 				d.Status.UpdatedReplicas,
 				d.Status.AvailableReplicas,
 				age,

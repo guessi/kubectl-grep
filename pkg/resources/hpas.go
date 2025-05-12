@@ -43,9 +43,14 @@ func Hpas(opt *options.SearchOptions, keyword string) {
 
 		var age string = utils.GetAge(time.Since(h.CreationTimestamp.Time))
 		var currentCPUUtilizationPercentage string = "<unknown>"
+		var targetCPUUtilizationPercentage string = "<unknown>"
 
 		if h.Status.CurrentCPUUtilizationPercentage != nil {
 			currentCPUUtilizationPercentage = fmt.Sprintf("%d%%", *h.Status.CurrentCPUUtilizationPercentage)
+		}
+
+		if h.Spec.TargetCPUUtilizationPercentage != nil {
+			targetCPUUtilizationPercentage = fmt.Sprintf("%d%%", *h.Spec.TargetCPUUtilizationPercentage)
 		}
 
 		hpaInfo := fmt.Sprintf(constants.HpaRowTemplate,
@@ -54,7 +59,7 @@ func Hpas(opt *options.SearchOptions, keyword string) {
 			h.Spec.ScaleTargetRef.Kind,
 			h.Spec.ScaleTargetRef.Name,
 			currentCPUUtilizationPercentage,
-			*h.Spec.TargetCPUUtilizationPercentage,
+			targetCPUUtilizationPercentage,
 			*h.Spec.MinReplicas,
 			h.Spec.MaxReplicas,
 			h.Status.CurrentReplicas,

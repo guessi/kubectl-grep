@@ -52,6 +52,11 @@ func Statefulsets(opt *options.SearchOptions, keyword string, wide bool) {
 		age := utils.GetAge(time.Since(s.CreationTimestamp.Time))
 		containers := s.Spec.Template.Spec.Containers
 
+		var replicas int32 = 0
+		if s.Spec.Replicas != nil {
+			replicas = *s.Spec.Replicas
+		}
+
 		if wide {
 			names := []string{}
 			images := []string{}
@@ -65,7 +70,7 @@ func Statefulsets(opt *options.SearchOptions, keyword string, wide bool) {
 				s.Namespace,
 				s.Name,
 				s.Status.ReadyReplicas,
-				*s.Spec.Replicas,
+				replicas,
 				age,
 				strings.Join(names, ","),
 				strings.Join(images, ","),
@@ -75,7 +80,7 @@ func Statefulsets(opt *options.SearchOptions, keyword string, wide bool) {
 				s.Namespace,
 				s.Name,
 				s.Status.ReadyReplicas,
-				*s.Spec.Replicas,
+				replicas,
 				age,
 			)
 		}

@@ -78,8 +78,14 @@ func Services(opt *options.SearchOptions, keyword string, wide bool) {
 		var externalIPs []string
 		if s.Spec.ExternalIPs == nil {
 			for _, i := range s.Status.LoadBalancer.Ingress {
-				externalIPs = append(externalIPs, i.Hostname)
+				if i.Hostname != "" {
+					externalIPs = append(externalIPs, i.Hostname)
+				} else if i.IP != "" {
+					externalIPs = append(externalIPs, i.IP)
+				}
 			}
+		} else {
+			externalIPs = s.Spec.ExternalIPs
 		}
 
 		var externalIPsDisplay string = "<none>"

@@ -62,8 +62,12 @@ func Ingresses(opt *options.SearchOptions, keyword string) {
 				hosts = append(hosts, irs.Host)
 			}
 
-			for _, ips := range irs.IngressRuleValue.HTTP.Paths {
-				ports = append(ports, strconv.Itoa(int(ips.Backend.Service.Port.Number)))
+			if irs.IngressRuleValue.HTTP != nil {
+				for _, ips := range irs.IngressRuleValue.HTTP.Paths {
+					if ips.Backend.Service != nil && ips.Backend.Service.Port.Number > 0 {
+						ports = append(ports, strconv.Itoa(int(ips.Backend.Service.Port.Number)))
+					}
+				}
 			}
 		}
 

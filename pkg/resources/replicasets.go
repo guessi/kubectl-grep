@@ -51,6 +51,11 @@ func Replicasets(opt *options.SearchOptions, keyword string, wide bool) {
 
 		age := utils.GetAge(time.Since(s.CreationTimestamp.Time))
 
+		var replicas int32 = 0
+		if s.Spec.Replicas != nil {
+			replicas = *s.Spec.Replicas
+		}
+
 		if wide {
 			names := []string{}
 			images := []string{}
@@ -68,7 +73,7 @@ func Replicasets(opt *options.SearchOptions, keyword string, wide bool) {
 			replicasetInfo = fmt.Sprintf(constants.ReplicasetRowTemplateWide,
 				s.Namespace,
 				s.Name,
-				*s.Spec.Replicas,
+				replicas,
 				s.Status.Replicas,
 				s.Status.ReadyReplicas,
 				age,
@@ -80,7 +85,7 @@ func Replicasets(opt *options.SearchOptions, keyword string, wide bool) {
 			replicasetInfo = fmt.Sprintf(constants.ReplicasetRowTemplate,
 				s.Namespace,
 				s.Name,
-				*s.Spec.Replicas,
+				replicas,
 				s.Status.Replicas,
 				s.Status.ReadyReplicas,
 				age,

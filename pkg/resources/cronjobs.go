@@ -44,13 +44,18 @@ func CronJobs(opt *options.SearchOptions, keyword string) {
 			continue
 		}
 
+		var lastScheduleTime string = "<none>"
+		if j.Status.LastScheduleTime != nil {
+			lastScheduleTime = utils.GetAge(time.Since(j.Status.LastScheduleTime.Time))
+		}
+
 		cronjobInfo = fmt.Sprintf(constants.CronJobsRowTemplate,
 			j.Namespace,
 			j.Name,
 			j.Spec.Schedule,
 			utils.BoolString(j.Spec.Suspend),
 			len(j.Status.Active),
-			utils.GetAge(time.Since(j.Status.LastScheduleTime.Time)),
+			lastScheduleTime,
 			utils.GetAge(time.Since(j.CreationTimestamp.Time)),
 		)
 		fmt.Fprintln(w, cronjobInfo)

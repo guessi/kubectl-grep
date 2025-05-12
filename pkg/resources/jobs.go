@@ -52,7 +52,7 @@ func Jobs(opt *options.SearchOptions, keyword string) {
 		completions := j.Spec.Completions
 		succeeded := j.Status.Succeeded
 
-		if succeeded > 0 {
+		if succeeded > 0 && j.Status.StartTime != nil && j.Status.CompletionTime != nil {
 			start := j.Status.StartTime.Time
 			end := j.Status.CompletionTime.Time
 			jobDuration = duration.HumanDuration(end.Sub(start))
@@ -60,10 +60,15 @@ func Jobs(opt *options.SearchOptions, keyword string) {
 			jobDuration = age
 		}
 
+		var completionsValue int32 = 0
+		if completions != nil {
+			completionsValue = *completions
+		}
+
 		jobInfo = fmt.Sprintf(constants.JobsRowTemplate,
 			j.Namespace,
 			j.Name,
-			succeeded, *completions,
+			succeeded, completionsValue,
 			jobDuration,
 			age,
 		)
