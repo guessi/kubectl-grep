@@ -1,3 +1,8 @@
+# v1.22.0 / 2025-05-22
+
+* Build with go1.24.3
+* Prevent nil pointer dereferences
+
 # v1.21.0 / 2025-04-15
 
 * Implement --exclude/-x support
