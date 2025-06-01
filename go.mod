@@ -52,11 +52,3 @@ require (
 	sigs.k8s.io/structured-merge-diff/v4 v4.7.0 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
-
-// Temporary workaround for confliction issue
-// - https://github.com/darccio/mergo?tab=readme-ov-file#100
-//
-// Upstream Kubernetes is now working on removing mergo
-// - https://github.com/kubernetes/kubernetes/issues/124279
-// - https://github.com/kubernetes/kubernetes/issues/107499
-replace github.com/imdario/mergo => github.com/imdario/mergo v0.3.16
