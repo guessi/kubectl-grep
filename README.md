@@ -53,8 +53,16 @@ What kind of resource(s) `kubectl-grep` support?
 
 ### Recommended way
 
+Brand new install
+
 ```bash
-kubectl krew install grep && kubectl krew update && kubectl krew upgrade grep
+kubectl krew update && kubectl krew install grep
+```
+
+To upgrade version
+
+```bash
+kubectl krew update && kubectl krew upgrade grep
 ```
 
 ### Manual Installation
@@ -74,7 +82,7 @@ mv kubectl-grep /usr/local/bin
 
 <details><!-- markdownlint-disable-line -->
 <summary>Click to expand!</summary><!-- markdownlint-disable-line -->
-  
+
 ```bash
 go get -u github.com/guessi/kubectl-grep
 cd ${GOPATH}/src/github.com/guessi/kubectl-grep
