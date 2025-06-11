@@ -2,6 +2,7 @@ package resources
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"text/tabwriter"
 	"time"
@@ -12,14 +13,17 @@ import (
 )
 
 // ClusterRoleBindings - a public function for searching clusterrolebindings with keyword
-func ClusterRoleBindings(opt *options.SearchOptions, keyword string) {
+func ClusterRoleBindings(ctx context.Context, opt *options.SearchOptions, keyword string) error {
 	var clusterRoleBindingInfo string
 
-	clusterRoleBindingList := utils.ClusterRoleBindingList(opt)
+	clusterRoleBindingList, err := utils.ClusterRoleBindingList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	if len(clusterRoleBindingList.Items) <= 0 {
 		fmt.Printf("No resources found.\n")
-		return
+		return nil
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -49,4 +53,6 @@ func ClusterRoleBindings(opt *options.SearchOptions, keyword string) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }

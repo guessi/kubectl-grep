@@ -2,6 +2,7 @@ package resources
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"text/tabwriter"
 	"time"
@@ -12,10 +13,13 @@ import (
 )
 
 // ServiceAccounts - a public function for searching serviceaccounts with keyword
-func ServiceAccounts(opt *options.SearchOptions, keyword string) {
+func ServiceAccounts(ctx context.Context, opt *options.SearchOptions, keyword string) error {
 	var serviceAccountInfo string
 
-	serviceAccountList := utils.ServiceAccountList(opt)
+	serviceAccountList, err := utils.ServiceAccountList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	if len(serviceAccountList.Items) == 0 {
 		ns := opt.Namespace
@@ -27,7 +31,7 @@ func ServiceAccounts(opt *options.SearchOptions, keyword string) {
 			}
 			fmt.Printf("No resources found in %s namespace.\n", ns)
 		}
-		return
+		return nil
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -58,4 +62,6 @@ func ServiceAccounts(opt *options.SearchOptions, keyword string) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }

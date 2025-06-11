@@ -2,6 +2,7 @@ package resources
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"text/tabwriter"
 	"time"
@@ -12,14 +13,17 @@ import (
 )
 
 // ClusterRoles - a public function for searching clusterroles with keyword
-func ClusterRoles(opt *options.SearchOptions, keyword string) {
+func ClusterRoles(ctx context.Context, opt *options.SearchOptions, keyword string) error {
 	var clusterRoleInfo string
 
-	clusterRoleList := utils.ClusterRoleList(opt)
+	clusterRoleList, err := utils.ClusterRoleList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	if len(clusterRoleList.Items) <= 0 {
 		fmt.Printf("No resources found.\n")
-		return
+		return nil
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -48,4 +52,6 @@ func ClusterRoles(opt *options.SearchOptions, keyword string) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }

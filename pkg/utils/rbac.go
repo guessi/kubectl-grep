@@ -2,6 +2,7 @@ package utils
 
 import (
 	"context"
+	"fmt"
 
 	log "github.com/sirupsen/logrus"
 	rbacv1 "k8s.io/api/rbac/v1"
@@ -11,53 +12,57 @@ import (
 )
 
 // RoleList - return a list of Role(s)
-func RoleList(opt *options.SearchOptions) *rbacv1.RoleList {
+func RoleList(ctx context.Context, opt *options.SearchOptions) (*rbacv1.RoleList, error) {
 	clientset := client.InitClient()
 	ns, o := setOptions(opt)
-	list, err := clientset.RbacV1().Roles(ns).List(context.TODO(), *o)
+	list, err := clientset.RbacV1().Roles(ns).List(ctx, *o)
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
 		}).Debug("Unable to get Role List")
+		return nil, fmt.Errorf("failed to list Roles: %w", err)
 	}
-	return list
+	return list, nil
 }
 
 // RoleBindingList - return a list of RoleBinding(s)
-func RoleBindingList(opt *options.SearchOptions) *rbacv1.RoleBindingList {
+func RoleBindingList(ctx context.Context, opt *options.SearchOptions) (*rbacv1.RoleBindingList, error) {
 	clientset := client.InitClient()
 	ns, o := setOptions(opt)
-	list, err := clientset.RbacV1().RoleBindings(ns).List(context.TODO(), *o)
+	list, err := clientset.RbacV1().RoleBindings(ns).List(ctx, *o)
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
 		}).Debug("Unable to get RoleBinding List")
+		return nil, fmt.Errorf("failed to list RoleBindings: %w", err)
 	}
-	return list
+	return list, nil
 }
 
 // ClusterRoleList - return a list of ClusterRole(s)
-func ClusterRoleList(opt *options.SearchOptions) *rbacv1.ClusterRoleList {
+func ClusterRoleList(ctx context.Context, opt *options.SearchOptions) (*rbacv1.ClusterRoleList, error) {
 	clientset := client.InitClient()
 	_, o := setOptions(opt)
-	list, err := clientset.RbacV1().ClusterRoles().List(context.TODO(), *o)
+	list, err := clientset.RbacV1().ClusterRoles().List(ctx, *o)
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
 		}).Debug("Unable to get ClusterRole List")
+		return nil, fmt.Errorf("failed to list ClusterRoles: %w", err)
 	}
-	return list
+	return list, nil
 }
 
 // ClusterRoleBindingList - return a list of ClusterRoleBinding(s)
-func ClusterRoleBindingList(opt *options.SearchOptions) *rbacv1.ClusterRoleBindingList {
+func ClusterRoleBindingList(ctx context.Context, opt *options.SearchOptions) (*rbacv1.ClusterRoleBindingList, error) {
 	clientset := client.InitClient()
 	_, o := setOptions(opt)
-	list, err := clientset.RbacV1().ClusterRoleBindings().List(context.TODO(), *o)
+	list, err := clientset.RbacV1().ClusterRoleBindings().List(ctx, *o)
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
 		}).Debug("Unable to get ClusterRoleBinding List")
+		return nil, fmt.Errorf("failed to list ClusterRoleBindings: %w", err)
 	}
-	return list
+	return list, nil
 }

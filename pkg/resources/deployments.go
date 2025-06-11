@@ -2,6 +2,7 @@ package resources
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"strings"
 	"text/tabwriter"
@@ -13,10 +14,13 @@ import (
 )
 
 // Deployments - a public function for searching deployments with keyword
-func Deployments(opt *options.SearchOptions, keyword string, wide bool) {
+func Deployments(ctx context.Context, opt *options.SearchOptions, keyword string, wide bool) error {
 	var deploymentInfo string
 
-	deploymentList := utils.DeploymentList(opt)
+	deploymentList, err := utils.DeploymentList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	if len(deploymentList.Items) == 0 {
 		ns := opt.Namespace
@@ -28,7 +32,7 @@ func Deployments(opt *options.SearchOptions, keyword string, wide bool) {
 			}
 			fmt.Printf("No resources found in %s namespace.\n", ns)
 		}
-		return
+		return nil
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -98,4 +102,6 @@ func Deployments(opt *options.SearchOptions, keyword string, wide bool) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }

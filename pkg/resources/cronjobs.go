@@ -2,6 +2,7 @@ package resources
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"text/tabwriter"
 	"time"
@@ -12,10 +13,13 @@ import (
 )
 
 // CronJobs - a public function for searching cronjobs with keyword
-func CronJobs(opt *options.SearchOptions, keyword string) {
+func CronJobs(ctx context.Context, opt *options.SearchOptions, keyword string) error {
 	var cronjobInfo string
 
-	cronjobList := utils.CronJobList(opt)
+	cronjobList, err := utils.CronJobList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	if len(cronjobList.Items) == 0 {
 		ns := opt.Namespace
@@ -27,7 +31,7 @@ func CronJobs(opt *options.SearchOptions, keyword string) {
 			}
 			fmt.Printf("No resources found in %s namespace.\n", ns)
 		}
-		return
+		return nil
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -63,4 +67,6 @@ func CronJobs(opt *options.SearchOptions, keyword string) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }

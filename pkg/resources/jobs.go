@@ -2,6 +2,7 @@ package resources
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"text/tabwriter"
 	"time"
@@ -13,10 +14,13 @@ import (
 )
 
 // Jobs - a public function for searching jobs with keyword
-func Jobs(opt *options.SearchOptions, keyword string) {
+func Jobs(ctx context.Context, opt *options.SearchOptions, keyword string) error {
 	var jobInfo string
 
-	jobList := utils.JobList(opt)
+	jobList, err := utils.JobList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	if len(jobList.Items) == 0 {
 		ns := opt.Namespace
@@ -28,7 +32,7 @@ func Jobs(opt *options.SearchOptions, keyword string) {
 			}
 			fmt.Printf("No resources found in %s namespace.\n", ns)
 		}
-		return
+		return nil
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -77,4 +81,6 @@ func Jobs(opt *options.SearchOptions, keyword string) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }

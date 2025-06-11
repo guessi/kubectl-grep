@@ -2,6 +2,7 @@ package resources
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"strings"
 	"text/tabwriter"
@@ -13,10 +14,13 @@ import (
 )
 
 // Services - a public function for searching services with keyword
-func Services(opt *options.SearchOptions, keyword string, wide bool) {
+func Services(ctx context.Context, opt *options.SearchOptions, keyword string, wide bool) error {
 	var serviceInfo string
 
-	serviceList := utils.ServiceList(opt)
+	serviceList, err := utils.ServiceList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	if len(serviceList.Items) == 0 {
 		ns := opt.Namespace
@@ -28,7 +32,7 @@ func Services(opt *options.SearchOptions, keyword string, wide bool) {
 			}
 			fmt.Printf("No resources found in %s namespace.\n", ns)
 		}
-		return
+		return nil
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -121,4 +125,6 @@ func Services(opt *options.SearchOptions, keyword string, wide bool) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }

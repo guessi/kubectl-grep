@@ -2,6 +2,7 @@ package resources
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"strconv"
 	"strings"
@@ -14,10 +15,13 @@ import (
 )
 
 // Ingresses - a public function for searching ingresses with keyword
-func Ingresses(opt *options.SearchOptions, keyword string) {
+func Ingresses(ctx context.Context, opt *options.SearchOptions, keyword string) error {
 	var ingressInfo string
 
-	ingressList := utils.IngressList(opt)
+	ingressList, err := utils.IngressList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	if len(ingressList.Items) == 0 {
 		ns := opt.Namespace
@@ -29,7 +33,7 @@ func Ingresses(opt *options.SearchOptions, keyword string) {
 			}
 			fmt.Printf("No resources found in %s namespace.\n", ns)
 		}
-		return
+		return nil
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -90,4 +94,6 @@ func Ingresses(opt *options.SearchOptions, keyword string) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }

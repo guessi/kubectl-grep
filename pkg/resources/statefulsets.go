@@ -2,6 +2,7 @@ package resources
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"strings"
 	"text/tabwriter"
@@ -13,10 +14,13 @@ import (
 )
 
 // Statefulsets - a public function for searching Statefulsets with keyword
-func Statefulsets(opt *options.SearchOptions, keyword string, wide bool) {
+func Statefulsets(ctx context.Context, opt *options.SearchOptions, keyword string, wide bool) error {
 	var statefulsetInfo string
 
-	statefulsetList := utils.StatefulSetList(opt)
+	statefulsetList, err := utils.StatefulSetList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	if len(statefulsetList.Items) == 0 {
 		ns := opt.Namespace
@@ -28,7 +32,7 @@ func Statefulsets(opt *options.SearchOptions, keyword string, wide bool) {
 			}
 			fmt.Printf("No resources found in %s namespace.\n", ns)
 		}
-		return
+		return nil
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -89,4 +93,6 @@ func Statefulsets(opt *options.SearchOptions, keyword string, wide bool) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }

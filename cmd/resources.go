@@ -1,6 +1,10 @@
 package cmd
 
 import (
+	"context"
+	"fmt"
+	"os"
+
 	"github.com/guessi/kubectl-grep/pkg/resources"
 	"github.com/guessi/kubectl-grep/pkg/utils"
 
@@ -246,63 +250,82 @@ func resourceSearch(args []string, resourceType string) {
 		keyword = utils.TrimQuoteAndSpace(args[0])
 	}
 
+	ctx, cancel := createContextWithTimeout()
+	defer cancel()
+
+	handleContextError := func(err error) {
+		if err != nil {
+			if ctx.Err() == context.DeadlineExceeded {
+				fmt.Fprintf(os.Stderr, "Error: Operation timed out after %v\n", searchOptions.Timeout)
+				os.Exit(1)
+			}
+			if ctx.Err() == context.Canceled {
+				fmt.Fprintln(os.Stderr, "Error: Operation was cancelled")
+				os.Exit(1)
+			}
+		}
+	}
+
+	var err error
 	switch resourceType {
 	// apps/v1
 	case "daemonsets":
-		resources.Daemonsets(searchOptions, keyword, output == "wide")
+		err = resources.Daemonsets(ctx, searchOptions, keyword, output == "wide")
 	case "deployments":
-		resources.Deployments(searchOptions, keyword, output == "wide")
+		err = resources.Deployments(ctx, searchOptions, keyword, output == "wide")
 	case "replicasets":
-		resources.Replicasets(searchOptions, keyword, output == "wide")
+		err = resources.Replicasets(ctx, searchOptions, keyword, output == "wide")
 	case "statefulsets":
-		resources.Statefulsets(searchOptions, keyword, output == "wide")
+		err = resources.Statefulsets(ctx, searchOptions, keyword, output == "wide")
 
 	// autoscaling/v1
 	case "hpas":
-		resources.Hpas(searchOptions, keyword)
+		err = resources.Hpas(ctx, searchOptions, keyword)
 
 	// batch/v1
 	case "cronjobs":
-		resources.CronJobs(searchOptions, keyword)
+		err = resources.CronJobs(ctx, searchOptions, keyword)
 	case "jobs":
-		resources.Jobs(searchOptions, keyword)
+		err = resources.Jobs(ctx, searchOptions, keyword)
 
 	// networking.k8s.io/v1
 	case "ingresses":
-		resources.Ingresses(searchOptions, keyword)
+		err = resources.Ingresses(ctx, searchOptions, keyword)
 
 	// rbac.authorization.k8s.io/v1
 	case "roles":
-		resources.Roles(searchOptions, keyword)
+		err = resources.Roles(ctx, searchOptions, keyword)
 	case "rolebindings":
-		resources.RoleBindings(searchOptions, keyword)
+		err = resources.RoleBindings(ctx, searchOptions, keyword)
 	case "clusterroles":
-		resources.ClusterRoles(searchOptions, keyword)
+		err = resources.ClusterRoles(ctx, searchOptions, keyword)
 	case "clusterrolebindings":
-		resources.ClusterRoleBindings(searchOptions, keyword)
+		err = resources.ClusterRoleBindings(ctx, searchOptions, keyword)
 
 	// storage.k8s.io/v1
 	case "csidrivers":
-		resources.CsiDrivers(searchOptions, keyword)
+		err = resources.CsiDrivers(ctx, searchOptions, keyword)
 	case "storageclasses":
-		resources.StorageClasses(searchOptions, keyword)
+		err = resources.StorageClasses(ctx, searchOptions, keyword)
 
 	// v1
 	case "configmaps":
-		resources.ConfigMaps(searchOptions, keyword)
+		err = resources.ConfigMaps(ctx, searchOptions, keyword)
 	case "nodes":
-		resources.Nodes(searchOptions, keyword, output == "wide")
+		err = resources.Nodes(ctx, searchOptions, keyword, output == "wide")
 	case "pods":
-		resources.Pods(searchOptions, keyword, output == "wide")
+		err = resources.Pods(ctx, searchOptions, keyword, output == "wide")
 	case "secrets":
-		resources.Secrets(searchOptions, keyword)
+		err = resources.Secrets(ctx, searchOptions, keyword)
 	case "serviceaccounts":
-		resources.ServiceAccounts(searchOptions, keyword)
+		err = resources.ServiceAccounts(ctx, searchOptions, keyword)
 	case "services":
-		resources.Services(searchOptions, keyword, output == "wide")
+		err = resources.Services(ctx, searchOptions, keyword, output == "wide")
 
 	// default
 	default:
 		break
 	}
+
+	handleContextError(err)
 }

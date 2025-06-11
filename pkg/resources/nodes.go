@@ -2,6 +2,7 @@ package resources
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"strings"
 	"text/tabwriter"
@@ -14,10 +15,13 @@ import (
 )
 
 // Nodes - a public function for searching nodes with keyword
-func Nodes(opt *options.SearchOptions, keyword string, wide bool) {
+func Nodes(ctx context.Context, opt *options.SearchOptions, keyword string, wide bool) error {
 	var nodeInfo string
 
-	nodeList := utils.NodeList(opt)
+	nodeList, err := utils.NodeList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	if len(nodeList.Items) == 0 {
 		ns := opt.Namespace
@@ -29,7 +33,7 @@ func Nodes(opt *options.SearchOptions, keyword string, wide bool) {
 			}
 			fmt.Printf("No resources found in %s namespace.\n", ns)
 		}
-		return
+		return nil
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -116,4 +120,6 @@ func Nodes(opt *options.SearchOptions, keyword string, wide bool) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }

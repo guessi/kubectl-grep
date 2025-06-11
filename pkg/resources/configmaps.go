@@ -2,6 +2,7 @@ package resources
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"text/tabwriter"
 	"time"
@@ -12,10 +13,13 @@ import (
 )
 
 // ConfigMaps - a public function for searching configmaps with keyword
-func ConfigMaps(opt *options.SearchOptions, keyword string) {
+func ConfigMaps(ctx context.Context, opt *options.SearchOptions, keyword string) error {
 	var configMapInfo string
 
-	configMapList := utils.ConfigMapList(opt)
+	configMapList, err := utils.ConfigMapList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	if len(configMapList.Items) == 0 {
 		ns := opt.Namespace
@@ -27,7 +31,7 @@ func ConfigMaps(opt *options.SearchOptions, keyword string) {
 			}
 			fmt.Printf("No resources found in %s namespace.\n", ns)
 		}
-		return
+		return nil
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -58,4 +62,6 @@ func ConfigMaps(opt *options.SearchOptions, keyword string) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }

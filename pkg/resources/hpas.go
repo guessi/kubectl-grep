@@ -2,6 +2,7 @@ package resources
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"text/tabwriter"
 	"time"
@@ -12,8 +13,11 @@ import (
 )
 
 // Hpas - a public function for searching hpas with keyword
-func Hpas(opt *options.SearchOptions, keyword string) {
-	hpaList := utils.HpaList(opt)
+func Hpas(ctx context.Context, opt *options.SearchOptions, keyword string) error {
+	hpaList, err := utils.HpaList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	if len(hpaList.Items) == 0 {
 		ns := opt.Namespace
@@ -25,7 +29,7 @@ func Hpas(opt *options.SearchOptions, keyword string) {
 			}
 			fmt.Printf("No resources found in %s namespace.\n", ns)
 		}
-		return
+		return nil
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -70,4 +74,6 @@ func Hpas(opt *options.SearchOptions, keyword string) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }

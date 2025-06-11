@@ -2,6 +2,7 @@ package resources
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"strings"
 	"text/tabwriter"
@@ -13,10 +14,13 @@ import (
 )
 
 // Replicasets - a public function for searching Replicasets with keyword
-func Replicasets(opt *options.SearchOptions, keyword string, wide bool) {
+func Replicasets(ctx context.Context, opt *options.SearchOptions, keyword string, wide bool) error {
 	var replicasetInfo string
 
-	replicasetList := utils.ReplicaSetList(opt)
+	replicasetList, err := utils.ReplicaSetList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	if len(replicasetList.Items) == 0 {
 		ns := opt.Namespace
@@ -28,7 +32,7 @@ func Replicasets(opt *options.SearchOptions, keyword string, wide bool) {
 			}
 			fmt.Printf("No resources found in %s namespace.\n", ns)
 		}
-		return
+		return nil
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -96,4 +100,6 @@ func Replicasets(opt *options.SearchOptions, keyword string, wide bool) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }

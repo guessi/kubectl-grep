@@ -1,8 +1,12 @@
 package cmd
 
 import (
+	"context"
 	"fmt"
 	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	"github.com/spf13/cobra"
 
@@ -60,6 +64,32 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(
 		&searchOptions.ExcludePattern, "exclude", "x", "",
 		"If present, exclude those with specified pattern (comma-separated string)")
+	rootCmd.PersistentFlags().DurationVarP(
+		&searchOptions.Timeout, "timeout", "t", 30*time.Second,
+		"Timeout for Kubernetes API calls (default: 30s)")
+}
+
+// createContextWithTimeout creates a context with timeout and cancellation support
+func createContextWithTimeout() (context.Context, context.CancelFunc) {
+	// Create context with timeout
+	ctx, cancel := context.WithTimeout(context.Background(), searchOptions.Timeout)
+
+	// Handle interrupt signals for graceful cancellation
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM, syscall.SIGKILL)
+
+	go func() {
+		select {
+		case <-c:
+			fmt.Fprintln(os.Stderr, "\nOperation cancelled by user")
+			cancel()
+		case <-ctx.Done():
+			// Context already done, cleanup signal handler
+		}
+		signal.Stop(c)
+	}()
+
+	return ctx, cancel
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

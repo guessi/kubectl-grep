@@ -2,6 +2,7 @@ package resources
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"strings"
 	"text/tabwriter"
@@ -13,10 +14,13 @@ import (
 )
 
 // CsiDrivers - a public function for searching csidrivers with keyword
-func CsiDrivers(opt *options.SearchOptions, keyword string) {
+func CsiDrivers(ctx context.Context, opt *options.SearchOptions, keyword string) error {
 	var csiDriverInfo string
 
-	csiDriverList := utils.CsiDriverList(opt)
+	csiDriverList, err := utils.CsiDriverList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	if len(csiDriverList.Items) == 0 {
 		ns := opt.Namespace
@@ -28,7 +32,7 @@ func CsiDrivers(opt *options.SearchOptions, keyword string) {
 			}
 			fmt.Printf("No resources found in %s namespace.\n", ns)
 		}
-		return
+		return nil
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -73,13 +77,18 @@ func CsiDrivers(opt *options.SearchOptions, keyword string) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }
 
 // StorageClasses - a public function for searching storageclasses with keyword
-func StorageClasses(opt *options.SearchOptions, keyword string) {
+func StorageClasses(ctx context.Context, opt *options.SearchOptions, keyword string) error {
 	var storageClassInfo string
 
-	storageClassList := utils.StorageClassList(opt)
+	storageClassList, err := utils.StorageClassList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	buf := bytes.NewBuffer(nil)
 	w := tabwriter.NewWriter(buf, 0, 0, 3, ' ', 0)
@@ -120,4 +129,6 @@ func StorageClasses(opt *options.SearchOptions, keyword string) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }

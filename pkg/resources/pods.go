@@ -2,6 +2,7 @@ package resources
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"text/tabwriter"
 	"time"
@@ -12,10 +13,13 @@ import (
 )
 
 // Pods - a public function for searching pods with keyword
-func Pods(opt *options.SearchOptions, keyword string, wide bool) {
+func Pods(ctx context.Context, opt *options.SearchOptions, keyword string, wide bool) error {
 	var podInfo string
 
-	podList := utils.PodList(opt)
+	podList, err := utils.PodList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	if len(podList.Items) == 0 {
 		ns := opt.Namespace
@@ -27,7 +31,7 @@ func Pods(opt *options.SearchOptions, keyword string, wide bool) {
 			}
 			fmt.Printf("No resources found in %s namespace.\n", ns)
 		}
-		return
+		return nil
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -96,4 +100,6 @@ func Pods(opt *options.SearchOptions, keyword string, wide bool) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }

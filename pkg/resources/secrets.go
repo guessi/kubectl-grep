@@ -2,6 +2,7 @@ package resources
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"text/tabwriter"
 	"time"
@@ -12,10 +13,13 @@ import (
 )
 
 // Secrets - a public function for searching secrets with keyword
-func Secrets(opt *options.SearchOptions, keyword string) {
+func Secrets(ctx context.Context, opt *options.SearchOptions, keyword string) error {
 	var secretInfo string
 
-	secretList := utils.SecretList(opt)
+	secretList, err := utils.SecretList(ctx, opt)
+	if err != nil {
+		return err
+	}
 
 	if len(secretList.Items) == 0 {
 		ns := opt.Namespace
@@ -27,7 +31,7 @@ func Secrets(opt *options.SearchOptions, keyword string) {
 			}
 			fmt.Printf("No resources found in %s namespace.\n", ns)
 		}
-		return
+		return nil
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -59,4 +63,6 @@ func Secrets(opt *options.SearchOptions, keyword string) {
 	w.Flush()
 
 	fmt.Printf("%s", buf.String())
+
+	return nil
 }
