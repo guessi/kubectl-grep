@@ -19,7 +19,7 @@ func DaemonSetList(ctx context.Context, opt *options.SearchOptions) (*appsv1.Dae
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get DaemonSet List")
+		})
 		return nil, fmt.Errorf("failed to list DaemonSets: %w", err)
 	}
 	return list, nil
@@ -33,7 +33,7 @@ func DeploymentList(ctx context.Context, opt *options.SearchOptions) (*appsv1.De
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get Deployment List")
+		})
 		return nil, fmt.Errorf("failed to list Deployments: %w", err)
 	}
 	return list, nil
@@ -47,7 +47,7 @@ func ReplicaSetList(ctx context.Context, opt *options.SearchOptions) (*appsv1.Re
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get ReplicaSet List")
+		})
 		return nil, fmt.Errorf("failed to list ReplicaSets: %w", err)
 	}
 	return list, nil
@@ -61,7 +61,7 @@ func StatefulSetList(ctx context.Context, opt *options.SearchOptions) (*appsv1.S
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get StatefulSet List")
+		})
 		return nil, fmt.Errorf("failed to list StatefulSets: %w", err)
 	}
 	return list, nil

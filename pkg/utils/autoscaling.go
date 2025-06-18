@@ -19,7 +19,7 @@ func HpaList(ctx context.Context, opt *options.SearchOptions) (*autoscalingv1.Ho
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get HorizontalPodAutoscaler List")
+		})
 		return nil, fmt.Errorf("failed to list HorizontalPodAutoscalers: %w", err)
 	}
 	return list, nil

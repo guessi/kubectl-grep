@@ -19,7 +19,7 @@ func CsiDriverList(ctx context.Context, opt *options.SearchOptions) (*storagev1.
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get CSIDriver List")
+		})
 		return nil, fmt.Errorf("failed to list CSIDrivers: %w", err)
 	}
 	return list, nil
@@ -33,7 +33,7 @@ func StorageClassList(ctx context.Context, opt *options.SearchOptions) (*storage
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get StorageClass List")
+		})
 		return nil, fmt.Errorf("failed to list StorageClasses: %w", err)
 	}
 	return list, nil

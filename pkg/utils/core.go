@@ -19,7 +19,7 @@ func ConfigMapList(ctx context.Context, opt *options.SearchOptions) (*corev1.Con
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get ConfigMap List")
+		})
 		return nil, fmt.Errorf("failed to list ConfigMaps: %w", err)
 	}
 	return list, nil
@@ -33,7 +33,7 @@ func NodeList(ctx context.Context, opt *options.SearchOptions) (*corev1.NodeList
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get Node List")
+		})
 		return nil, fmt.Errorf("failed to list Nodes: %w", err)
 	}
 	return list, nil
@@ -47,7 +47,7 @@ func PodList(ctx context.Context, opt *options.SearchOptions) (*corev1.PodList, 
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get Pod List")
+		})
 		return nil, fmt.Errorf("failed to list Pods: %w", err)
 	}
 	return list, nil
@@ -61,7 +61,7 @@ func SecretList(ctx context.Context, opt *options.SearchOptions) (*corev1.Secret
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get Secret List")
+		})
 		return nil, fmt.Errorf("failed to list Secrets: %w", err)
 	}
 	return list, nil
@@ -75,7 +75,7 @@ func ServiceAccountList(ctx context.Context, opt *options.SearchOptions) (*corev
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get ServiceAccount List")
+		})
 		return nil, fmt.Errorf("failed to list ServiceAccounts: %w", err)
 	}
 	return list, nil
@@ -89,7 +89,7 @@ func ServiceList(ctx context.Context, opt *options.SearchOptions) (*corev1.Servi
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get Service List")
+		})
 		return nil, fmt.Errorf("failed to list Services: %w", err)
 	}
 	return list, nil

@@ -19,7 +19,7 @@ func CronJobList(ctx context.Context, opt *options.SearchOptions) (*batchv1.Cron
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get CronJob List")
+		})
 		return nil, fmt.Errorf("failed to list CronJobs: %w", err)
 	}
 	return list, nil
@@ -33,7 +33,7 @@ func JobList(ctx context.Context, opt *options.SearchOptions) (*batchv1.JobList,
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get Job List")
+		})
 		return nil, fmt.Errorf("failed to list Jobs: %w", err)
 	}
 	return list, nil

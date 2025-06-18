@@ -19,7 +19,7 @@ func IngressList(ctx context.Context, opt *options.SearchOptions) (*networkingv1
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get Ingress List")
+		})
 		return nil, fmt.Errorf("failed to list Ingresses: %w", err)
 	}
 	return list, nil

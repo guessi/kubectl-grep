@@ -29,7 +29,7 @@ func setOptions(opt *options.SearchOptions) (string, *metav1.ListOptions) {
 			if err != nil {
 				log.WithFields(log.Fields{
 					"err": err.Error(),
-				}).Debug("Failed to resolve namespace")
+				})
 			} else {
 				namespace = ns
 			}

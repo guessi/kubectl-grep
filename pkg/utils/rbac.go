@@ -19,7 +19,7 @@ func RoleList(ctx context.Context, opt *options.SearchOptions) (*rbacv1.RoleList
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get Role List")
+		})
 		return nil, fmt.Errorf("failed to list Roles: %w", err)
 	}
 	return list, nil
@@ -33,7 +33,7 @@ func RoleBindingList(ctx context.Context, opt *options.SearchOptions) (*rbacv1.R
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get RoleBinding List")
+		})
 		return nil, fmt.Errorf("failed to list RoleBindings: %w", err)
 	}
 	return list, nil
@@ -47,7 +47,7 @@ func ClusterRoleList(ctx context.Context, opt *options.SearchOptions) (*rbacv1.C
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get ClusterRole List")
+		})
 		return nil, fmt.Errorf("failed to list ClusterRoles: %w", err)
 	}
 	return list, nil
@@ -61,7 +61,7 @@ func ClusterRoleBindingList(ctx context.Context, opt *options.SearchOptions) (*r
 	if err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
-		}).Debug("Unable to get ClusterRoleBinding List")
+		})
 		return nil, fmt.Errorf("failed to list ClusterRoleBindings: %w", err)
 	}
 	return list, nil
