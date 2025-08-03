@@ -76,7 +76,7 @@ func createContextWithTimeout() (context.Context, context.CancelFunc) {
 
 	// Handle interrupt signals for graceful cancellation
 	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt, syscall.SIGTERM, syscall.SIGKILL)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 
 	go func() {
 		select {
