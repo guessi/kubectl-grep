@@ -4,12 +4,14 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"strings"
 	"text/tabwriter"
 	"time"
 
 	"github.com/guessi/kubectl-grep/pkg/constants"
 	"github.com/guessi/kubectl-grep/pkg/options"
 	"github.com/guessi/kubectl-grep/pkg/utils"
+	autoscalingv2 "k8s.io/api/autoscaling/v2"
 )
 
 // Hpas - a public function for searching hpas with keyword
@@ -46,15 +48,48 @@ func Hpas(ctx context.Context, opt *options.SearchOptions, keyword string) error
 		}
 
 		var age string = utils.GetAge(time.Since(h.CreationTimestamp.Time))
-		var currentCPUUtilizationPercentage string = "<unknown>"
-		var targetCPUUtilizationPercentage string = "<unknown>"
 
-		if h.Status.CurrentCPUUtilizationPercentage != nil {
-			currentCPUUtilizationPercentage = fmt.Sprintf("%d%%", *h.Status.CurrentCPUUtilizationPercentage)
+		var targetCPUUtilization string = constants.UNKNOWN
+		var targetMemoryUtilization string = constants.UNKNOWN
+
+		var currentCPUUtilization string = constants.UNKNOWN
+		var currentMemoryUtilization string = constants.UNKNOWN
+
+		// Process target metrics
+		for _, metric := range h.Spec.Metrics {
+			if metric.Type == autoscalingv2.ResourceMetricSourceType {
+				switch metric.Resource.Name {
+				case "cpu":
+					targetCPUUtilization = utils.FormatUtilization(metric.Resource.Target.AverageUtilization)
+				case "memory":
+					targetMemoryUtilization = utils.FormatUtilization(metric.Resource.Target.AverageUtilization)
+				}
+			}
 		}
 
-		if h.Spec.TargetCPUUtilizationPercentage != nil {
-			targetCPUUtilizationPercentage = fmt.Sprintf("%d%%", *h.Spec.TargetCPUUtilizationPercentage)
+		// Process current metrics
+		for _, metric := range h.Status.CurrentMetrics {
+			if metric.Type == autoscalingv2.ResourceMetricSourceType {
+				switch metric.Resource.Name {
+				case "cpu":
+					currentCPUUtilization = utils.FormatUtilization(metric.Resource.Current.AverageUtilization)
+				case "memory":
+					currentMemoryUtilization = utils.FormatUtilization(metric.Resource.Current.AverageUtilization)
+				}
+			}
+		}
+
+		var targetsFieldInfo string
+		var metrics []string
+
+		if targetCPUUtilization != constants.UNKNOWN {
+			metrics = append(metrics, fmt.Sprintf("cpu: %s/%s", currentCPUUtilization, targetCPUUtilization))
+		}
+		if targetMemoryUtilization != constants.UNKNOWN {
+			metrics = append(metrics, fmt.Sprintf("memory: %s/%s", currentMemoryUtilization, targetMemoryUtilization))
+		}
+		if len(metrics) > 0 {
+			targetsFieldInfo = fmt.Sprintf("%s", strings.Join(metrics, ", "))
 		}
 
 		hpaInfo := fmt.Sprintf(constants.HpaRowTemplate,
@@ -62,8 +97,7 @@ func Hpas(ctx context.Context, opt *options.SearchOptions, keyword string) error
 			h.Name,
 			h.Spec.ScaleTargetRef.Kind,
 			h.Spec.ScaleTargetRef.Name,
-			currentCPUUtilizationPercentage,
-			targetCPUUtilizationPercentage,
+			targetsFieldInfo,
 			*h.Spec.MinReplicas,
 			h.Spec.MaxReplicas,
 			h.Status.CurrentReplicas,

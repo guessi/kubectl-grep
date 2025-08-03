@@ -7,7 +7,7 @@
 - [X] ReplicaSet
 - [X] StatefulSet
 
-### autoscaling/v1
+### autoscaling/v2
 
 - [X] HPA
 

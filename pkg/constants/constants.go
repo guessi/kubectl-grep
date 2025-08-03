@@ -1,6 +1,9 @@
 package constants
 
 const (
+	// common
+	UNKNOWN = "<unknown>"
+
 	// apps/v1
 	DaemonsetHeader      = "NAMESPACE\tNAME\tDESIRED\tCURRENT\tREADY\tUP-TO-DATE\tAVAILABLE\tNODE SELECTOR\tAGE"
 	DaemonsetRowTemplate = "%s\t%s\t%d\t%d\t%d\t%d\t%d\t%s\t%s"
@@ -28,7 +31,7 @@ const (
 
 	// autoscaling/v1
 	HpaHeader      = "NAMESPACE\tNAME\tREFERENCE\tTARGETS\tMINPODS\tMAXPODS\tREPLICAS\tAGE"
-	HpaRowTemplate = "%s\t%s\t%s/%s\t%s/%s\t%d\t%d\t%d\t%s"
+	HpaRowTemplate = "%s\t%s\t%s/%s\t%s\t%d\t%d\t%d\t%s"
 
 	// batch/v1
 	CronJobsHeader      = "NAMESPACE\tNAME\tSCHEDULE\tSUSPEND\tACTIVE\tLAST SCHEDULE\tAGE"

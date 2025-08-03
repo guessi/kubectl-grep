@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 	"time"
@@ -10,6 +11,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/duration"
 
 	"github.com/guessi/kubectl-grep/pkg/client"
+	"github.com/guessi/kubectl-grep/pkg/constants"
 	"github.com/guessi/kubectl-grep/pkg/options"
 )
 
@@ -96,4 +98,11 @@ func ShouldExcludeResource(target string, excludePattern string) bool {
 		}
 	}
 	return false
+}
+
+func FormatUtilization(utilization *int32) string {
+	if utilization != nil {
+		return fmt.Sprintf("%d%%", *utilization)
+	}
+	return constants.UNKNOWN
 }
