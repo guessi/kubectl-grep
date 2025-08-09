@@ -1,3 +1,9 @@
+# v1.25.0 / 2025-08-10
+
+* Build with Kubernetes Client SDK v1.33.3
+* Switch to autoscaling/v2
+* Bump dependencies
+
 # v1.24.0 / 2025-06-28
 
 * Build with Kubernetes Client SDK v1.33.2
