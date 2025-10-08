@@ -1,3 +1,10 @@
+# v1.26.0 / 2025-10-08
+
+* Build with Kubernetes Client SDK v1.34.1
+* Build with go1.25
+* Introduce Go Dependency Submission
+* Bump dependencies
+
 # v1.25.0 / 2025-08-10
 
 * Build with Kubernetes Client SDK v1.33.3
