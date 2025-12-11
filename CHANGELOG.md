@@ -1,3 +1,8 @@
+# v1.27.0 / 2025-12-11
+
+* Build with Kubernetes Client SDK v1.34.3
+* Bump dependencies
+
 # v1.26.0 / 2025-10-08
 
 * Build with Kubernetes Client SDK v1.34.1
