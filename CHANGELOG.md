@@ -1,3 +1,8 @@
+# v1.29.0 / 2026-02-07
+
+* Bump dependencies
+* Release new version to address new CVE - https://pkg.go.dev/vuln/GO-2026-4433
+
 # v1.28.0 / 2026-01-01
 
 * Build with Kubernetes Client SDK v1.35.0
