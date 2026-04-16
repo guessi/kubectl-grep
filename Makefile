@@ -11,7 +11,7 @@ default: build
 
 staticcheck:
 	@echo "Setup staticcheck..."
-	@go install honnef.co/go/tools/cmd/staticcheck@2025.1.1 # https://github.com/dominikh/go-tools/releases/tag/2025.1.1
+	@go install honnef.co/go/tools/cmd/staticcheck@2026.1 # https://github.com/dominikh/go-tools/releases/tag/2026.1
 	@echo "Check staticcheck version..."
 	staticcheck --version
 	@echo "Run staticcheck..."
@@ -68,8 +68,8 @@ clean:
 
 release:
 	@echo "Creating Releases..."
-	@curl -LO https://github.com/tcnksm/ghr/releases/download/v0.17.0/ghr_v0.17.0_linux_amd64.tar.gz
-	@tar --strip-components=1 -xvf ghr_v0.17.0_linux_amd64.tar.gz ghr_v0.17.0_linux_amd64/ghr
+	@curl -LO https://github.com/tcnksm/ghr/releases/download/v0.18.3/ghr_v0.18.3_linux_amd64.tar.gz
+	@tar --strip-components=1 -xvf ghr_v0.18.3_linux_amd64.tar.gz ghr_v0.18.3_linux_amd64/ghr
 	./ghr -version
 	./ghr -replace -recreate -token ${GITHUB_TOKEN} $(GITVERSION) releases/$(GITVERSION)/
 	sha1sum releases/$(GITVERSION)/*.tar.gz > releases/$(GITVERSION)/SHA1SUM
