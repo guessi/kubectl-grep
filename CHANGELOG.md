@@ -1,3 +1,9 @@
+# v1.30.0 / 2026-04-16
+
+* Build with Kubernetes Client SDK v1.35.4
+* Bump dependencies
+* Build with go1.25.9
+
 # v1.29.0 / 2026-02-07
 
 * Bump dependencies
