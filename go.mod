@@ -2,7 +2,7 @@ module github.com/guessi/kubectl-grep
 
 go 1.26.0
 
-toolchain go1.26.10
+toolchain go1.26.11
 
 require (
 	github.com/sirupsen/logrus v1.10.2
