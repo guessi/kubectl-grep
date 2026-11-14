@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
 
     - name: Set up Go
-      uses: actions/setup-go@v6
+      uses: actions/setup-go@v7
       with:
         go-version-file: "go.mod"
 
@@ -36,10 +36,10 @@ jobs:
       matrix:
         platform: ['darwin', 'linux', 'windows']
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
 
     - name: Set up Go
-      uses: actions/setup-go@v6
+      uses: actions/setup-go@v7
       with:
         go-version-file: "go.mod"
 
@@ -50,7 +50,7 @@ jobs:
       run: find ./releases -type f
 
     - name: Cache builds
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ./releases
         key: ${{ runner.os }}-go-${{ matrix.platform }}-${{ hashFiles('**/go.sum') }}-${{ github.ref_name }}
@@ -64,22 +64,22 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
 
     - name: Restore cache-darwin
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ./releases
         key: ${{ runner.os }}-go-darwin-${{ hashFiles('**/go.sum') }}-${{ github.ref_name }}
 
     - name: Restore cache-linux
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ./releases
         key: ${{ runner.os }}-go-linux-${{ hashFiles('**/go.sum') }}-${{ github.ref_name }}
 
     - name: Restore cache-windows
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ./releases
         key: ${{ runner.os }}-go-windows-${{ hashFiles('**/go.sum') }}-${{ github.ref_name }}
